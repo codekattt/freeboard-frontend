@@ -1,7 +1,7 @@
-import BoardListUI from './BoardList.presenter';
 import { useQuery } from '@apollo/client';
 import { FETCH_BOARDS } from './BoardList.queries';
 import { useRouter } from 'next/router';
+import BoardListUI from './BoardList.presenter';
 
 export default function BoardList() {
   const router = useRouter();

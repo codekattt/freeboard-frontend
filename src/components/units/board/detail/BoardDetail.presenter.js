@@ -44,54 +44,6 @@ export default function BoardDetailUI(props) {
         </S.ContentsBtn>
         <S.ContentsBtn onClick={props.onClickDelete}>삭제하기</S.ContentsBtn>
       </S.ButtonWrapper>
-      <S.CommentWrapper>
-        <S.CommentTop>
-          <img src={`/img/rate_review-24px.svg`} />
-          <p>댓글</p>
-        </S.CommentTop>
-        <S.CommentWriterWrapper>
-          <S.CommentWriter type="text" placeholder="작성자" maxLength={6} />
-          <S.CommentPassword
-            type="password"
-            placeholder="비밀번호"
-            maxLength={16}
-          />
-          <S.CommentStar>★★★★★</S.CommentStar>
-        </S.CommentWriterWrapper>
-        <S.CommentDetail
-          type="text"
-          placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
-          maxLength={100}
-          rows={1}
-        />
-        <S.CommentReg>
-          <S.CommentRegInput>0/100</S.CommentRegInput>
-          <S.CommentRegButton>등록하기</S.CommentRegButton>
-        </S.CommentReg>
-        <S.Comment>
-          <S.ProfileImg>
-            <img src={`/img/profileIcon.svg`} width={48} height={48} />
-          </S.ProfileImg>
-          <S.CommentContentsArea>
-            <S.CommentContentsWriter>
-              <S.ContentsWriter>노원두</S.ContentsWriter>
-              <S.ContentsRate>
-                <p>★</p>
-                <p>★</p>
-                <p>★</p>
-                <p>★</p>
-                <p>★</p>
-              </S.ContentsRate>
-            </S.CommentContentsWriter>
-            <S.CommentContents>짱이에요</S.CommentContents>
-            <S.CommentDate>2023.04.01</S.CommentDate>
-          </S.CommentContentsArea>
-          <S.WriterIconWrapper>
-            <img src={`/img/mode-24px.svg`} />
-            <img src={`/img/clear-24px.svg`} />
-          </S.WriterIconWrapper>
-        </S.Comment>
-      </S.CommentWrapper>
     </div>
   );
 }

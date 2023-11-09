@@ -9,7 +9,7 @@ export default function BoardDetail() {
   const [deleteBoard] = useMutation(DELETE_BOARD);
 
   const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: router.query.boardId },
+    variables: { boardId: String(router.query.boardId) },
   });
 
   const onClickMoveToList = () => {
@@ -24,7 +24,7 @@ export default function BoardDetail() {
     try {
       deleteBoard({
         variables: {
-          boardId: router.query.boardId,
+          boardId: String(router.query.boardId),
         },
       });
       alert('게시글이 삭제되었습니다.');
