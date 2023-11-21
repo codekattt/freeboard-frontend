@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 import { CREATE_BOARD, UPDATE_BOARD } from './BoardWrite.queries';
 import BoardWriteUI from './BoardWrite.presenter';
 
-export default function BoardWrite(props) {
+interface IBoardWriteProps {
+  isEdit: boolean;
+  data?: any;
+}
+
+export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
 
@@ -21,7 +26,7 @@ export default function BoardWrite(props) {
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
 
-  const onChangeWriter = (event) => {
+  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
     if (event.target.value !== '') {
       setWriterError('');
@@ -34,7 +39,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangePassword = (event) => {
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     if (event.target.value !== '') {
       setPasswordError('');
@@ -47,7 +52,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangeSubject = (event) => {
+  const onChangeSubject = (event: ChangeEvent<HTMLInputElement>) => {
     setSubject(event.target.value);
     if (event.target.value !== '') {
       setSubjectError('');
@@ -60,7 +65,7 @@ export default function BoardWrite(props) {
     }
   };
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
     if (event.target.value !== '') {
       setContentsError('');
@@ -104,12 +109,17 @@ export default function BoardWrite(props) {
         router.push(`/boards/${result.data.createBoard._id}`);
         alert('게시글이 등록되었습니다.');
       } catch (error) {
-        alert(error.message);
+        alert((error as { message: string }).message);
       }
     }
   };
 
   const onClickEdit = async () => {
+    interface IUpdateBoardInput {
+      title?: string;
+      contents?: string;
+    }
+
     if (!subject && !contents) {
       alert('수정한 내용이 없습니다.');
       return;
@@ -120,7 +130,7 @@ export default function BoardWrite(props) {
       return;
     }
 
-    const updateBoardInput = {};
+    const updateBoardInput: IUpdateBoardInput = {};
     if (subject) updateBoardInput.title = subject;
     if (contents) updateBoardInput.contents = contents;
 
@@ -136,7 +146,7 @@ export default function BoardWrite(props) {
       router.push(`/boards/${result.data.updateBoard._id}`);
       alert('게시글이 수정되었습니다.');
     } catch (error) {
-      alert(error.message);
+      alert((error as { message: string }).message);
     }
   };
 

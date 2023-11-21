@@ -115,7 +115,6 @@ export default function BoardCommentWrite(props) {
         });
 
         console.log(result);
-        // router.push(`/boards/${router.query.boardId}`);
         location.reload(true);
         alert('댓글이 등록되었습니다.');
       } catch (error) {
@@ -125,18 +124,20 @@ export default function BoardCommentWrite(props) {
   };
 
   return (
-    <BoardCommentWriteUI
-      commentWriterError={commentWriterError}
-      commentPasswordError={commentPasswordError}
-      commentContentsError={commentContentsError}
-      onChangeCommentWriter={onChangeCommentWriter}
-      onChangeCommentPassword={onChangeCommentPassword}
-      onChangeCommentContents={onChangeCommentContents}
-      onClickCommentSubmit={onClickCommentSubmit}
-      isActive={isActive}
-      ARRAY={ARRAY}
-      starClick={starClick}
-      clicked={clicked}
-    />
+    <>
+      <BoardCommentWriteUI
+        commentWriterError={commentWriterError}
+        commentPasswordError={commentPasswordError}
+        commentContentsError={commentContentsError}
+        onChangeCommentWriter={onChangeCommentWriter}
+        onChangeCommentPassword={onChangeCommentPassword}
+        onChangeCommentContents={onChangeCommentContents}
+        onClickCommentSubmit={onClickCommentSubmit}
+        isActive={isActive}
+        ARRAY={ARRAY}
+        starClick={starClick}
+        clicked={clicked}
+      />
+    </>
   );
 }

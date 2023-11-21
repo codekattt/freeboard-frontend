@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+interface ISubmitButtonProps {
+  isActive: boolean;
+}
+
 export const Wrapper = styled.div`
   width: 1200px;
   /* height: 1847px; */
@@ -171,7 +175,7 @@ export const ButtonWrapper = styled.div`
   padding-top: 80px;
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<ISubmitButtonProps>`
   width: 179px;
   height: 52px;
   border: none;

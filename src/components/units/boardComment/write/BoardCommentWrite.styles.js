@@ -5,7 +5,7 @@ export const CommentWrapper = styled.div`
   flex-direction: column;
   margin-bottom: 30px;
   padding-bottom: 30px;
-  border-bottom: 5px dotted red;
+  border-bottom: 2px dashed lightcoral;
 `;
 
 export const CommentTop = styled.div`
@@ -69,7 +69,7 @@ export const CommentStar = styled.div`
 export const CommentDetail = styled.textarea`
   min-width: 1200px;
   max-width: 1200px;
-  height: 100px;
+  height: 120px;
   border: 1px solid #bdbdbd;
   border-bottom: none;
   padding-top: 20px;
@@ -78,7 +78,6 @@ export const CommentDetail = styled.textarea`
   padding-bottom: 50px;
   font-size: 16px;
   font-weight: 500;
-  color: #bdbdbd;
   word-break: break-all;
   word-wrap: break-word;
 `;
