@@ -19,8 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/units/boardComment/detail/BoardCommentDetail.presenter.js",
-    "src/components/units/boardComment/detail/BoardCommentDetail.container.js"
+    "src/components/units/boardComment/detail/BoardCommentDetail.presenter.tsx",
+    "src/components/units/boardComment/detail/BoardCommentDetail.container.tsx"
   ],
   "exclude": ["node_modules"]
 }

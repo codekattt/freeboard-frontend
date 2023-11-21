@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_BOARD_COMMENT } from './BoardCommentWrite.queries';
 import { FETCH_BOARD } from '../../board/detail/BoardDetail.queries';
 import BoardCommentWriteUI from './BoardCommentWrite.presenter';
 
-export default function BoardCommentWrite(props) {
+export default function BoardCommentWrite() {
   //별점 시작
   const ARRAY = [0, 1, 2, 3, 4];
   const [clicked, setClicked] = useState([false, false, false, false, false]);
-  const starClick = (index) => {
+  const starClick = (index: number) => {
     let clickStates = [...clicked];
     for (let i = 0; i < 5; i++) {
       clickStates[i] = i <= index ? true : false;
@@ -43,7 +43,7 @@ export default function BoardCommentWrite(props) {
 
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
 
-  const onChangeCommentWriter = (event) => {
+  const onChangeCommentWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentWriter(event.target.value);
     if (event.target.value !== '') {
       setCommentWriterError('');
@@ -56,7 +56,7 @@ export default function BoardCommentWrite(props) {
     }
   };
 
-  const onChangeCommentPassword = (event) => {
+  const onChangeCommentPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentPassword(event.target.value);
     if (event.target.value !== '') {
       setCommentPasswordError('');
@@ -69,7 +69,7 @@ export default function BoardCommentWrite(props) {
     }
   };
 
-  const onChangeCommentContents = (event) => {
+  const onChangeCommentContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentContents(event.target.value);
     if (event.target.value !== '') {
       setCommentContentsError('');
@@ -115,10 +115,10 @@ export default function BoardCommentWrite(props) {
         });
 
         console.log(result);
-        location.reload(true);
+        location.reload();
         alert('댓글이 등록되었습니다.');
       } catch (error) {
-        alert(error.message);
+        alert((error as { message: string }).message);
       }
     }
   };

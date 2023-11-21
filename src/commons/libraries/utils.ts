@@ -1,4 +1,4 @@
-export const getDate = (date) => {
+export const getDate = (date: string) => {
   const _date = new Date(date);
   const yyyy = _date.getFullYear();
   const mm = _date.getMonth() + 1;
@@ -6,7 +6,7 @@ export const getDate = (date) => {
   return `${yyyy}-${mm}-${dd}`;
 };
 
-export const getDateTime = (date) => {
+export const getDateTime = (date: string) => {
   const _date = new Date(date);
   const yyyy = _date.getFullYear();
   const mm = _date.getMonth() + 1;

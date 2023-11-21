@@ -13,7 +13,7 @@ export default function BoardCommentDetail() {
   // 별점 시작 //
   const ARRAY = [0, 1, 2, 3, 4];
   const [clicked, setClicked] = useState([false, false, false, false, false]);
-  const starClick = (index) => {
+  const starClick = (index: any) => {
     let clickStates = [...clicked];
     for (let i = 0; i < 5; i++) {
       clickStates[i] = i <= index ? true : false;
@@ -41,7 +41,9 @@ export default function BoardCommentDetail() {
 
   const [commentPasswordError, setCommentPasswordError] = useState('');
   const [commentContentsError, setCommentContentsError] = useState('');
-  const [numberOfTrueError, setNumberOfTrueError] = useState(0);
+  const [numberOfTrueError, setNumberOfTrueError] = useState<string | number>(
+    0,
+  );
 
   const [commentIdToDelete, setCommentIdToDelete] = useState(null);
   const [commentIdToEdit, setCommentIdToEdit] = useState(null);
@@ -49,7 +51,7 @@ export default function BoardCommentDetail() {
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
 
-  const onChangeCommentPassword = (event) => {
+  const onChangeCommentPassword = (event: any) => {
     setCommentPassword(event.target.value);
     if (event.target.value !== '') {
       setCommentPasswordError('');
@@ -62,7 +64,7 @@ export default function BoardCommentDetail() {
     }
   };
 
-  const onChangeCommentContents = (event) => {
+  const onChangeCommentContents = (event: any) => {
     setCommentContents(event.target.value);
     if (event.target.value !== '') {
       setCommentContentsError('');
@@ -75,7 +77,7 @@ export default function BoardCommentDetail() {
     }
   };
 
-  const onChangeNumberOfTrue = (event) => {
+  const onChangeNumberOfTrue = (event: any) => {
     setNumberOfTrue(event.target.value);
     if (event.target.value !== '') {
       setNumberOfTrueError('');
@@ -89,7 +91,7 @@ export default function BoardCommentDetail() {
   };
 
   // 수정 아이콘 클릭하면 수정창 생성 //
-  const onClickEditComment = (commentId) => {
+  const onClickEditComment = (commentId: any) => {
     setCommentIdToEdit(commentId);
   };
 
@@ -98,7 +100,12 @@ export default function BoardCommentDetail() {
     setCommentIdToEdit(null);
   };
 
-  const onClickUpdateComment = async (commentId) => {
+  const onClickUpdateComment = async (commentId: any) => {
+    interface updateBoardCommentInput {
+      contents?: string;
+      rating?: number;
+    }
+
     setCommentIdToEdit(commentId);
 
     if (!commentContents && !numberOfTrue) {
@@ -111,9 +118,9 @@ export default function BoardCommentDetail() {
       return;
     }
 
-    const updateBoardCommentInput = {};
+    const updateBoardCommentInput: updateBoardCommentInput = {};
     if (commentContents) updateBoardCommentInput.contents = commentContents;
-    if (numberOfTrue) updateBoardCommentInput.rating = parseFloat(numberOfTrue);
+    if (numberOfTrue) updateBoardCommentInput.rating = Number(numberOfTrue);
 
     try {
       const result = await updateBoardComment({
@@ -134,11 +141,11 @@ export default function BoardCommentDetail() {
 
       alert('댓글이 수정되었습니다.');
     } catch (error) {
-      alert(error.message);
+      alert((error as { message: string }).message);
     }
   };
 
-  const onClickDeleteComment = async (commentId) => {
+  const onClickDeleteComment = async (commentId: any) => {
     setCommentIdToDelete(commentId);
 
     const isConfirmed = window.confirm('댓글을 삭제하시겠습니까?');

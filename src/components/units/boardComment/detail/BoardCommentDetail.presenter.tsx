@@ -1,10 +1,28 @@
 import { getDateTime } from '../../../../commons/libraries/utils';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { useEffect } from 'react';
+import { ChangeEvent, MouseEvent, useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
 import * as S from './BoardCommentDetail.styles';
 
-export default function BoardCommentDetailUI(props) {
+interface IBoardCommentDetailUIProps {
+  data?: any;
+  isActive: boolean;
+  ARRAY: number[];
+  commentIdToEdit: string | null;
+  clicked: boolean[];
+  onChangeCommentContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeCommentPassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeNumberOfTrue: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickDeleteComment: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickEditComment: (event: MouseEvent<HTMLButtonElement>) => void;
+  onCancelEditComment: (event: MouseEvent<HTMLButtonElement>) => void;
+  onClickUpdateComment: (event: MouseEvent<HTMLButtonElement>) => void;
+  starClick: (index: number) => void;
+}
+
+export default function BoardCommentDetailUI(
+  props: IBoardCommentDetailUIProps,
+) {
   useEffect(() => {
     // 댓글이 변경될 때 추가적인 정리 또는 부작용을 수행할 수 있습니다.
   }, [props.data?.fetchBoardComments]);
@@ -12,8 +30,13 @@ export default function BoardCommentDetailUI(props) {
   return (
     <div>
       <TransitionGroup>
-        {props.data?.fetchBoardComments.map((el) => (
-          <CSSTransition>
+        {props.data?.fetchBoardComments.map((el: any) => (
+          <CSSTransition
+            classNames="example"
+            timeout={{ enter: 500, exit: 300 }}
+            in={true}
+            unmountOnExit
+          >
             {props.commentIdToEdit === el._id ? (
               <S.EditCommentWrapper>
                 <S.EditCommentWriterWrapper>
@@ -30,7 +53,11 @@ export default function BoardCommentDetailUI(props) {
                         key={index}
                         size="23"
                         onClick={() => props.starClick(index)}
-                        className={props.clicked[el] && 'yellowStar'}
+                        className={
+                          (props.clicked[el]
+                            ? 'yellowStar'
+                            : undefined) as string
+                        }
                       ></FaStar>
                     ))}
                   </S.EditCommentStar>
