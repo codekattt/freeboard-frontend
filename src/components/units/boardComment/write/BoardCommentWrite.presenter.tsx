@@ -21,7 +21,7 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUI) {
     <>
       <S.CommentWrapper>
         <S.CommentTop>
-          <img src={`/img/rate_review-24px.svg`} />
+          <img src={`/img/rate_review-24px.svg`} width={30} height={30} />
           <p>댓글</p>
         </S.CommentTop>
         <S.CommentWriterWrapper>

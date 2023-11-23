@@ -20,11 +20,6 @@ export const Row = styled.div`
   height: 52px;
   line-height: 52px;
   border-bottom: 1px solid #bdbdbd;
-
-  :hover {
-    color: #ff8e7f;
-    font-weight: 700;
-  }
 `;
 
 export const ColumnHeaderBasic = styled.div`
@@ -32,6 +27,7 @@ export const ColumnHeaderBasic = styled.div`
   font-size: 18px;
   font-weight: 700;
   text-align: center;
+  background-color: #f3f3f2;
 `;
 
 export const ColumnHeaderTitle = styled.div`
@@ -39,6 +35,7 @@ export const ColumnHeaderTitle = styled.div`
   font-size: 18px;
   font-weight: 700;
   text-align: center;
+  background-color: #f3f3f2;
 `;
 
 export const ColumnBasic = styled.div`
@@ -52,8 +49,8 @@ export const ColumnTitle = styled.div`
   cursor: pointer;
 
   :hover {
-    color: #ff8e7f;
-    font-weight: 700;
+    color: lightseagreen;
+    font-weight: 800;
   }
 `;
 

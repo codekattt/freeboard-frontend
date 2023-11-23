@@ -29,10 +29,10 @@ export default function BoardCommentDetailUI(
 
   return (
     <div>
-      <TransitionGroup>
+      <TransitionGroup className={'transition-wrapper'}>
         {props.data?.fetchBoardComments.map((el: any) => (
           <CSSTransition
-            classNames="example"
+            classNames={'fadeOut'}
             timeout={{ enter: 500, exit: 300 }}
             in={true}
             unmountOnExit
@@ -83,7 +83,7 @@ export default function BoardCommentDetailUI(
               <S.CommentWrapper>
                 <S.Comment>
                   <S.ProfileImg>
-                    <img src={`/img/profileIcon.svg`} width={50} height={50} />
+                    <img src={`/img/profile-cat.png`} width={50} height={50} />
                   </S.ProfileImg>
                   <S.CommentContentsArea>
                     <S.CommentContentsWriter>

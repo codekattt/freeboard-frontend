@@ -9,11 +9,19 @@ export const CommentWrapper = styled.div`
 `;
 
 export const CommentTop = styled.div`
-  width: 60px;
+  width: 64px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 40px;
+  align-items: center;
+
+  margin-bottom: 36px;
+
+  p {
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 4px;
+  }
 `;
 
 export const CommentWriterWrapper = styled.div`
@@ -108,4 +116,8 @@ export const CommentRegButton = styled.button`
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+
+  :hover {
+    background-color: lightseagreen;
+  }
 `;

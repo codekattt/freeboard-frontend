@@ -140,6 +140,7 @@ export default function BoardCommentDetail() {
       setNumberOfTrue(0);
 
       alert('댓글이 수정되었습니다.');
+      refetch();
     } catch (error) {
       alert((error as { message: string }).message);
     }

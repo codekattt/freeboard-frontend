@@ -1,4 +1,14 @@
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -139,6 +149,12 @@ export const ContentsBtn = styled.button`
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+
+  :hover {
+    color: white;
+    background-color: lightseagreen;
+    animation: ${fadeIn} 0.2s ease-in-out;
+  }
 `;
 
 export const CommentWrapper = styled.div`

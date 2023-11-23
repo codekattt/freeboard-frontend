@@ -2,7 +2,16 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 import { Rate } from 'antd';
 
-const fadeInOut = keyframes`
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
+const fadeIn = keyframes`
   0% {
     opacity: 0;
   }
@@ -23,7 +32,9 @@ export const ProfileImg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-right: 10px;
   padding-bottom: 50px;
+  filter: drop-shadow(2px 2px 5px #bbbbbb);
 `;
 
 export const Comment = styled.div`
@@ -34,7 +45,12 @@ export const Comment = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #bdbdbd;
-  /* animation: ${fadeInOut} 3s ease-in-out infinite; */
+
+  &.fadeOut {
+    transition: opacity 0.5s;
+    opacity: 0;
+  }
+  /* animation: ${fadeOut} 0.3s ease-in-out; */
 `;
 
 export const CommentContentsArea = styled.div`
@@ -88,7 +104,8 @@ export const WriterIconWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: lightgray;
+    background-color: lightgrey;
+    border-radius: 5px;
   }
 `;
 
@@ -101,7 +118,7 @@ export const EditCommentWrapper = styled.div`
   flex-direction: column;
   display: flex;
   margin-bottom: 10px;
-  animation: ${fadeInOut} 0.5s ease-in-out;
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 export const EditCommentWriterWrapper = styled.div`
@@ -198,6 +215,6 @@ export const EditCommentRegButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: lightcoral;
+    background-color: lightseagreen;
   }
 `;
