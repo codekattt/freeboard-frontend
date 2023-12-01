@@ -2,12 +2,8 @@ import { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
 import { CREATE_BOARD, UPDATE_BOARD } from './BoardWrite.queries';
+import { IBoardWriteProps } from './BoardWrite.types';
 import BoardWriteUI from './BoardWrite.presenter';
-
-interface IBoardWriteProps {
-  isEdit: boolean;
-  data?: any;
-}
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
@@ -131,8 +127,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
 
     const updateBoardInput: IUpdateBoardInput = {};
-    if (subject) updateBoardInput.title = subject;
-    if (contents) updateBoardInput.contents = contents;
+    if (typeof router.query.boardId !== 'string') {
+      alert('시스템에 문가 있습니다.');
+      return;
+    }
+    // if (subject) updateBoardInput.title = subject;
+    // if (contents) updateBoardInput.contents = contents;
 
     try {
       const result = await updateBoard({
@@ -146,7 +146,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       router.push(`/boards/${result.data.updateBoard._id}`);
       alert('게시글이 수정되었습니다.');
     } catch (error) {
-      alert((error as { message: string }).message);
+      if (error instanceof Error) alert(error.message);
     }
   };
 

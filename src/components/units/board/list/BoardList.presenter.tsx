@@ -1,12 +1,6 @@
 import { getDate } from '../../../../commons/libraries/utils';
 import * as S from './BoardList.styles';
-import { MouseEvent } from 'react';
-
-interface IBoardListUIProps {
-  data?: any;
-  onClickMoveToBoardNew: (event: MouseEvent<HTMLButtonElement>) => void;
-  onClickMoveToBoardDetail: (event: MouseEvent<HTMLDivElement>) => void;
-}
+import { IBoardListUIProps } from './BoardList.types';
 
 export default function BoardListUI(props: IBoardListUIProps) {
   return (

@@ -1,13 +1,6 @@
 import { getDateTime } from '../../../../commons/libraries/utils';
 import * as S from './BoardDetail.styles';
-import { MouseEvent } from 'react';
-
-interface IBoardDetailUIProps {
-  data?: any;
-  onClickMoveToList: (event: MouseEvent<HTMLButtonElement>) => void;
-  onClickMoveToEdit: (event: MouseEvent<HTMLButtonElement>) => void;
-  onClickDelete: (event: MouseEvent<HTMLButtonElement>) => void;
-}
+import { IBoardDetailUIProps } from './BoardDetail.types';
 
 export default function BoardDetailUI(props: IBoardDetailUIProps) {
   return (

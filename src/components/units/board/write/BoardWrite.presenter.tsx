@@ -1,21 +1,5 @@
-import { ChangeEvent, ChangeEventHandler, MouseEvent } from 'react';
+import { IBoardWriteUIProps } from './BoardWrite.types';
 import * as S from './BoardWrite.styles';
-
-interface IBoardWriteUIProps {
-  writerError: string;
-  passwordError: string;
-  subjectError: string;
-  contentsError: string;
-  onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeSubject: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onClickSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
-  onClickEdit: (event: MouseEvent<HTMLButtonElement>) => void;
-  isActive: boolean;
-  isEdit: boolean;
-  data?: any;
-}
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
@@ -28,8 +12,8 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             type="text"
             placeholder="이름을 적어주세요."
             onChange={props.onChangeWriter}
-            defaultValue={props.data?.fetchBoard.writer}
-            readOnly={props.data?.fetchBoard.writer}
+            defaultValue={props.data?.fetchBoard.writer ?? ''}
+            readOnly={!!props.data?.fetchBoard.writer}
           />
           <S.Error>{props.writerError}</S.Error>
         </S.WriterWrapperContainer>
