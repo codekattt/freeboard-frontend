@@ -77,7 +77,7 @@ export const CommentStar = styled.div`
 export const CommentDetail = styled.textarea`
   min-width: 1200px;
   max-width: 1200px;
-  height: 120px;
+  height: auto;
   border: 1px solid #bdbdbd;
   border-bottom: none;
   padding-top: 20px;
@@ -88,6 +88,7 @@ export const CommentDetail = styled.textarea`
   font-weight: 500;
   word-break: break-all;
   word-wrap: break-word;
+  overflow-y: hidden;
 `;
 
 export const CommentReg = styled.div`

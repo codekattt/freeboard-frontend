@@ -164,6 +164,7 @@ export default function BoardCommentDetail() {
         alert('댓글이 삭제되었습니다.');
         refetch();
       } catch (error) {
+        if (error instanceof Error) alert(error.message);
         console.error('댓글 삭제 중 오류 발생', error);
       }
     }
