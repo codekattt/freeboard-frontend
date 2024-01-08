@@ -80,8 +80,12 @@ export const ContentsWrapper = styled.div`
 export const ZipCode = styled.div`
   width: 80px;
   height: 52px;
+  font-size: 16px;
+  letter-spacing: 1px;
   border: 1px solid #bdbdbd;
   margin-right: 10px;
+  padding-top: 16px;
+  padding-left: 14px;
 `;
 
 export const AddressWrapper = styled.div`
@@ -106,22 +110,28 @@ export const ZipCodeButton = styled.button`
 export const AddressOne = styled.div`
   width: 996px;
   height: 52px;
+  font-size: 16px;
   border: 1px solid #bdbdbd;
   margin-top: 10px;
+  padding-top: 16px;
+  padding-left: 10px;
 `;
 
-export const AddressTwo = styled.div`
+export const AddressTwo = styled.input`
   width: 996px;
   height: 52px;
+  font-size: 16px;
   border: 1px solid #bdbdbd;
-  margin-top: 10px;
+  margin-top: 4px;
+  padding-left: 10px;
 `;
 
 export const YoutubeLink = styled.input`
   width: 996px;
   height: 52px;
+  font-size: 16px;
   border: 1px solid #bdbdbd;
-  padding-left: 16px;
+  padding-left: 10px;
 `;
 
 export const YoutubeWrapper = styled.div`

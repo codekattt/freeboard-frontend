@@ -4,20 +4,28 @@ import { useMutation } from '@apollo/client';
 import { CREATE_BOARD, UPDATE_BOARD } from './BoardWrite.queries';
 import { IBoardWriteProps } from './BoardWrite.types';
 import BoardWriteUI from './BoardWrite.presenter';
+import { Address } from 'react-daum-postcode';
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [writer, setWriter] = useState('');
   const [password, setPassword] = useState('');
   const [subject, setSubject] = useState('');
   const [contents, setContents] = useState('');
+  const [addressInfo, setAddressInfo] = useState({
+    address: props.address,
+    zonecode: props.zonecode,
+  });
+  const [addressDetail, setAddressDetail] = useState('');
 
   const [writerError, setWriterError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [subjectError, setSubjectError] = useState('');
   const [contentsError, setContentsError] = useState('');
+  const [addressDetailError, setAddressDetailError] = useState('');
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
@@ -28,7 +36,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
       setWriterError('');
     }
 
-    if (event.target.value && password && subject && contents) {
+    if (
+      event.target.value &&
+      password &&
+      subject &&
+      contents &&
+      addressDetail
+    ) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -41,7 +55,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       setPasswordError('');
     }
 
-    if (writer && event.target.value && subject && contents) {
+    if (writer && event.target.value && subject && contents && addressDetail) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -54,7 +68,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       setSubjectError('');
     }
 
-    if (writer && password && event.target.value && contents) {
+    if (writer && password && event.target.value && contents && addressDetail) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -67,7 +81,33 @@ export default function BoardWrite(props: IBoardWriteProps) {
       setContentsError('');
     }
 
-    if (writer && password && subject && event.target.value) {
+    if (writer && password && subject && event.target.value && addressDetail) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  };
+
+  const addressModalOpen = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
+  const handleComplete = (data: Address) => {
+    setAddressInfo({
+      address: data.address,
+      zonecode: data.zonecode,
+    });
+    addressModalOpen();
+    console.log(data);
+  };
+
+  const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
+    setAddressDetail(event.target.value);
+    if (event.target.value !== '') {
+      setAddressDetailError('');
+    }
+
+    if (writer && password && subject && contents && event.target.value) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -87,7 +127,19 @@ export default function BoardWrite(props: IBoardWriteProps) {
     if (!contents) {
       setContentsError('내용을 입력해주세요.');
     }
-    if (writer && password && subject && contents) {
+    if (!addressInfo.zonecode || !addressInfo.address) {
+      // 우편번호나 주소가 입력되지 않은 경우 처리
+      setAddressDetailError('주소를 입력해주세요.');
+    }
+    if (
+      writer &&
+      password &&
+      subject &&
+      contents &&
+      addressInfo.zonecode &&
+      addressInfo.address &&
+      addressDetail
+    ) {
       try {
         const result = await createBoard({
           variables: {
@@ -96,6 +148,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
               password,
               title: subject,
               contents,
+              boardAddress: {
+                zipcode: addressInfo.zonecode,
+                address: addressInfo.address,
+                addressDetail,
+              },
             },
           },
         });
@@ -160,11 +217,17 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onChangePassword={onChangePassword}
       onChangeSubject={onChangeSubject}
       onChangeContents={onChangeContents}
+      onChangeAddressDetail={onChangeAddressDetail}
       onClickSubmit={onClickSubmit}
       onClickEdit={onClickEdit}
+      addressModalOpen={addressModalOpen}
+      handleComplete={handleComplete}
+      isModalOpen={isModalOpen}
       isActive={isActive}
       isEdit={props.isEdit}
       data={props.data}
+      address={addressInfo.address}
+      zonecode={addressInfo.zonecode}
     />
   );
 }

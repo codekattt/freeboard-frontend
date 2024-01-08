@@ -1,3 +1,5 @@
+import { Modal } from 'antd';
+import DaumPostcodeEmbed from 'react-daum-postcode';
 import { IBoardWriteUIProps } from './BoardWrite.types';
 import * as S from './BoardWrite.styles';
 
@@ -49,11 +51,28 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
       <S.AddressWrapper>
         <S.Label>주소</S.Label>
         <S.ZipCodeWrapper>
-          <S.ZipCode></S.ZipCode>
-          <S.ZipCodeButton>우편번호 검색</S.ZipCodeButton>
+          <S.ZipCode>{props.zonecode}</S.ZipCode>
+          <S.ZipCodeButton onClick={props.addressModalOpen}>
+            주소 검색
+          </S.ZipCodeButton>
+          {props.isModalOpen && (
+            <Modal
+              open={true}
+              onOk={props.addressModalOpen}
+              onCancel={props.addressModalOpen}
+            >
+              <DaumPostcodeEmbed onComplete={props.handleComplete} />
+            </Modal>
+          )}
         </S.ZipCodeWrapper>
-        <S.AddressOne></S.AddressOne>
-        <S.AddressTwo></S.AddressTwo>
+        <S.AddressOne>{props.address}</S.AddressOne>
+        <S.AddressTwo
+          placeholder="상세 주소를 입력하세요."
+          onChange={props.onChangeAddressDetail}
+          defaultValue={
+            props.data?.fetchBoard.boardAddress?.addressDetail || ''
+          }
+        />
       </S.AddressWrapper>
       <S.YoutubeWrapper>
         <S.Label>유튜브</S.Label>

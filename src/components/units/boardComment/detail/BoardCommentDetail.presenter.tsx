@@ -88,7 +88,10 @@ export default function BoardCommentDetailUI(
                   <S.CommentContentsArea>
                     <S.CommentContentsWriter>
                       <S.ContentsWriter>{el.writer}</S.ContentsWriter>
-                      <S.ContentsRate value={el.rating} disabled />
+                      <S.ContentsRate
+                        disabled
+                        defaultValue={el.rating}
+                      ></S.ContentsRate>
                     </S.CommentContentsWriter>
                     <S.CommentContents>{el.contents}</S.CommentContents>
                     <S.CommentDate>{getDateTime(el.createdAt)}</S.CommentDate>
