@@ -1,6 +1,7 @@
 import { getDateTime } from '../../../../commons/libraries/utils';
 import * as S from './BoardDetail.styles';
 import { IBoardDetailUIProps } from './BoardDetail.types';
+import { Tooltip } from 'antd';
 
 export default function BoardDetailUI(props: IBoardDetailUIProps) {
   return (
@@ -16,15 +17,27 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           </S.ProfileWrapper>
           <S.WriterIconWrapper>
             <img src={`/img/ic_link-32px.svg`} />
-            <img src={`/img/ic_location_on-32px.svg`} />
+            <Tooltip
+              placement="topRight"
+              title={`${props.data?.fetchBoard.boardAddress?.address ?? ''} ${
+                props.data?.fetchBoard.boardAddress?.addressDetail ?? ''
+              }`}
+            >
+              {' '}
+              <img src={`/img/ic_location_on-32px.svg`} />
+            </Tooltip>
           </S.WriterIconWrapper>
         </S.WriterWrapper>
         <S.Title>{props.data?.fetchBoard?.title}</S.Title>
-        <img src={`/img/board-image.png`} />
         <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
-        <S.Video>
-          <img src={`/img/board-video.png`} />
-        </S.Video>
+        {props.data?.fetchBoard.youtubeUrl !== '' && (
+          <S.Youtube
+            url={props.data?.fetchBoard.youtubeUrl ?? ''}
+            width="640px"
+            height="360px"
+            controls={true}
+          />
+        )}
         <S.IconWrapper>
           <S.Up>
             <img src={`/img/ic_thumb_up.svg`} />

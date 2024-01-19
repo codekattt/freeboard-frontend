@@ -1,11 +1,13 @@
-import { ChangeEvent, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_BOARD_COMMENT } from './BoardCommentWrite.queries';
-import { FETCH_BOARD } from '../../board/detail/BoardDetail.queries';
+import { useState } from 'react';
+import type { ChangeEvent } from 'react';
 import BoardCommentWriteUI from './BoardCommentWrite.presenter';
+import { FETCH_BOARD_COMMENTS } from '../detail/BoardCommentDetail.queries';
+import { CREATE_BOARD_COMMENT } from './BoardCommentWrite.queries';
+import { CommentPassword } from './BoardCommentWrite.styles';
 
-export default function BoardCommentWrite() {
+export default function BoardCommentWrite(): JSX.Element {
   //별점 시작
   const ARRAY = [0, 1, 2, 3, 4];
   const [clicked, setClicked] = useState([false, false, false, false, false]);
@@ -26,10 +28,6 @@ export default function BoardCommentWrite() {
 
   const router = useRouter();
 
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: router.query.boardId },
-  });
-
   const [isActive, setIsActive] = useState(false);
 
   const [commentWriter, setCommentWriter] = useState('');
@@ -43,7 +41,9 @@ export default function BoardCommentWrite() {
 
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
 
-  const onChangeCommentWriter = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeCommentWriter = (
+    event: ChangeEvent<HTMLInputElement>,
+  ): void => {
     setCommentWriter(event.target.value);
     if (event.target.value !== '') {
       setCommentWriterError('');
@@ -56,7 +56,9 @@ export default function BoardCommentWrite() {
     }
   };
 
-  const onChangeCommentPassword = (event: ChangeEvent<HTMLInputElement>) => {
+  const onChangeCommentPassword = (
+    event: ChangeEvent<HTMLInputElement>,
+  ): void => {
     setCommentPassword(event.target.value);
     if (event.target.value !== '') {
       setCommentPasswordError('');
@@ -69,7 +71,9 @@ export default function BoardCommentWrite() {
     }
   };
 
-  const onChangeCommentContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeCommentContents = (
+    event: ChangeEvent<HTMLTextAreaElement>,
+  ): void => {
     setCommentContents(event.target.value);
     if (event.target.value !== '') {
       setCommentContentsError('');
@@ -112,20 +116,29 @@ export default function BoardCommentWrite() {
               rating: numberOfTrue,
             },
           },
+          refetchQueries: [
+            {
+              query: FETCH_BOARD_COMMENTS,
+              variables: { boardId: router.query.boardId },
+            },
+          ],
         });
-
-        console.log(result);
-        location.reload();
         alert('댓글이 등록되었습니다.');
       } catch (error) {
         alert((error as { message: string }).message);
       }
     }
+    setCommentWriter('');
+    setCommentPassword('');
+    setCommentContents('');
   };
 
   return (
     <>
       <BoardCommentWriteUI
+        commentWriter={commentWriter}
+        commentPassword={commentPassword}
+        commentContents={commentContents}
         commentWriterError={commentWriterError}
         commentPasswordError={commentPasswordError}
         commentContentsError={commentContentsError}

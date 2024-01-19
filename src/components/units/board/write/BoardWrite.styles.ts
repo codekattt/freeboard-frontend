@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
-import { ISubmitButtonProps } from './BoardWrite.types';
+import type { ISubmitButtonProps } from './BoardWrite.types';
+import { Modal } from 'antd';
+import DaumPostcode from 'react-daum-postcode';
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -77,14 +79,13 @@ export const ContentsWrapper = styled.div`
   margin-top: 40px;
 `;
 
-export const ZipCode = styled.div`
+export const ZipCode = styled.input`
   width: 80px;
   height: 52px;
   font-size: 16px;
   letter-spacing: 1px;
   border: 1px solid #bdbdbd;
   margin-right: 10px;
-  padding-top: 16px;
   padding-left: 14px;
 `;
 
@@ -107,13 +108,12 @@ export const ZipCodeButton = styled.button`
   cursor: pointer;
 `;
 
-export const AddressOne = styled.div`
+export const AddressOne = styled.input`
   width: 996px;
   height: 52px;
   font-size: 16px;
   border: 1px solid #bdbdbd;
   margin-top: 10px;
-  padding-top: 16px;
   padding-left: 10px;
 `;
 
@@ -192,12 +192,25 @@ export const SubmitButton = styled.button<ISubmitButtonProps>`
   margin-left: 12px;
   margin-right: 12px;
   cursor: pointer;
-  background-color: ${(props) => (props.isActive ? 'yellow' : 'none')};
+
+  /* 수정 페이지에서 isActive 여부에 따라 색상 바뀌도록 구현해야함 */
+  background-color: ${(props) =>
+    props.isEdit
+      ? props.isActive
+        ? 'yellow' // isEdit가 true이고 isActive가 true
+        : 'yellow' // isEdit가 true이고 isActive가 false
+      : props.isActive
+      ? 'yellow' // isEdit가 false이고 isActive가 true
+      : 'none'}; // isEdit가 false이고 isActive가 false
 `;
 
 export const Error = styled.div`
-  font-size: 15px;
+  font-size: 16px;
   color: red;
   margin-left: 16px;
   margin-top: 10px;
 `;
+
+export const AddressModal = styled(Modal)``;
+
+export const AddressSearchInput = styled(DaumPostcode)``;

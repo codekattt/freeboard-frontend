@@ -26,8 +26,28 @@ export default function BoardListUI(props: IBoardListUIProps) {
       ))}
       <S.TableBottom />
       <S.Footer>
+        <S.Pagination>
+          <S.paginationArrow onClick={props.onClickPrevPage}>
+            〈
+          </S.paginationArrow>
+          {new Array(10).fill(1).map(
+            (_, index) =>
+              index + props.startPage <= props.lastPage && (
+                <S.paginationItem
+                  key={index + props.startPage}
+                  id={String(index + props.startPage)}
+                  onClick={props.onClickPage}
+                >
+                  {index + props.startPage}
+                </S.paginationItem>
+              ),
+          )}
+          <S.paginationArrow onClick={props.onClickNextPage}>
+            〉
+          </S.paginationArrow>
+        </S.Pagination>
         <S.Button onClick={props.onClickMoveToBoardNew}>
-          <S.PencilIcon src="/img/write.png" />
+          <img src="/img/write.png" />
           게시물 등록하기
         </S.Button>
       </S.Footer>

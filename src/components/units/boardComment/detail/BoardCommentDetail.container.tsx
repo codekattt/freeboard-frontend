@@ -7,9 +7,17 @@ import {
   UPDATE_BOARD_COMMENT,
   DELETE_BOARD_COMMENT,
 } from './BoardCommentDetail.queries';
+import type { ChangeEvent, MouseEvent } from 'react';
+import type {
+  IMutation,
+  IMutationDeleteBoardCommentArgs,
+  IMutationUpdateBoardCommentArgs,
+  IQuery,
+  IQueryFetchBoardCommentsArgs,
+} from '../../../../commons/types/generated/types';
 import BoardCommentDetailUI from './BoardCommentDetail.presenter';
 
-export default function BoardCommentDetail() {
+export default function BoardCommentDetail(): JSX.Element {
   // 별점 시작 //
   const ARRAY = [0, 1, 2, 3, 4];
   const [clicked, setClicked] = useState([false, false, false, false, false]);
@@ -29,9 +37,14 @@ export default function BoardCommentDetail() {
   // 별점 끝 //
 
   const router = useRouter();
+  if (typeof router.query.boardId !== 'string') return <></>;
+
   const [isActive, setIsActive] = useState(false);
 
-  const { data, refetch } = useQuery(FETCH_BOARD_COMMENTS, {
+  const { data, refetch } = useQuery<
+    Pick<IQuery, 'fetchBoardComments'>,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
     variables: { boardId: router.query.boardId },
   });
 
@@ -48,8 +61,14 @@ export default function BoardCommentDetail() {
   const [commentIdToDelete, setCommentIdToDelete] = useState(null);
   const [commentIdToEdit, setCommentIdToEdit] = useState(null);
 
-  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
-  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+  const [deleteBoardComment] = useMutation<
+    Pick<IMutation, 'deleteBoardComment'>,
+    IMutationDeleteBoardCommentArgs
+  >(DELETE_BOARD_COMMENT);
+  const [updateBoardComment] = useMutation<
+    Pick<IMutation, 'updateBoardComment'>,
+    IMutationUpdateBoardCommentArgs
+  >(UPDATE_BOARD_COMMENT);
 
   const onChangeCommentPassword = (event: any) => {
     setCommentPassword(event.target.value);

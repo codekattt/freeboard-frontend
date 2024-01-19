@@ -1,24 +1,9 @@
 import { getDateTime } from '../../../../commons/libraries/utils';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { ChangeEvent, MouseEvent, useEffect } from 'react';
+import { useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
+import type { IBoardCommentDetailUIProps } from './BoardCommentDetail.types';
 import * as S from './BoardCommentDetail.styles';
-
-interface IBoardCommentDetailUIProps {
-  data?: any;
-  isActive: boolean;
-  ARRAY: number[];
-  commentIdToEdit: string | null;
-  clicked: boolean[];
-  onChangeCommentContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onChangeCommentPassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeNumberOfTrue: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickDeleteComment: (event: MouseEvent<HTMLButtonElement>) => void;
-  onClickEditComment: (event: MouseEvent<HTMLButtonElement>) => void;
-  onCancelEditComment: (event: MouseEvent<HTMLButtonElement>) => void;
-  onClickUpdateComment: (event: MouseEvent<HTMLButtonElement>) => void;
-  starClick: (index: number) => void;
-}
 
 export default function BoardCommentDetailUI(
   props: IBoardCommentDetailUIProps,
@@ -88,10 +73,7 @@ export default function BoardCommentDetailUI(
                   <S.CommentContentsArea>
                     <S.CommentContentsWriter>
                       <S.ContentsWriter>{el.writer}</S.ContentsWriter>
-                      <S.ContentsRate
-                        disabled
-                        defaultValue={el.rating}
-                      ></S.ContentsRate>
+                      <S.ContentsRate value={el.rating} disabled />
                     </S.CommentContentsWriter>
                     <S.CommentContents>{el.contents}</S.CommentContents>
                     <S.CommentDate>{getDateTime(el.createdAt)}</S.CommentDate>

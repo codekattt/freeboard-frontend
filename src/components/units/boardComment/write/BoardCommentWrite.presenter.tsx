@@ -1,22 +1,10 @@
 import * as S from './BoardCommentWrite.styles';
 import { FaStar } from 'react-icons/fa';
-import { ChangeEvent, MouseEvent } from 'react';
+import type { IBoardCommentWriteUIProps } from './BoardCommentWrite.types';
 
-interface IBoardCommentWriteUI {
-  commentWriterError: string;
-  commentPasswordError: string;
-  commentContentsError: string;
-  onChangeCommentWriter: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeCommentPassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeCommentContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onClickCommentSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
-  isActive: boolean;
-  ARRAY: number[];
-  starClick: (index: number) => void;
-  clicked: boolean[];
-}
-
-export default function BoardCommentWriteUI(props: IBoardCommentWriteUI) {
+export default function BoardCommentWriteUI(
+  props: IBoardCommentWriteUIProps,
+): JSX.Element {
   return (
     <>
       <S.CommentWrapper>
@@ -30,12 +18,14 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUI) {
             placeholder="작성자"
             maxLength={6}
             onChange={props.onChangeCommentWriter}
+            value={props.commentWriter}
           />
           <S.CommentPassword
             type="password"
             placeholder="비밀번호"
             maxLength={16}
             onChange={props.onChangeCommentPassword}
+            value={props.commentPassword}
           />
           <S.CommentStar>
             {/* ★★★★★ */}
@@ -56,6 +46,7 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUI) {
           maxLength={100}
           rows={1}
           onChange={props.onChangeCommentContents}
+          value={props.commentContents}
         />
         <S.CommentReg>
           <S.CommentRegInput>0/100</S.CommentRegInput>

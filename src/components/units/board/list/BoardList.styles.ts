@@ -1,8 +1,18 @@
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 export const Wrapper = styled.div`
   width: 1200px;
-  margin: 100px;
+  margin: 10px;
 `;
 
 export const TableTop = styled.div`
@@ -58,16 +68,46 @@ export const Footer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 50px;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 `;
 
-export const PencilIcon = styled.img``;
+export const Pagination = styled.div`
+  width: 420px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+`;
+
+export const paginationItem = styled.span`
+  color: black;
+
+  &:hover {
+    font-weight: 700;
+    color: #6d30d7;
+    cursor: pointer;
+  }
+`;
+
+export const paginationArrow = styled.span`
+  color: black;
+
+  &:hover {
+    font-weight: 700;
+    color: #6d30d7;
+    cursor: pointer;
+  }
+`;
 
 export const Button = styled.button`
   width: 171px;
   height: 52px;
+  font-size: 15px;
   background-color: white;
-  border-radius: 15px;
+  border: 1px solid #bdbdbd;
+  border-radius: 3px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -75,6 +115,8 @@ export const Button = styled.button`
   cursor: pointer;
 
   :hover {
-    background-color: #faebd7;
+    color: white;
+    background-color: lightseagreen;
+    animation: ${fadeIn} 0.2s ease-in-out;
   }
 `;

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import ReactPlayer from 'react-player/youtube';
 
 const fadeIn = keyframes`
   from {
@@ -94,7 +95,7 @@ export const Contents = styled.div`
   line-height: 24px;
 `;
 
-export const Video = styled.div`
+export const Youtube = styled(ReactPlayer)`
   margin-top: 120px;
 `;
 
