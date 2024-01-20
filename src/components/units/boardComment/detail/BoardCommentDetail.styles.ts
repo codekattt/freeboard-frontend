@@ -46,11 +46,7 @@ export const Comment = styled.div`
   align-items: center;
   border-bottom: 1px solid #bdbdbd;
 
-  &.fadeOut {
-    transition: opacity 0.5s;
-    opacity: 0;
-  }
-  /* animation: ${fadeOut} 0.3s ease-in-out; */
+  /* animation: ${fadeIn} 0.5s ease-in-out; */
 `;
 
 export const CommentContentsArea = styled.div`

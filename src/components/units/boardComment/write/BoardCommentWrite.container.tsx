@@ -39,6 +39,8 @@ export default function BoardCommentWrite(): JSX.Element {
   const [commentPasswordError, setCommentPasswordError] = useState('');
   const [commentContentsError, setCommentContentsError] = useState('');
 
+  const [inputCount, setInputCount] = useState(0);
+
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
 
   const onChangeCommentWriter = (
@@ -74,6 +76,7 @@ export default function BoardCommentWrite(): JSX.Element {
   const onChangeCommentContents = (
     event: ChangeEvent<HTMLTextAreaElement>,
   ): void => {
+    setInputCount(event.target.value.length); // 글자수 표시
     setCommentContents(event.target.value);
     if (event.target.value !== '') {
       setCommentContentsError('');
@@ -150,6 +153,7 @@ export default function BoardCommentWrite(): JSX.Element {
         ARRAY={ARRAY}
         starClick={starClick}
         clicked={clicked}
+        inputCount={inputCount}
       />
     </>
   );

@@ -49,7 +49,10 @@ export default function BoardCommentWriteUI(
           value={props.commentContents}
         />
         <S.CommentReg>
-          <S.CommentRegInput>0/100</S.CommentRegInput>
+          <S.CommentRegInput>
+            <span>{props.inputCount}</span>
+            <span>/100 자</span>
+          </S.CommentRegInput>
           <S.CommentRegButton onClick={props.onClickCommentSubmit}>
             등록하기
           </S.CommentRegButton>

@@ -15,4 +15,5 @@ export interface IBoardCommentWriteUIProps {
   ARRAY: number[];
   starClick: (index: number) => void;
   clicked: boolean[];
+  inputCount: number;
 }
