@@ -1,8 +1,9 @@
 import { getDate } from '../../../../commons/libraries/utils';
+import Paginations01 from '../../../commons/paginations/01/Paginations01.container';
 import * as S from './BoardList.styles';
 import { IBoardListUIProps } from './BoardList.types';
 
-export default function BoardListUI(props: IBoardListUIProps) {
+export default function BoardListUI(props: IBoardListUIProps): JSX.Element {
   return (
     <S.Wrapper>
       <S.TableTop />
@@ -20,32 +21,15 @@ export default function BoardListUI(props: IBoardListUIProps) {
           <S.ColumnTitle id={el._id} onClick={props.onClickMoveToBoardDetail}>
             {el.title}
           </S.ColumnTitle>
-          <S.ColumnBasic>{el.writer}</S.ColumnBasic>
+          <S.ColumnBasic>
+            {String(el.writer).slice(-10).toUpperCase()}
+          </S.ColumnBasic>
           <S.ColumnBasic>{getDate(el.createdAt)}</S.ColumnBasic>
         </S.Row>
       ))}
       <S.TableBottom />
       <S.Footer>
-        <S.Pagination>
-          <S.paginationArrow onClick={props.onClickPrevPage}>
-            〈
-          </S.paginationArrow>
-          {new Array(10).fill(1).map(
-            (_, index) =>
-              index + props.startPage <= props.lastPage && (
-                <S.paginationItem
-                  key={index + props.startPage}
-                  id={String(index + props.startPage)}
-                  onClick={props.onClickPage}
-                >
-                  {index + props.startPage}
-                </S.paginationItem>
-              ),
-          )}
-          <S.paginationArrow onClick={props.onClickNextPage}>
-            〉
-          </S.paginationArrow>
-        </S.Pagination>
+        <Paginations01 refetch={props.refetch} count={props.count} />
         <S.Button onClick={props.onClickMoveToBoardNew}>
           <img src="/img/write.png" />
           게시물 등록하기
