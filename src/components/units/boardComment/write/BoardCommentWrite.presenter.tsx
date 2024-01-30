@@ -1,5 +1,4 @@
 import * as S from './BoardCommentWrite.styles';
-import { FaStar } from 'react-icons/fa';
 import type { IBoardCommentWriteUIProps } from './BoardCommentWrite.types';
 
 export default function BoardCommentWriteUI(
@@ -27,19 +26,7 @@ export default function BoardCommentWriteUI(
             onChange={props.onChangeCommentPassword}
             value={props.commentPassword}
           />
-          <S.CommentStar>
-            {/* ★★★★★ */}
-            {props.ARRAY.map((el, index) => (
-              <FaStar
-                key={index}
-                size="23"
-                onClick={() => props.starClick(index)}
-                className={
-                  (props.clicked[el] ? 'yellowStar' : undefined) as string
-                }
-              ></FaStar>
-            ))}
-          </S.CommentStar>
+          <S.Star onChange={props.onChangeStar} />
         </S.CommentWriterWrapper>
         <S.CommentDetail
           placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."

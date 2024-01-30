@@ -19,8 +19,14 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/units/boardComment/detail/BoardCommentDetail.presenter.tsx",
-    "src/components/units/boardComment/detail/BoardCommentDetail.container.tsx"
+    "src/components/units/boardComment/List/BoardCommentList.presenter.tsx",
+    "src/components/units/boardComment/List/BoardCommentList.container.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".storybook",
+    "coverage",
+    "storybook-static"
+  ]
 }

@@ -1,6 +1,6 @@
 import { ChangeEvent, MouseEvent } from 'react';
 
-export interface IBoardCommentDetailUIProps {
+export interface IBoardCommentListUIProps {
   data?: any;
   isActive: boolean;
   ARRAY: number[];

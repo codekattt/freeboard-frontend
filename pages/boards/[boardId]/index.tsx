@@ -1,5 +1,5 @@
 import BoardDetail from '../../../src/components/units/board/detail/BoardDetail.container';
-import BoardCommentDetail from '../../../src/components/units/boardComment/detail/BoardCommentDetail.container';
+import BoardCommentList from '../../../src/components/units/boardComment/List/BoardCommentList.container';
 import BoardCommentWrite from '../../../src/components/units/boardComment/write/BoardCommentWrite.container';
 
 export default function BoardDetailPage() {
@@ -7,7 +7,7 @@ export default function BoardDetailPage() {
     <>
       <BoardDetail />
       <BoardCommentWrite />
-      <BoardCommentDetail />
+      <BoardCommentList />
     </>
   );
 }

@@ -6,8 +6,8 @@ import {
   FETCH_BOARD_COMMENTS,
   UPDATE_BOARD_COMMENT,
   DELETE_BOARD_COMMENT,
-} from './BoardCommentDetail.queries';
-import type { ChangeEvent, MouseEvent } from 'react';
+} from './BoardCommentList.queries';
+import type { ChangeEvent } from 'react';
 import type {
   IMutation,
   IMutationDeleteBoardCommentArgs,
@@ -15,9 +15,9 @@ import type {
   IQuery,
   IQueryFetchBoardCommentsArgs,
 } from '../../../../commons/types/generated/types';
-import BoardCommentDetailUI from './BoardCommentDetail.presenter';
+import BoardCommentListUI from './BoardCommentList.presenter';
 
-export default function BoardCommentDetail(): JSX.Element {
+export default function BoardCommentList(): JSX.Element {
   // 별점 시작 //
   const ARRAY = [0, 1, 2, 3, 4];
   const [clicked, setClicked] = useState([false, false, false, false, false]);
@@ -37,16 +37,11 @@ export default function BoardCommentDetail(): JSX.Element {
   // 별점 끝 //
 
   const router = useRouter();
-  if (typeof router.query.boardId !== 'string') return <></>;
+  const boardId =
+    typeof router.query.boardId === 'string' ? router.query.boardId : '';
+  // if (typeof router.query.boardId !== 'string') return <></>; // 해당 코드 적용 시 새로고침 할 때 에러 발생으로 위 코드로 대체.
 
   const [isActive, setIsActive] = useState(false);
-
-  const { data, refetch } = useQuery<
-    Pick<IQuery, 'fetchBoardComments'>,
-    IQueryFetchBoardCommentsArgs
-  >(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: router.query.boardId },
-  });
 
   const [commentPassword, setCommentPassword] = useState('');
   const [commentContents, setCommentContents] = useState('');
@@ -70,7 +65,14 @@ export default function BoardCommentDetail(): JSX.Element {
     IMutationUpdateBoardCommentArgs
   >(UPDATE_BOARD_COMMENT);
 
-  const onChangeCommentPassword = (event: any) => {
+  const { data, refetch } = useQuery<
+    Pick<IQuery, 'fetchBoardComments'>,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
+    variables: { boardId },
+  });
+
+  const onChangeCommentPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentPassword(event.target.value);
     if (event.target.value !== '') {
       setCommentPasswordError('');
@@ -83,7 +85,7 @@ export default function BoardCommentDetail(): JSX.Element {
     }
   };
 
-  const onChangeCommentContents = (event: any) => {
+  const onChangeCommentContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentContents(event.target.value);
     if (event.target.value !== '') {
       setCommentContentsError('');
@@ -190,7 +192,7 @@ export default function BoardCommentDetail(): JSX.Element {
   };
 
   return (
-    <BoardCommentDetailUI
+    <BoardCommentListUI
       data={data}
       isActive={isActive}
       onChangeCommentContents={onChangeCommentContents}

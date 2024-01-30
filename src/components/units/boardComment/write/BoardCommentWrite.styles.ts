@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Rate } from 'antd';
 
 export const CommentWrapper = styled.div`
   display: flex;
@@ -50,27 +51,12 @@ export const CommentPassword = styled.input`
   margin-left: 24px;
 `;
 
-export const CommentStar = styled.div`
-  width: 180px;
-  height: 5px;
+export const Star = styled(Rate)`
   margin-left: 24px;
   padding-top: 13px;
 
-  & svg {
-    color: gray;
-    cursor: pointer;
-  }
-
-  :hover svg {
-    color: #fcc419;
-  }
-
-  & svg:hover ~ svg {
-    color: gray;
-  }
-
-  .yellowStar {
-    color: #fcc419;
+  .ant-rate-star:not(:last-child) {
+    margin-right: 3px; /* 별점 간격 조절 */
   }
 `;
 

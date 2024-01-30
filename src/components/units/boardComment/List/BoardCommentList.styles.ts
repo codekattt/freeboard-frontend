@@ -72,11 +72,10 @@ export const ContentsWriter = styled.div`
 
 export const ContentsRate = styled(Rate)`
   margin-left: 20px;
-  font-size: 22px;
   color: #fcc419;
 
   .ant-rate-star:not(:last-child) {
-    margin-right: 1px; /* 별점 간격 조절 */
+    margin-right: 3px; /* 별점 간격 조절 */
   }
 `;
 

@@ -3,29 +3,10 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
 import BoardCommentWriteUI from './BoardCommentWrite.presenter';
-import { FETCH_BOARD_COMMENTS } from '../detail/BoardCommentDetail.queries';
+import { FETCH_BOARD_COMMENTS } from '../List/BoardCommentList.queries';
 import { CREATE_BOARD_COMMENT } from './BoardCommentWrite.queries';
-import { CommentPassword } from './BoardCommentWrite.styles';
 
 export default function BoardCommentWrite(): JSX.Element {
-  //별점 시작
-  const ARRAY = [0, 1, 2, 3, 4];
-  const [clicked, setClicked] = useState([false, false, false, false, false]);
-  const starClick = (index: number) => {
-    let clickStates = [...clicked];
-    for (let i = 0; i < 5; i++) {
-      clickStates[i] = i <= index ? true : false;
-    }
-    setClicked(clickStates);
-
-    //true 갯수 세기
-    const newNumberOfTrue = clickStates.filter(
-      (value) => value === true,
-    ).length;
-    setNumberOfTrue(newNumberOfTrue);
-  };
-  //별점 끝
-
   const router = useRouter();
 
   const [isActive, setIsActive] = useState(false);
@@ -33,7 +14,7 @@ export default function BoardCommentWrite(): JSX.Element {
   const [commentWriter, setCommentWriter] = useState('');
   const [commentPassword, setCommentPassword] = useState('');
   const [commentContents, setCommentContents] = useState('');
-  const [numberOfTrue, setNumberOfTrue] = useState(0);
+  const [star, setStar] = useState(0);
 
   const [commentWriterError, setCommentWriterError] = useState('');
   const [commentPasswordError, setCommentPasswordError] = useState('');
@@ -42,6 +23,10 @@ export default function BoardCommentWrite(): JSX.Element {
   const [inputCount, setInputCount] = useState(0);
 
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
+
+  const onChangeStar = (value: number): void => {
+    setStar(value);
+  };
 
   const onChangeCommentWriter = (
     event: ChangeEvent<HTMLInputElement>,
@@ -102,12 +87,12 @@ export default function BoardCommentWrite(): JSX.Element {
       alert('내용을 입력해주세요.');
       return;
     }
-    if (!numberOfTrue) {
+    if (!star) {
       alert('평점을 선택해주세요.');
       return;
     }
 
-    if (commentWriter && commentPassword && commentContents && numberOfTrue) {
+    if (commentWriter && commentPassword && commentContents && star) {
       try {
         const result = await createBoardComment({
           variables: {
@@ -116,7 +101,7 @@ export default function BoardCommentWrite(): JSX.Element {
               writer: commentWriter,
               password: commentPassword,
               contents: commentContents,
-              rating: numberOfTrue,
+              rating: star,
             },
           },
           refetchQueries: [
@@ -150,10 +135,8 @@ export default function BoardCommentWrite(): JSX.Element {
         onChangeCommentContents={onChangeCommentContents}
         onClickCommentSubmit={onClickCommentSubmit}
         isActive={isActive}
-        ARRAY={ARRAY}
-        starClick={starClick}
-        clicked={clicked}
         inputCount={inputCount}
+        onChangeStar={onChangeStar}
       />
     </>
   );

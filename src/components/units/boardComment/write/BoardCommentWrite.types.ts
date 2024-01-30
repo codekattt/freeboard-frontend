@@ -11,9 +11,7 @@ export interface IBoardCommentWriteUIProps {
   onChangeCommentPassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeCommentContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickCommentSubmit: (event: MouseEvent<HTMLButtonElement>) => void;
+  onChangeStar: (value: number) => void;
   isActive: boolean;
-  ARRAY: number[];
-  starClick: (index: number) => void;
-  clicked: boolean[];
   inputCount: number;
 }
