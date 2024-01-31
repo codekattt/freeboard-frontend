@@ -18,24 +18,6 @@ import type {
 import BoardCommentListUI from './BoardCommentList.presenter';
 
 export default function BoardCommentList(): JSX.Element {
-  // 별점 시작 //
-  const ARRAY = [0, 1, 2, 3, 4];
-  const [clicked, setClicked] = useState([false, false, false, false, false]);
-  const starClick = (index: any) => {
-    let clickStates = [...clicked];
-    for (let i = 0; i < 5; i++) {
-      clickStates[i] = i <= index ? true : false;
-    }
-    setClicked(clickStates);
-
-    //true 갯수 세기
-    const newNumberOfTrue = clickStates.filter(
-      (value) => value === true,
-    ).length;
-    setNumberOfTrue(newNumberOfTrue);
-  };
-  // 별점 끝 //
-
   const router = useRouter();
   const boardId =
     typeof router.query.boardId === 'string' ? router.query.boardId : '';
@@ -45,13 +27,10 @@ export default function BoardCommentList(): JSX.Element {
 
   const [commentPassword, setCommentPassword] = useState('');
   const [commentContents, setCommentContents] = useState('');
-  const [numberOfTrue, setNumberOfTrue] = useState(0);
+  const [star, setStar] = useState(0);
 
   const [commentPasswordError, setCommentPasswordError] = useState('');
   const [commentContentsError, setCommentContentsError] = useState('');
-  const [numberOfTrueError, setNumberOfTrueError] = useState<string | number>(
-    0,
-  );
 
   const [commentIdToDelete, setCommentIdToDelete] = useState(null);
   const [commentIdToEdit, setCommentIdToEdit] = useState(null);
@@ -65,7 +44,7 @@ export default function BoardCommentList(): JSX.Element {
     IMutationUpdateBoardCommentArgs
   >(UPDATE_BOARD_COMMENT);
 
-  const { data, refetch } = useQuery<
+  const { data, refetch, fetchMore } = useQuery<
     Pick<IQuery, 'fetchBoardComments'>,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENTS, {
@@ -78,7 +57,7 @@ export default function BoardCommentList(): JSX.Element {
       setCommentPasswordError('');
     }
 
-    if (event.target.value && commentContents && numberOfTrue) {
+    if (event.target.value && commentContents && star) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -91,24 +70,15 @@ export default function BoardCommentList(): JSX.Element {
       setCommentContentsError('');
     }
 
-    if (commentPassword && event.target.value && numberOfTrue) {
+    if (commentPassword && event.target.value && star) {
       setIsActive(true);
     } else {
       setIsActive(false);
     }
   };
 
-  const onChangeNumberOfTrue = (event: any) => {
-    setNumberOfTrue(event.target.value);
-    if (event.target.value !== '') {
-      setNumberOfTrueError('');
-    }
-
-    if (commentPassword && commentContents && event.target.value) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
+  const onChangeStar = (value: number): void => {
+    setStar(value);
   };
 
   // 수정 아이콘 클릭하면 수정창 생성 //
@@ -129,7 +99,7 @@ export default function BoardCommentList(): JSX.Element {
 
     setCommentIdToEdit(commentId);
 
-    if (!commentContents && !numberOfTrue) {
+    if (!commentContents && !star) {
       alert('수정한 내용이 없습니다.');
       return;
     }
@@ -141,7 +111,7 @@ export default function BoardCommentList(): JSX.Element {
 
     const updateBoardCommentInput: updateBoardCommentInput = {};
     if (commentContents) updateBoardCommentInput.contents = commentContents;
-    if (numberOfTrue) updateBoardCommentInput.rating = Number(numberOfTrue);
+    if (star) updateBoardCommentInput.rating = star;
 
     try {
       const result = await updateBoardComment({
@@ -158,7 +128,7 @@ export default function BoardCommentList(): JSX.Element {
       setCommentIdToEdit(null);
       setCommentContents('');
       setCommentPassword('');
-      setNumberOfTrue(0);
+      setStar(0);
 
       alert('댓글이 수정되었습니다.');
       refetch();
@@ -191,21 +161,42 @@ export default function BoardCommentList(): JSX.Element {
     }
   };
 
+  const onLoadMore = (): void => {
+    if (data === undefined) return;
+    void fetchMore({
+      variables: {
+        page: Math.ceil((data?.fetchBoardComments.length ?? 10) / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (fetchMoreResult.fetchBoardComments === undefined) {
+          return {
+            fetchBoardComments: [...prev.fetchBoardComments],
+          };
+        }
+
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
+          ],
+        };
+      },
+    });
+  };
+
   return (
     <BoardCommentListUI
       data={data}
       isActive={isActive}
       onChangeCommentContents={onChangeCommentContents}
       onChangeCommentPassword={onChangeCommentPassword}
-      onChangeNumberOfTrue={onChangeNumberOfTrue}
+      onChangeStar={onChangeStar}
       onClickDeleteComment={onClickDeleteComment}
       onClickEditComment={onClickEditComment}
       onCancelEditComment={onCancelEditComment}
       onClickUpdateComment={onClickUpdateComment}
       commentIdToEdit={commentIdToEdit}
-      ARRAY={ARRAY}
-      starClick={starClick}
-      clicked={clicked}
+      onLoadMore={onLoadMore}
     />
   );
 }

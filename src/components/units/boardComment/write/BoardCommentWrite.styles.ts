@@ -54,6 +54,7 @@ export const CommentPassword = styled.input`
 export const Star = styled(Rate)`
   margin-left: 24px;
   padding-top: 13px;
+  font-size: 26px;
 
   .ant-rate-star:not(:last-child) {
     margin-right: 3px; /* 별점 간격 조절 */

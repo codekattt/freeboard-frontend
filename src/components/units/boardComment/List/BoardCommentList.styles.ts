@@ -72,7 +72,6 @@ export const ContentsWriter = styled.div`
 
 export const ContentsRate = styled(Rate)`
   margin-left: 20px;
-  color: #fcc419;
 
   .ant-rate-star:not(:last-child) {
     margin-right: 3px; /* 별점 간격 조절 */
@@ -150,25 +149,8 @@ export const EditCommentPassword = styled.input`
 export const EditCommentStar = styled.div`
   width: 180px;
   height: 5px;
-  margin-left: 24px;
+  margin-left: 4px;
   padding-top: 13px;
-
-  & svg {
-    color: gray;
-    cursor: pointer;
-  }
-
-  :hover svg {
-    color: #fcc419;
-  }
-
-  & svg:hover ~ svg {
-    color: gray;
-  }
-
-  .yellowStar {
-    color: #fcc419;
-  }
 `;
 
 export const EditCommentContents = styled.textarea`
