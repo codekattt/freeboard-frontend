@@ -83,15 +83,15 @@ export const Title = styled.div`
   width: 996px;
   font-size: 36px;
   font-weight: 700;
-  margin-top: 80px;
-  margin-bottom: 40px;
+  margin: 40px 0px 40px;
+  padding: 0 24px 0;
 `;
 
 export const Contents = styled.div`
   width: 996px;
   font-size: 16px;
   font-weight: 400;
-  margin-top: 40px;
+  padding: 0 24px 0;
   line-height: 24px;
 `;
 

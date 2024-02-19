@@ -18,7 +18,7 @@ export default function LayoutBannerUI(): JSX.Element {
     <Wrapper>
       <Slider {...settings}>
         <div>
-          <SliderItem src="/img/slide1.png" />
+          <SliderItem src="/img/slide_cat1.png" />
         </div>
         <div>
           <SliderItem src="/img/slide2.png" />

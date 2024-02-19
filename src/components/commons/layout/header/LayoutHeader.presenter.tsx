@@ -10,7 +10,7 @@ export default function LayoutHeaderUI(props: ILayoutHeaderProps): JSX.Element {
   return (
     <Wrapper>
       <InnerWrapper>
-        <InnerLogo onClick={props.onClickLogo}>🐹 CODEKAT</InnerLogo>
+        <InnerLogo onClick={props.onClickLogo}>😽 CODEKAT</InnerLogo>
         <div>
           <InnerButton onClick={props.onClickMoveToLogin}>로그인</InnerButton>
           <InnerButton>회원가입</InnerButton>
