@@ -95,9 +95,17 @@ export default function BoardWriteUI(props: IBoardWriteUIProps): JSX.Element {
         <S.ImgWrapper>
           <S.Label>사진 첨부</S.Label>
           <S.ImgContentsWrapper>
-            <S.ImgButton>+</S.ImgButton>
-            <S.ImgButton>+</S.ImgButton>
-            <S.ImgButton>+</S.ImgButton>
+            <input
+              style={{ display: 'none' }}
+              type="file"
+              onChange={props.onChangeFile}
+              ref={props.fileRef}
+              accept="image/jpeg,image/png"
+            />
+            <S.ImgButton onClick={props.onClickImage}>+</S.ImgButton>
+            <S.UploadImg
+              src={`https://storage.googleapis.com/${props.imageUrl}`}
+            />
           </S.ImgContentsWrapper>
         </S.ImgWrapper>
         <S.OptionWrapper>

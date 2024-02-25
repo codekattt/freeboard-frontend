@@ -91,8 +91,21 @@ export const Contents = styled.div`
   width: 996px;
   font-size: 16px;
   font-weight: 400;
+  margin-bottom: 60px;
   padding: 0 24px 0;
   line-height: 24px;
+`;
+
+export const ImageWrapper = styled.div`
+  width: 996px;
+  padding: 0 24px 0;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Image = styled.img`
+  width: 900px;
+  height: auto;
 `;
 
 export const Youtube = styled(ReactPlayer)`

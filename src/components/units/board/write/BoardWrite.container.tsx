@@ -1,20 +1,23 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import type { ChangeEvent } from 'react';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import BoardWriteUI from './BoardWrite.presenter';
-import { CREATE_BOARD, UPDATE_BOARD } from './BoardWrite.queries';
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from './BoardWrite.queries';
 import type {
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
+  IMutationUploadFileArgs,
   IUpdateBoardInput,
 } from '../../../../commons/types/generated/types';
 import type { IBoardWriteProps } from './BoardWrite.types';
 import type { Address } from 'react-daum-postcode';
+import { checkValidationFile } from '../../../../commons/libraries/validationFile';
 
 export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
   const router = useRouter();
+  const fileRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,6 +29,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
   const [address, setAddress] = useState('');
   const [addressDetail, setAddressDetail] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   const [writerError, setWriterError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -36,10 +40,16 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     Pick<IMutation, 'createBoard'>,
     IMutationCreateBoardArgs
   >(CREATE_BOARD);
+
   const [updateBoard] = useMutation<
     Pick<IMutation, 'updateBoard'>,
     IMutationUpdateBoardArgs
   >(UPDATE_BOARD);
+
+  const [uploadFile] = useMutation<
+    Pick<IMutation, 'uploadFile'>,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
     setWriter(event.target.value);
@@ -134,7 +144,25 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     console.log(data);
   };
 
-  const onClickSubmit = async () => {
+  const onChangeFile = async (
+    event: ChangeEvent<HTMLInputElement>,
+  ): Promise<void> => {
+    const file = event.target.files?.[0];
+    console.log(file);
+
+    const isValid = checkValidationFile(file);
+    if (!isValid) return;
+
+    const result = await uploadFile({ variables: { file } });
+    console.log(result.data?.uploadFile.url);
+    setImageUrl(result.data?.uploadFile.url ?? '');
+  };
+
+  const onClickImage = (): void => {
+    fileRef.current?.click();
+  };
+
+  const onClickSubmit = async (): Promise<void> => {
     if (!writer) {
       setWriterError('✕ 작성자를 입력해주세요.');
     }
@@ -166,6 +194,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
               title: subject,
               contents,
               youtubeUrl,
+              images: [imageUrl],
               boardAddress: {
                 zipcode,
                 address,
@@ -255,6 +284,8 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
       onChangeContents={onChangeContents}
       onChangeAddressDetail={onChangeAddressDetail}
       onChangeYoutubeUrl={onChangeYoutubeUrl}
+      onChangeFile={onChangeFile}
+      onClickImage={onClickImage}
       onClickAddressSearch={onClickAddressSearch}
       onCompleteAddressSearch={onCompleteAddressSearch}
       onClickSubmit={onClickSubmit}
@@ -265,6 +296,8 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
       isOpen={isOpen}
       zipcode={zipcode}
       address={address}
+      fileRef={fileRef}
+      imageUrl={imageUrl}
     />
   );
 }

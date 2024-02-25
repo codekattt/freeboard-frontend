@@ -158,6 +158,11 @@ export const ImgButton = styled.button`
   cursor: pointer;
 `;
 
+export const UploadImg = styled.img`
+  width: 60px;
+  height: 60px;
+`;
+
 export const OptionWrapper = styled.div`
   width: 996px;
   margin-top: 40px;
