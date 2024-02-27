@@ -328,7 +328,7 @@ export type IQuery = {
 
 export type IQueryFetchBoardArgs = {
   boardId: Scalars['ID']['input'];
-  page: number;
+  // page: number;
 };
 
 export type IQueryFetchBoardCommentsArgs = {

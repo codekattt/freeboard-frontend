@@ -1,23 +1,20 @@
-import { useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import BoardWriteUI from './BoardWrite.presenter';
-import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from './BoardWrite.queries';
+import { CREATE_BOARD, UPDATE_BOARD } from './BoardWrite.queries';
 import type {
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
-  IMutationUploadFileArgs,
   IUpdateBoardInput,
 } from '../../../../commons/types/generated/types';
 import type { IBoardWriteProps } from './BoardWrite.types';
 import type { Address } from 'react-daum-postcode';
-import { checkValidationFile } from '../../../../commons/libraries/validationFile';
 
 export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
   const router = useRouter();
-  const fileRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,7 +26,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
   const [address, setAddress] = useState('');
   const [addressDetail, setAddressDetail] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [fileUrls, setFileUrls] = useState(['', '', '']);
 
   const [writerError, setWriterError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -45,11 +42,6 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     Pick<IMutation, 'updateBoard'>,
     IMutationUpdateBoardArgs
   >(UPDATE_BOARD);
-
-  const [uploadFile] = useMutation<
-    Pick<IMutation, 'uploadFile'>,
-    IMutationUploadFileArgs
-  >(UPLOAD_FILE);
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
     setWriter(event.target.value);
@@ -144,23 +136,16 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     console.log(data);
   };
 
-  const onChangeFile = async (
-    event: ChangeEvent<HTMLInputElement>,
-  ): Promise<void> => {
-    const file = event.target.files?.[0];
-    console.log(file);
-
-    const isValid = checkValidationFile(file);
-    if (!isValid) return;
-
-    const result = await uploadFile({ variables: { file } });
-    console.log(result.data?.uploadFile.url);
-    setImageUrl(result.data?.uploadFile.url ?? '');
+  const onChangeFileUrls = (fileUrl: string, index: number): void => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
   };
 
-  const onClickImage = (): void => {
-    fileRef.current?.click();
-  };
+  useEffect(() => {
+    const images = props.data?.fetchBoard.images;
+    if (images !== undefined && images !== null) setFileUrls([...images]);
+  }, [props.data]);
 
   const onClickSubmit = async (): Promise<void> => {
     if (!writer) {
@@ -194,7 +179,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
               title: subject,
               contents,
               youtubeUrl,
-              images: [imageUrl],
+              images: [...fileUrls],
               boardAddress: {
                 zipcode,
                 address,
@@ -204,8 +189,6 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
           },
         });
 
-        console.log(result);
-        // console.log(result.data.createBoard._id);
         void router.push(`/boards/${result.data?.createBoard._id}`);
         alert('게시글이 등록되었습니다.');
       } catch (error) {
@@ -215,13 +198,18 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
   };
 
   const onClickEdit = async () => {
+    const currentFiles = JSON.stringify(fileUrls);
+    const deFaultFiles = JSON.stringify(props.data?.fetchBoard.images);
+    const isChangedFiles = currentFiles !== deFaultFiles;
+
     if (
       !subject &&
       !contents &&
       !zipcode &&
       !address &&
       !addressDetail &&
-      !youtubeUrl
+      !youtubeUrl &&
+      !isChangedFiles
     ) {
       alert('수정한 내용이 없습니다.');
       return;
@@ -247,6 +235,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
       if (addressDetail !== '')
         updateBoardInput.boardAddress.addressDetail = addressDetail;
     }
+    if (isChangedFiles) updateBoardInput.images = fileUrls;
 
     try {
       if (typeof router.query.boardId !== 'string') {
@@ -284,8 +273,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
       onChangeContents={onChangeContents}
       onChangeAddressDetail={onChangeAddressDetail}
       onChangeYoutubeUrl={onChangeYoutubeUrl}
-      onChangeFile={onChangeFile}
-      onClickImage={onClickImage}
+      onChangeFileUrls={onChangeFileUrls}
       onClickAddressSearch={onClickAddressSearch}
       onCompleteAddressSearch={onCompleteAddressSearch}
       onClickSubmit={onClickSubmit}
@@ -296,8 +284,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
       isOpen={isOpen}
       zipcode={zipcode}
       address={address}
-      fileRef={fileRef}
-      imageUrl={imageUrl}
+      fileUrls={fileUrls}
     />
   );
 }

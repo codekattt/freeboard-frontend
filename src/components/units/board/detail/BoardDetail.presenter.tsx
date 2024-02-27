@@ -29,7 +29,6 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           </S.WriterIconWrapper>
         </S.WriterWrapper>
         <S.Title>{props.data?.fetchBoard?.title}</S.Title>
-        <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
         <S.ImageWrapper>
           {props.data?.fetchBoard.images
             ?.filter((el) => el)
@@ -37,6 +36,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
               <S.Image key={el} src={`https://storage.googleapis.com/${el}`} />
             ))}
         </S.ImageWrapper>
+        <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
         {props.data?.fetchBoard.youtubeUrl !== '' && (
           <S.Youtube
             url={props.data?.fetchBoard.youtubeUrl ?? ''}

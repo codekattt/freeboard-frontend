@@ -138,29 +138,13 @@ export const YoutubeWrapper = styled.div`
   margin-top: 40px;
 `;
 
-export const ImgWrapper = styled.div`
-  margin-top: 40px;
-`;
-
-export const ImgContentsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
+export const ImageWrapper = styled.div`
   width: 996px;
+  padding-top: 40px;
 `;
 
-export const ImgButton = styled.button`
-  width: 60px;
-  height: 60px;
-  background-color: #bdbdbd;
-  color: black;
-  border: none;
-  margin-right: 10px;
-  cursor: pointer;
-`;
-
-export const UploadImg = styled.img`
-  width: 60px;
-  height: 60px;
+export const ImageBox = styled.div`
+  display: flex;
 `;
 
 export const OptionWrapper = styled.div`

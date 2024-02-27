@@ -20,8 +20,7 @@ export interface IBoardWriteUIProps {
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickImage: () => void;
+  onChangeFileUrls: (fileUrls: string, index: number) => void;
   onClickSubmit: () => void;
   onClickEdit: () => void;
   isActive: boolean;
@@ -30,8 +29,7 @@ export interface IBoardWriteUIProps {
   isOpen: boolean;
   zipcode: string;
   address: string;
-  fileRef: any;
-  imageUrl: string;
+  fileUrls: string[];
 }
 
 export interface ISubmitButtonProps {

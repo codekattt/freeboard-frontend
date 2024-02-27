@@ -84,7 +84,6 @@ export const Title = styled.div`
   font-size: 36px;
   font-weight: 700;
   margin: 40px 0px 40px;
-  padding: 0 24px 0;
 `;
 
 export const Contents = styled.div`
@@ -92,20 +91,18 @@ export const Contents = styled.div`
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 60px;
-  padding: 0 24px 0;
   line-height: 24px;
 `;
 
 export const ImageWrapper = styled.div`
-  width: 996px;
-  padding: 0 24px 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 `;
 
 export const Image = styled.img`
-  width: 900px;
+  width: 996px;
   height: auto;
+  margin-bottom: 14px;
 `;
 
 export const Youtube = styled(ReactPlayer)`
