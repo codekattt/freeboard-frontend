@@ -17,7 +17,9 @@ export default function BoardListUI(props: IBoardListUIProps): JSX.Element {
       <S.Row>
         <S.ColumnHeaderBasic>ID</S.ColumnHeaderBasic>
         <S.ColumnHeaderTitle>제목</S.ColumnHeaderTitle>
-        <S.ColumnHeaderBasic>작성자</S.ColumnHeaderBasic>
+        <S.ColumnHeaderBasic style={{ paddingRight: '40px' }}>
+          작성자
+        </S.ColumnHeaderBasic>
         <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
       </S.Row>
       {props.data?.fetchBoards.map((el: any) => (
@@ -33,14 +35,14 @@ export default function BoardListUI(props: IBoardListUIProps): JSX.Element {
                 <span
                   key={uuidv4()}
                   style={{
-                    color: el === props.keyword ? '#6d30d7' : 'black',
+                    color: el === props.keyword ? '#6d30d7' : 'none',
                   }}
                 >
                   {el}
                 </span>
               ))}
           </S.ColumnTitle>
-          <S.ColumnBasic>
+          <S.ColumnBasic style={{ marginRight: '40px' }}>
             {String(el.writer).slice(-10).toUpperCase()}
           </S.ColumnBasic>
           <S.ColumnBasic>{getDate(el.createdAt)}</S.ColumnBasic>

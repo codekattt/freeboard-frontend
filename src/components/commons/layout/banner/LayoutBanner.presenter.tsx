@@ -12,13 +12,15 @@ export default function LayoutBannerUI(): JSX.Element {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
+    nextArrow: <></>, // 숨김 처리
+    prevArrow: <></>, // 숨김 처리
   };
 
   return (
     <Wrapper>
       <Slider {...settings}>
         <div>
-          <SliderItem src="/img/slide_cat1.png" />
+          <SliderItem src="/img/slide1.png" />
         </div>
         <div>
           <SliderItem src="/img/slide2.png" />

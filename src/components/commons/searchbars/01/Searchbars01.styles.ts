@@ -11,6 +11,14 @@ export const Searchbar = styled.div`
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) and (max-width: 1250px) {
+    width: 100%;
+  }
 `;
 
 export const FireFilledIcon = styled(FireFilled)`

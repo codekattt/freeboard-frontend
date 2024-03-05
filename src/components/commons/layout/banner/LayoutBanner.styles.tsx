@@ -11,4 +11,9 @@ export const Wrapper = styled.div`
 export const SliderItem = styled.img`
   height: 350px;
   margin: auto;
+
+  @media (max-width: 767px) {
+    width: auto;
+    height: auto;
+  }
 `;

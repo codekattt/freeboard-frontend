@@ -9,6 +9,11 @@ export const Wrapper = styled.div`
   align-items: center;
   font-size: 18px;
   color: #ffffff;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    font-size: 15px;
+  }
 `;
 
 export const MenuItem = styled.div`
@@ -17,5 +22,9 @@ export const MenuItem = styled.div`
 
   :hover {
     color: orange;
+  }
+
+  @media (max-width: 767px) {
+    margin: 0px 15px;
   }
 `;

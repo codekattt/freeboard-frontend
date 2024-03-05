@@ -13,6 +13,11 @@ const fadeIn = keyframes`
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 10px;
+
+  @media (max-width: 767px) {
+    width: 95%;
+    font-size: 14px;
+  }
 `;
 
 export const TableTop = styled.div`
@@ -30,6 +35,10 @@ export const Row = styled.div`
   height: 52px;
   line-height: 52px;
   border-bottom: 1px solid #bdbdbd;
+
+  @media (max-width: 767px) {
+    justify-content: space-between;
+  }
 `;
 
 export const ColumnHeaderBasic = styled.div`
@@ -38,6 +47,11 @@ export const ColumnHeaderBasic = styled.div`
   font-weight: 700;
   text-align: center;
   background-color: #f3f3f2;
+
+  @media (max-width: 767px) {
+    width: 30%;
+    font-size: 14px;
+  }
 `;
 
 export const ColumnHeaderTitle = styled.div`
@@ -46,21 +60,40 @@ export const ColumnHeaderTitle = styled.div`
   font-weight: 700;
   text-align: center;
   background-color: #f3f3f2;
+
+  @media (max-width: 767px) {
+    width: 200%;
+    font-size: 14px;
+  }
 `;
 
 export const ColumnBasic = styled.div`
   width: 10%;
   text-align: center;
+
+  @media (max-width: 767px) {
+    width: 10%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const ColumnTitle = styled.div`
   width: 70%;
   text-align: center;
-  cursor: pointer;
 
   :hover {
-    color: lightseagreen;
+    color: #6d30d7;
     font-weight: 800;
+    cursor: pointer;
+  }
+
+  @media (max-width: 767px) {
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -88,7 +121,7 @@ export const Button = styled.button`
 
   :hover {
     color: white;
-    background-color: lightseagreen;
+    background-color: #6d30d7;
     animation: ${fadeIn} 0.2s ease-in-out;
   }
 `;

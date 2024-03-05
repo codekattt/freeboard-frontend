@@ -7,6 +7,13 @@ export const Wrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 767px) {
+    width: auto;
+    height: auto;
+    margin-top: 20px;
+    padding: 0 24px;
+  }
 `;
 
 export const InnerWrapper = styled.div`
@@ -16,6 +23,10 @@ export const InnerWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
+
+  @media (max-width: 767px) {
+    margin-bottom: 20px;
+  }
 `;
 
 export const InnerLogo = styled.div`
