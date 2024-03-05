@@ -6,7 +6,7 @@ export const CommentWrapper = styled.div`
   flex-direction: column;
   margin-bottom: 30px;
   padding-bottom: 30px;
-  border-bottom: 2px dashed lightcoral;
+  border-bottom: 2px dashed #6d30d7;
 `;
 
 export const CommentTop = styled.div`
@@ -106,6 +106,6 @@ export const CommentRegButton = styled.button`
   cursor: pointer;
 
   :hover {
-    background-color: lightseagreen;
+    background-color: #6d30d7;
   }
 `;

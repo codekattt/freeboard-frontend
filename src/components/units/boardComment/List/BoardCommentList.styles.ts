@@ -197,6 +197,6 @@ export const EditCommentRegButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: lightseagreen;
+    background-color: #6d30d7;
   }
 `;

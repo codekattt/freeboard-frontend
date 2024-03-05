@@ -6,26 +6,23 @@ import { Tooltip } from 'antd';
 
 export default function BoardDetailUI(props: IBoardDetailUIProps) {
   return (
-    <div>
+    <>
       <S.Wrapper>
         <S.WriterWrapper>
-          <S.ProfileImg>
-            <img src={`/img/profileIcon.svg`} width={60} height={60} />
-          </S.ProfileImg>
+          <S.ProfileImg src={`/img/profileIcon.svg`} width={60} height={60} />
           <S.ProfileWrapper>
             <S.Writer>{props.data?.fetchBoard?.writer}</S.Writer>
             <S.Date>{getDateTime(props.data?.fetchBoard?.createdAt)}</S.Date>
           </S.ProfileWrapper>
           <S.WriterIconWrapper>
-            <img src={`/img/ic_link-32px.svg`} />
+            <S.WriterIcon src={`/img/ic_link-32px.svg`} />
             <Tooltip
               placement="topRight"
               title={`${props.data?.fetchBoard.boardAddress?.address ?? ''} ${
                 props.data?.fetchBoard.boardAddress?.addressDetail ?? ''
               }`}
             >
-              {' '}
-              <img src={`/img/ic_location_on-32px.svg`} />
+              <S.WriterIcon src={`/img/ic_location_on-32px.svg`} />
             </Tooltip>
           </S.WriterIconWrapper>
         </S.WriterWrapper>
@@ -41,14 +38,14 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         {props.data?.fetchBoard.youtubeUrl !== '' && (
           <S.Youtube
             url={props.data?.fetchBoard.youtubeUrl ?? ''}
-            width="640px"
-            height="360px"
+            width="auto"
+            height="auto"
             controls={true}
           />
         )}
         <LikeCount />
       </S.Wrapper>
-      <S.ButtonWrapper>
+      {/* <S.ButtonWrapper>
         <S.ContentsBtn onClick={props.onClickMoveToList}>
           목록으로
         </S.ContentsBtn>
@@ -56,7 +53,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           수정하기
         </S.ContentsBtn>
         <S.ContentsBtn onClick={props.onClickDelete}>삭제하기</S.ContentsBtn>
-      </S.ButtonWrapper>
-    </div>
+      </S.ButtonWrapper> */}
+    </>
   );
 }

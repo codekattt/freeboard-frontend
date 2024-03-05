@@ -3,11 +3,15 @@ import styled from '@emotion/styled';
 const Wrapper = styled.div`
   height: 300px;
   background-color: #d2cece;
-  padding: 100px;
+  padding: 80px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `;
 
 export default function LayoutFooter(): JSX.Element {
