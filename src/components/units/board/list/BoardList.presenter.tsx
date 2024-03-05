@@ -1,11 +1,18 @@
 import { getDate } from '../../../../commons/libraries/utils';
 import Paginations01 from '../../../commons/paginations/01/Paginations01.container';
+import Searchbars01 from '../../../commons/searchbars/01/Searchbars01.container';
 import * as S from './BoardList.styles';
 import { IBoardListUIProps } from './BoardList.types';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function BoardListUI(props: IBoardListUIProps): JSX.Element {
   return (
     <S.Wrapper>
+      <Searchbars01
+        refetch={props.refetch}
+        refetchBoardsCount={props.refetchBoardsCount}
+        onChangeKeyword={props.onChangeKeyword}
+      />
       <S.TableTop />
       <S.Row>
         <S.ColumnHeaderBasic>ID</S.ColumnHeaderBasic>
@@ -19,7 +26,19 @@ export default function BoardListUI(props: IBoardListUIProps): JSX.Element {
             {String(el._id).slice(-3).toUpperCase()}
           </S.ColumnBasic>
           <S.ColumnTitle id={el._id} onClick={props.onClickMoveToBoardDetail}>
-            {el.title}
+            {el.title
+              .replaceAll(props.keyword, `#$%%%${props.keyword}#$%%%`)
+              .split('#$%%%')
+              .map((el: any) => (
+                <span
+                  key={uuidv4()}
+                  style={{
+                    color: el === props.keyword ? '#6d30d7' : 'black',
+                  }}
+                >
+                  {el}
+                </span>
+              ))}
           </S.ColumnTitle>
           <S.ColumnBasic>
             {String(el.writer).slice(-10).toUpperCase()}

@@ -109,36 +109,6 @@ export const Youtube = styled(ReactPlayer)`
   margin-top: 120px;
 `;
 
-export const IconWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 160px;
-`;
-
-export const Up = styled.div`
-  width: 40px;
-  height: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px;
-  cursor: pointer;
-`;
-
-export const Down = styled.div`
-  width: 40px;
-  height: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px;
-  cursor: pointer;
-`;
-
 export const ButtonWrapper = styled.div`
   width: 1200px;
   height: 188px;

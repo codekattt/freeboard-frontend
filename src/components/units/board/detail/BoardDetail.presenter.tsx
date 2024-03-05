@@ -1,4 +1,5 @@
 import { getDateTime } from '../../../../commons/libraries/utils';
+import LikeCount from '../../../commons/likecount/01/LikeCount.container';
 import * as S from './BoardDetail.styles';
 import { IBoardDetailUIProps } from './BoardDetail.types';
 import { Tooltip } from 'antd';
@@ -45,16 +46,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
             controls={true}
           />
         )}
-        <S.IconWrapper>
-          <S.Up>
-            <img src={`/img/ic_thumb_up.svg`} />
-            <p>1920</p>
-          </S.Up>
-          <S.Down>
-            <img src={`/img/ic_thumb_down.svg`} />
-            <p>1920</p>
-          </S.Down>
-        </S.IconWrapper>
+        <LikeCount />
       </S.Wrapper>
       <S.ButtonWrapper>
         <S.ContentsBtn onClick={props.onClickMoveToList}>

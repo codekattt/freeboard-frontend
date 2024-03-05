@@ -73,34 +73,6 @@ export const Footer = styled.div`
   padding-bottom: 20px;
 `;
 
-export const Pagination = styled.div`
-  width: 420px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 10px;
-`;
-
-export const paginationItem = styled.span`
-  color: black;
-
-  &:hover {
-    font-weight: 700;
-    color: #6d30d7;
-    cursor: pointer;
-  }
-`;
-
-export const paginationArrow = styled.span`
-  color: black;
-
-  &:hover {
-    font-weight: 700;
-    color: #6d30d7;
-    cursor: pointer;
-  }
-`;
-
 export const Button = styled.button`
   width: 171px;
   height: 52px;

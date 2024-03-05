@@ -14,6 +14,8 @@ export const FETCH_BOARD = gql`
         address
         addressDetail
       }
+      likeCount
+      dislikeCount
       createdAt
     }
   }
