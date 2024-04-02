@@ -5,14 +5,8 @@ import * as S from './BoardCommentList.styles';
 
 export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
   return (
-    <div
-      style={{
-        width: 'auto',
-        height: '700px',
-        overflow: 'auto',
-      }}
-    >
-      <InfiniteScroll
+    <>
+      <S.InfiniteScrollUI
         pageStart={0}
         loadMore={props.onLoadMore}
         hasMore={true}
@@ -85,7 +79,7 @@ export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
             </S.CommentWrapper>
           ),
         )}
-      </InfiniteScroll>
-    </div>
+      </S.InfiniteScrollUI>
+    </>
   );
 }

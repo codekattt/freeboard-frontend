@@ -7,6 +7,10 @@ export const CommentWrapper = styled.div`
   margin-bottom: 30px;
   padding-bottom: 30px;
   border-bottom: 2px dashed #6d30d7;
+
+  @media (max-width: 767px) {
+    width: 95%;
+  }
 `;
 
 export const CommentTop = styled.div`
@@ -30,6 +34,10 @@ export const CommentWriterWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
+
+  @media (max-width: 767px) {
+    width: 95%;
+  }
 `;
 
 export const CommentWriter = styled.input`
@@ -39,6 +47,10 @@ export const CommentWriter = styled.input`
   font-weight: 500;
   padding-left: 20px;
   border: 1px solid #bdbdbd;
+
+  @media (max-width: 767px) {
+    width: 95%;
+  }
 `;
 
 export const CommentPassword = styled.input`
@@ -49,6 +61,11 @@ export const CommentPassword = styled.input`
   padding-left: 20px;
   border: 1px solid #bdbdbd;
   margin-left: 24px;
+
+  @media (max-width: 767px) {
+    width: 95%;
+    margin-left: 12px;
+  }
 `;
 
 export const Star = styled(Rate)`
@@ -58,6 +75,12 @@ export const Star = styled(Rate)`
 
   .ant-rate-star:not(:last-child) {
     margin-right: 3px; /* 별점 간격 조절 */
+  }
+
+  @media (max-width: 767px) {
+    width: 95%;
+    font-size: 18px;
+    margin-left: 12px;
   }
 `;
 
@@ -76,6 +99,11 @@ export const CommentDetail = styled.textarea`
   word-break: break-all;
   word-wrap: break-word;
   overflow-y: hidden;
+
+  @media (max-width: 767px) {
+    min-width: 100%;
+    max-width: 100%;
+  }
 `;
 
 export const CommentReg = styled.div`

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
+  width: 100%;
   height: 64px;
   background-color: #6d30d7;
   display: flex;
@@ -11,7 +12,6 @@ export const Wrapper = styled.div`
   color: #ffffff;
 
   @media (max-width: 767px) {
-    width: 100%;
     font-size: 15px;
   }
 `;

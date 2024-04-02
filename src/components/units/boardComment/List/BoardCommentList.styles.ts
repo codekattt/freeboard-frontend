@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import InfiniteScroll from 'react-infinite-scroller';
 import { keyframes } from '@emotion/react';
 import { Rate } from 'antd';
 
@@ -24,6 +25,10 @@ export const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `;
 
 export const ProfileImg = styled.div`
@@ -39,7 +44,6 @@ export const ProfileImg = styled.div`
 
 export const Comment = styled.div`
   width: 1200px;
-  height: 150px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -47,6 +51,11 @@ export const Comment = styled.div`
   border-bottom: 1px solid #bdbdbd;
 
   /* animation: ${fadeIn} 0.5s ease-in-out; */
+
+  @media (max-width: 767px) {
+    width: 100%;
+    padding-bottom: 24px;
+  }
 `;
 
 export const CommentContentsArea = styled.div`
@@ -198,5 +207,13 @@ export const EditCommentRegButton = styled.button`
 
   &:hover {
     background-color: #6d30d7;
+  }
+`;
+
+export const InfiniteScrollUI = styled(InfiniteScroll)`
+  margin-bottom: 40px;
+
+  @media (max-width: 767px) {
+    width: 95%;
   }
 `;
