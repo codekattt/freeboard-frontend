@@ -11,13 +11,19 @@ export const Wrapper = styled.div`
   font-size: 18px;
   color: #ffffff;
 
-  @media (max-width: 767px) {
-    font-size: 15px;
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    font-size: 1.6vw;
+  }
+  @media screen and (min-width: 1024px) {
+    font-size: 18px;
   }
 `;
 
 export const MenuItem = styled.div`
-  margin: 0px 60px;
+  margin: 0px 40px;
   cursor: pointer;
 
   :hover {

@@ -10,7 +10,19 @@ export default function Home(): JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>안녕하세요</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
+      <div>메인 페이지 입니다.</div>
     </>
   );
 }

@@ -7,7 +7,7 @@ const NAVIGATION_MENUS = [
   { name: '라이브상품', page: '/markets' },
   { name: '마이페이지', page: '/mypages' },
   { name: '결제페이지', page: '/payments' },
-  { name: '🐱애옹이주세요', page: '/catplease' },
+  { name: '🐱냥그타그램', page: '/catplease' },
 ];
 
 export default function LayoutNavigationUI(

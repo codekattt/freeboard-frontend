@@ -1,5 +1,8 @@
+import { LoginCheck } from '../../src/components/commons/hocs/LoginCheck';
 import CatPlease from '../../src/components/units/catPlease/catPlease.container';
 
-export default function CatPleasePage(): JSX.Element {
+function CatPleasePage(): JSX.Element {
   return <CatPlease />;
 }
+
+export default LoginCheck(CatPleasePage);
