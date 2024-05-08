@@ -23,19 +23,34 @@ export default function LoginPage(): JSX.Element {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [emailError, setEmailError] = useState('');
+
+  const validateEmail = (value: string): boolean => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(value);
+  };
   const [loginUser] = useMutation<
     Pick<IMutation, 'loginUser'>,
     IMutationLoginUserArgs
   >(LOGIN_USER);
 
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(event.currentTarget.value);
+    const { value } = event.target;
+    setEmail(value);
+    setEmailError(validateEmail(value) ? '' : '이메일 형식으로 입력해주세요.');
   };
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.currentTarget.value);
+    updateButtonState(email, event.currentTarget.value);
+  };
+
+  const updateButtonState = (email: string, password: string): void => {
+    setIsButtonDisabled(email.trim() === '' || password.trim() === '');
   };
 
   const onClickLogin = async (): Promise<void> => {
@@ -63,9 +78,21 @@ export default function LoginPage(): JSX.Element {
   return (
     <>
       <S.Wrapper>
-        이메일: <S.Input type="text" onChange={onChangeEmail} />
-        비밀번호: <S.Input type="password" onChange={onChangePassword} />
-        <button onClick={onClickLogin}>로그인</button>
+        <S.Input
+          type="text"
+          onChange={onChangeEmail}
+          placeholder="아이디를 입력하세요."
+          value={email}
+        />
+        {emailError && <S.Message>{emailError}</S.Message>}
+        <S.Input
+          type="password"
+          onChange={onChangePassword}
+          placeholder="비밀번호를 입력하세요."
+        />
+        <S.Button onClick={onClickLogin} disabled={isButtonDisabled}>
+          로그인
+        </S.Button>
       </S.Wrapper>
     </>
   );

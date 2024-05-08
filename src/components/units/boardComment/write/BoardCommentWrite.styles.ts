@@ -2,15 +2,13 @@ import styled from '@emotion/styled';
 import { Rate } from 'antd';
 
 export const CommentWrapper = styled.div`
+  width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
   padding-bottom: 30px;
   border-bottom: 2px dashed #6d30d7;
-
-  @media (max-width: 767px) {
-    width: 95%;
-  }
 `;
 
 export const CommentTop = styled.div`
@@ -30,7 +28,8 @@ export const CommentTop = styled.div`
 `;
 
 export const CommentWriterWrapper = styled.div`
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
@@ -49,7 +48,7 @@ export const CommentWriter = styled.input`
   border: 1px solid #bdbdbd;
 
   @media (max-width: 767px) {
-    width: 95%;
+    width: 30%;
   }
 `;
 
@@ -63,7 +62,7 @@ export const CommentPassword = styled.input`
   margin-left: 24px;
 
   @media (max-width: 767px) {
-    width: 95%;
+    width: 30%;
     margin-left: 12px;
   }
 `;
@@ -78,15 +77,15 @@ export const Star = styled(Rate)`
   }
 
   @media (max-width: 767px) {
-    width: 95%;
-    font-size: 18px;
-    margin-left: 12px;
+    width: 30%;
+    font-size: 3.8vw;
+    margin: 2px 0 0 18px;
   }
 `;
 
 export const CommentDetail = styled.textarea`
-  min-width: 1200px;
-  max-width: 1200px;
+  min-width: 100%;
+  max-width: 100%;
   height: auto;
   border: 1px solid #bdbdbd;
   border-bottom: none;
@@ -112,7 +111,7 @@ export const CommentReg = styled.div`
 `;
 
 export const CommentRegInput = styled.div`
-  width: 1109px;
+  width: 100%;
   border: 1px solid #bdbdbd;
   border-top: 1px solid #f2f2f2;
   border-right: none;
@@ -124,7 +123,7 @@ export const CommentRegInput = styled.div`
 `;
 
 export const CommentRegButton = styled.button`
-  width: 91px;
+  width: 20%;
   height: 52px;
   border: 1px solid #bdbdbd;
   background-color: black;
@@ -132,8 +131,4 @@ export const CommentRegButton = styled.button`
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-
-  :hover {
-    background-color: #6d30d7;
-  }
 `;

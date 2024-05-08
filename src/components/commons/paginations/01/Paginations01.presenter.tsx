@@ -1,26 +1,13 @@
-import { Pagination, Page } from './Paginations01.styles';
-import type { IPaginations01UIProps } from './Paginations01.types';
+import { Pagination } from 'antd';
+import { IPaginations01UIProps } from './Paginations01.types';
 
-export default function Paginations01UI(
-  props: IPaginations01UIProps,
-): JSX.Element {
+export default function Pagination01UI(props: IPaginations01UIProps) {
   return (
-    <Pagination>
-      <Page onClick={props.onClickPrevPage}>{`〈`}</Page>
-      {new Array(10).fill(1).map(
-        (_, index) =>
-          props.startPage + index <= props.lastPage && (
-            <Page
-              key={props.startPage + index}
-              onClick={props.onClickPage}
-              id={String(props.startPage + index)}
-              isActive={props.startPage + index === props.activedPage}
-            >
-              {props.startPage + index}
-            </Page>
-          ),
-      )}
-      <Page onClick={props.onClickNextPage}>{`〉`}</Page>
-    </Pagination>
+    <Pagination
+      current={props.activedPage}
+      total={props.lastPage * 10}
+      onChange={props.onClickPage}
+      showSizeChanger={false}
+    ></Pagination>
   );
 }

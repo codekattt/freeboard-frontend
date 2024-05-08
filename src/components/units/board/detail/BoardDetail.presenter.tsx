@@ -45,7 +45,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         )}
         <LikeCount />
       </S.Wrapper>
-      {/* <S.ButtonWrapper>
+      <S.ButtonWrapper>
         <S.ContentsBtn onClick={props.onClickMoveToList}>
           목록으로
         </S.ContentsBtn>
@@ -53,7 +53,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           수정하기
         </S.ContentsBtn>
         <S.ContentsBtn onClick={props.onClickDelete}>삭제하기</S.ContentsBtn>
-      </S.ButtonWrapper> */}
+      </S.ButtonWrapper>
     </>
   );
 }

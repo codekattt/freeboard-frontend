@@ -25,10 +25,7 @@ export const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-
-  @media (max-width: 767px) {
-    width: 100%;
-  }
+  width: 100%;
 `;
 
 export const ProfileImg = styled.div`
@@ -43,11 +40,12 @@ export const ProfileImg = styled.div`
 `;
 
 export const Comment = styled.div`
-  width: 1200px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 30px;
   border-bottom: 1px solid #bdbdbd;
 
   /* animation: ${fadeIn} 0.5s ease-in-out; */
@@ -211,9 +209,7 @@ export const EditCommentRegButton = styled.button`
 `;
 
 export const InfiniteScrollUI = styled(InfiniteScroll)`
+  width: 100%;
+  max-width: 1200px;
   margin-bottom: 40px;
-
-  @media (max-width: 767px) {
-    width: 95%;
-  }
 `;

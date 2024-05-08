@@ -1,5 +1,4 @@
 import { ApolloQueryResult } from '@apollo/client';
-import { MouseEvent } from 'react';
 import {
   IQuery,
   IQueryFetchBoardsArgs,
@@ -13,12 +12,9 @@ export interface IPaginations01Props {
 }
 
 export interface IPaginations01UIProps {
-  startPage: number;
   lastPage: number;
   activedPage: number;
-  onClickPage: (event: MouseEvent<HTMLSpanElement>) => void;
-  onClickPrevPage: () => void;
-  onClickNextPage: () => void;
+  onClickPage: (event: number) => void;
 }
 
 export interface IPageProps {

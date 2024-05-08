@@ -8,7 +8,7 @@ export default function CatPleaseUI(props: ICatPleaseUIProps): JSX.Element {
     <>
       <S.Wrapper>
         <S.UserTitle>
-          {props.data?.fetchUserLoggedIn.name}님의 고양이
+          {props.data?.fetchUserLoggedIn.name}님의 냥스타그램
         </S.UserTitle>
         <S.CatImageWrapper>
           {[...props.cats]

@@ -14,17 +14,15 @@ export default function BoardListUI(props: IBoardListUIProps): JSX.Element {
         onChangeKeyword={props.onChangeKeyword}
       />
       <S.TableTop />
-      <S.Row>
+      <S.TopRow>
         <S.ColumnHeaderBasic>ID</S.ColumnHeaderBasic>
         <S.ColumnHeaderTitle>제목</S.ColumnHeaderTitle>
-        <S.ColumnHeaderBasic style={{ paddingRight: '40px' }}>
-          작성자
-        </S.ColumnHeaderBasic>
+        <S.ColumnHeaderBasic>작성자</S.ColumnHeaderBasic>
         <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
-      </S.Row>
+      </S.TopRow>
       {props.data?.fetchBoards.map((el: any) => (
         <S.Row key={el._id}>
-          <S.ColumnBasic>
+          <S.ColumnBasic className="DisplayNone">
             {String(el._id).slice(-3).toUpperCase()}
           </S.ColumnBasic>
           <S.ColumnTitle id={el._id} onClick={props.onClickMoveToBoardDetail}>
@@ -42,10 +40,14 @@ export default function BoardListUI(props: IBoardListUIProps): JSX.Element {
                 </span>
               ))}
           </S.ColumnTitle>
-          <S.ColumnBasic style={{ marginRight: '40px' }}>
-            {String(el.writer).slice(-10).toUpperCase()}
-          </S.ColumnBasic>
-          <S.ColumnBasic>{getDate(el.createdAt)}</S.ColumnBasic>
+          <S.Mobile>
+            <S.ColumnBasic className="writer">
+              {String(el.writer).slice(-5).toUpperCase()}
+            </S.ColumnBasic>
+            <S.ColumnBasic className="date">
+              {getDate(el.createdAt)}
+            </S.ColumnBasic>
+          </S.Mobile>
         </S.Row>
       ))}
       <S.TableBottom />
@@ -53,7 +55,7 @@ export default function BoardListUI(props: IBoardListUIProps): JSX.Element {
         <Paginations01 refetch={props.refetch} count={props.count} />
         <S.Button onClick={props.onClickMoveToBoardNew}>
           <img src="/img/write.png" />
-          게시물 등록하기
+          <span className="hide-text">게시물 등록</span>
         </S.Button>
       </S.Footer>
     </S.Wrapper>

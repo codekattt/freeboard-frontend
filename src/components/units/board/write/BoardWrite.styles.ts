@@ -4,14 +4,12 @@ import { Modal } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   /* height: 1847px; */
   border: 1px solid black;
-  margin: 100px;
-  padding-top: 80px;
-  padding-bottom: 100px;
-  padding-left: 102px;
-  padding-right: 102px;
+  margin: 5% 0;
+  padding: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,6 +26,8 @@ export const Title = styled.div`
 export const WriterWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const Label = styled.div`
@@ -38,44 +38,49 @@ export const Label = styled.div`
 `;
 
 export const WriterWrapperContainer = styled.div`
-  margin-left: 12px;
-  margin-right: 12px;
+  width: 48%;
 `;
 
 export const Writer = styled.input`
-  width: 486px;
+  width: 100%;
   height: 52px;
   border: 1px solid #bdbdbd;
   padding-left: 16px;
 `;
 
 export const Password = styled.input`
-  width: 486px;
+  width: 100%;
+
   height: 52px;
   border: 1px solid #bdbdbd;
   padding-left: 16px;
 `;
 
 export const Subject = styled.input`
-  width: 996px;
+  width: 100%;
   height: 52px;
   border: 1px solid #bdbdbd;
   padding-left: 16px;
 `;
 
 export const SubjectWrapper = styled.div`
+  width: 100%;
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Contents = styled.textarea`
-  width: 996px;
-  height: 480px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 480px;
   border: 1px solid #bdbdbd;
   padding-left: 16px;
   padding-top: 16px;
 `;
 
 export const ContentsWrapper = styled.div`
+  width: 100%;
   margin-top: 40px;
 `;
 
@@ -90,6 +95,7 @@ export const ZipCode = styled.input`
 `;
 
 export const AddressWrapper = styled.div`
+  width: 100%;
   margin-top: 40px;
 `;
 
@@ -109,7 +115,7 @@ export const ZipCodeButton = styled.button`
 `;
 
 export const AddressOne = styled.input`
-  width: 996px;
+  width: 100%;
   height: 52px;
   font-size: 16px;
   border: 1px solid #bdbdbd;
@@ -118,7 +124,7 @@ export const AddressOne = styled.input`
 `;
 
 export const AddressTwo = styled.input`
-  width: 996px;
+  width: 100%;
   height: 52px;
   font-size: 16px;
   border: 1px solid #bdbdbd;
@@ -127,7 +133,7 @@ export const AddressTwo = styled.input`
 `;
 
 export const YoutubeLink = styled.input`
-  width: 996px;
+  width: 100%;
   height: 52px;
   font-size: 16px;
   border: 1px solid #bdbdbd;
@@ -135,11 +141,12 @@ export const YoutubeLink = styled.input`
 `;
 
 export const YoutubeWrapper = styled.div`
+  width: 100%;
   margin-top: 40px;
 `;
 
 export const ImageWrapper = styled.div`
-  width: 996px;
+  width: 100%;
   padding-top: 40px;
 `;
 
@@ -148,7 +155,7 @@ export const ImageBox = styled.div`
 `;
 
 export const OptionWrapper = styled.div`
-  width: 996px;
+  width: 100%;
   margin-top: 40px;
 `;
 
@@ -186,11 +193,11 @@ export const SubmitButton = styled.button<ISubmitButtonProps>`
   background-color: ${(props) =>
     props.isEdit
       ? props.isActive
-        ? 'yellow' // isEdit가 true이고 isActive가 true
-        : 'yellow' // isEdit가 true이고 isActive가 false
+        ? 'yellow'
+        : 'yellow'
       : props.isActive
-      ? 'yellow' // isEdit가 false이고 isActive가 true
-      : 'none'}; // isEdit가 false이고 isActive가 false
+      ? 'yellow'
+      : 'none'};
 `;
 
 export const Error = styled.div`

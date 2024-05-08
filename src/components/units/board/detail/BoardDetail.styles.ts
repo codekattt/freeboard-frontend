@@ -12,15 +12,11 @@ const fadeIn = keyframes`
 `;
 
 export const Wrapper = styled.div`
-  width: 1200px;
-  /* height: 1847px; */
+  width: 100%;
+  max-width: 1200px;
   border: 1px solid black;
-  margin-top: 100px;
-  margin-bottom: 50px;
-  padding-top: 80px;
-  padding-bottom: 100px;
-  padding-left: 102px;
-  padding-right: 102px;
+  margin: 5% 0;
+  padding: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,15 +24,13 @@ export const Wrapper = styled.div`
   box-shadow: 0px 0px 10px gray;
 
   @media (max-width: 767px) {
-    width: 95%;
-    height: auto;
-    margin: 20px 0;
-    padding: 10px 20px;
+    margin: 5% 0 40px 0;
   }
 `;
 
 export const WriterWrapper = styled.div`
-  width: 996px;
+  width: 100%;
+  max-width: 996px;
   height: 100px;
   border-bottom: 1px solid #bdbdbd;
   display: flex;
@@ -110,7 +104,8 @@ export const WriterIcon = styled.img`
 `;
 
 export const Title = styled.div`
-  width: 996px;
+  width: 100%;
+  max-width: 996px;
   font-size: 36px;
   font-weight: 700;
   margin: 40px 0px 40px;
@@ -121,7 +116,8 @@ export const Title = styled.div`
 `;
 
 export const Contents = styled.div`
-  width: 996px;
+  width: 100%;
+  max-width: 996px;
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 60px;
@@ -135,10 +131,12 @@ export const Contents = styled.div`
 export const ImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 90%;
 `;
 
 export const Image = styled.img`
-  width: 996px;
+  width: 100%;
+  max-width: 996px;
   height: auto;
   margin-bottom: 14px;
 
@@ -152,14 +150,14 @@ export const Youtube = styled(ReactPlayer)`
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 1200px;
-  height: 188px;
+  width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding-bottom: 40px;
   margin-bottom: 40px;
-  border-bottom: 1px solid #bdbdbd;
 `;
 
 export const ContentsBtn = styled.button`

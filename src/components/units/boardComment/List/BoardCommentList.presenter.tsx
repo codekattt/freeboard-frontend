@@ -11,11 +11,11 @@ export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
         loadMore={props.onLoadMore}
         hasMore={true}
         useWindow={false}
-        loader={
-          <div className="loader" key={0}>
-            페이지 끝
-          </div>
-        }
+        // loader={
+        //   <div className="loader" key={0}>
+        //     페이지 끝
+        //   </div>
+        // }
       >
         {props.data?.fetchBoardComments.map((el: any) =>
           props.commentIdToEdit === el._id ? (
