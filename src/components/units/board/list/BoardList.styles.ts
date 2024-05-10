@@ -12,7 +12,6 @@ const fadeIn = keyframes`
 
 export const Wrapper = styled.div`
   width: 100%;
-  margin: 10px;
 
   @media (max-width: 767px) {
     font-size: 16px;

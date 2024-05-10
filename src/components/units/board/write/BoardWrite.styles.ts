@@ -6,15 +6,14 @@ import DaumPostcode from 'react-daum-postcode';
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 1200px;
-  /* height: 1847px; */
-  border: 1px solid black;
-  margin: 5% 0;
+  margin: 0 0 5% 0s;
   padding: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: none;
-  box-shadow: 0px 0px 10px gray;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px #cccccc;
 `;
 
 export const Title = styled.div`
@@ -45,6 +44,7 @@ export const Writer = styled.input`
   width: 100%;
   height: 52px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   padding-left: 16px;
 `;
 
@@ -53,6 +53,7 @@ export const Password = styled.input`
 
   height: 52px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   padding-left: 16px;
 `;
 
@@ -60,6 +61,7 @@ export const Subject = styled.input`
   width: 100%;
   height: 52px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   padding-left: 16px;
 `;
 
@@ -75,6 +77,7 @@ export const Contents = styled.textarea`
   max-width: 100%;
   min-height: 480px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   padding-left: 16px;
   padding-top: 16px;
 `;
@@ -90,6 +93,7 @@ export const ZipCode = styled.input`
   font-size: 16px;
   letter-spacing: 1px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   margin-right: 10px;
   padding-left: 14px;
 `;
@@ -111,6 +115,7 @@ export const ZipCodeButton = styled.button`
   font-size: 16px;
   font-weight: 500;
   background-color: black;
+  border-radius: 5px;
   cursor: pointer;
 `;
 
@@ -119,6 +124,7 @@ export const AddressOne = styled.input`
   height: 52px;
   font-size: 16px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   margin-top: 10px;
   padding-left: 10px;
 `;
@@ -128,6 +134,7 @@ export const AddressTwo = styled.input`
   height: 52px;
   font-size: 16px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   margin-top: 4px;
   padding-left: 10px;
 `;
@@ -137,6 +144,7 @@ export const YoutubeLink = styled.input`
   height: 52px;
   font-size: 16px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   padding-left: 10px;
 `;
 
@@ -148,6 +156,7 @@ export const YoutubeWrapper = styled.div`
 export const ImageWrapper = styled.div`
   width: 100%;
   padding-top: 40px;
+  border-radius: 5px;
 `;
 
 export const ImageBox = styled.div`
@@ -182,6 +191,7 @@ export const SubmitButton = styled.button<ISubmitButtonProps>`
   width: 179px;
   height: 52px;
   border: none;
+  border-radius: 5px;
   box-shadow: 2px 2px 4px #dddddd;
   font-size: 16px;
   font-weight: 500;
@@ -189,14 +199,22 @@ export const SubmitButton = styled.button<ISubmitButtonProps>`
   margin-right: 12px;
   cursor: pointer;
 
-  /* 수정 페이지에서 isActive 여부에 따라 색상 바뀌도록 구현해야함 */
   background-color: ${(props) =>
     props.isEdit
       ? props.isActive
-        ? 'yellow'
-        : 'yellow'
+        ? '#6d30d7'
+        : '#6d30d7'
       : props.isActive
-      ? 'yellow'
+      ? '#6d30d7'
+      : 'none'};
+
+  color: ${(props) =>
+    props.isEdit
+      ? props.isActive
+        ? 'white'
+        : 'white'
+      : props.isActive
+      ? 'white'
       : 'none'};
 `;
 

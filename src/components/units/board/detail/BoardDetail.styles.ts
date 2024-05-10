@@ -14,14 +14,14 @@ const fadeIn = keyframes`
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 1200px;
-  border: 1px solid black;
-  margin: 5% 0;
+  margin: 0 0 5% 0;
   padding: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: none;
-  box-shadow: 0px 0px 10px gray;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px #cccccc;
 
   @media (max-width: 767px) {
     margin: 5% 0 40px 0;
@@ -164,6 +164,7 @@ export const ContentsBtn = styled.button`
   width: 179px;
   height: 45px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   background-color: white;
   margin-left: 12px;
   margin-right: 12px;

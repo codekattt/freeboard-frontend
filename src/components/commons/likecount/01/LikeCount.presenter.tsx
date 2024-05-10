@@ -4,12 +4,12 @@ import { ILikeCountUIProps } from './LikeCount.types';
 export default function LikeCountUI(props: ILikeCountUIProps): JSX.Element {
   return (
     <S.IconWrapper>
-      <S.Up>
-        <img src={`/img/ic_thumb_up.svg`} onClick={props.onClickLike} />
+      <S.Up onClick={props.onClickLike}>
+        <img src={`/img/ic_thumb_up.svg`} />
         <span>{props.likeCount}</span>
       </S.Up>
-      <S.Down>
-        <img src={`/img/ic_thumb_down.svg`} onClick={props.onClickDislike} />
+      <S.Down onClick={props.onClickDislike}>
+        <img src={`/img/ic_thumb_down.svg`} />
         <span>{props.dislikeCount}</span>
       </S.Down>
     </S.IconWrapper>

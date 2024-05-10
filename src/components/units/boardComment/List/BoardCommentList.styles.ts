@@ -118,7 +118,8 @@ export const WriterIconWrapper = styled.div`
 // 아래부터 댓글 수정 스타일스 //
 
 export const EditCommentWrapper = styled.div`
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   height: 270px;
   border-bottom: 1px solid #bdbdbd;
   flex-direction: column;
@@ -128,7 +129,8 @@ export const EditCommentWrapper = styled.div`
 `;
 
 export const EditCommentWriterWrapper = styled.div`
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
@@ -139,8 +141,13 @@ export const EditCommentWriter = styled.div`
   height: 52px;
   font-size: 16px;
   font-weight: 500;
-  padding: 15px 15px;
+  padding: 15px 20px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
+
+  @media (max-width: 767px) {
+    width: 30%;
+  }
 `;
 
 export const EditCommentPassword = styled.input`
@@ -148,32 +155,51 @@ export const EditCommentPassword = styled.input`
   height: 52px;
   font-size: 16px;
   font-weight: 500;
+  margin-left: 24px;
   padding-left: 20px;
   border: 1px solid #bdbdbd;
-  margin-left: 24px;
+  border-radius: 5px;
+
+  @media (max-width: 767px) {
+    width: 30%;
+    margin-left: 12px;
+  }
 `;
 
-export const EditCommentStar = styled.div`
-  width: 180px;
-  height: 5px;
-  margin-left: 4px;
+export const EditCommentStar = styled(Rate)`
+  margin-left: 24px;
   padding-top: 13px;
+  font-size: 26px;
+
+  .ant-rate-star:not(:last-child) {
+    margin-right: 3px; /* 별점 간격 조절 */
+  }
+
+  @media (max-width: 767px) {
+    width: 30%;
+    font-size: 3.8vw;
+    margin: 2px 0 0 18px;
+  }
 `;
 
 export const EditCommentContents = styled.textarea`
-  min-width: 1200px;
-  max-width: 1200px;
-  height: 120px;
+  min-width: 100%;
+  max-width: 100%;
+  height: auto;
   border: 1px solid #bdbdbd;
+  border-radius: 5px 5px 0 0;
   border-bottom: none;
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 40px;
+  padding: 20px 20px 50px 20px;
   font-size: 16px;
   font-weight: 500;
   word-break: break-all;
   word-wrap: break-word;
+  overflow-y: hidden;
+
+  @media (max-width: 767px) {
+    min-width: 100%;
+    max-width: 100%;
+  }
 `;
 
 export const EditCommentReg = styled.div`
@@ -182,8 +208,9 @@ export const EditCommentReg = styled.div`
 `;
 
 export const EditCommentRegInput = styled.div`
-  width: 1109px;
+  width: 100%;
   border: 1px solid #bdbdbd;
+  border-radius: 0 0 5px 5px;
   border-top: 1px solid #f2f2f2;
   border-right: none;
   font-size: 16px;
@@ -194,7 +221,9 @@ export const EditCommentRegInput = styled.div`
 `;
 
 export const EditCommentRegButton = styled.button`
-  width: 91px;
+  width: 20%;
+  min-width: 100px;
+  max-width: 176px;
   height: 52px;
   border: 1px solid #bdbdbd;
   background-color: black;
@@ -203,8 +232,8 @@ export const EditCommentRegButton = styled.button`
   font-weight: 500;
   cursor: pointer;
 
-  &:hover {
-    background-color: #6d30d7;
+  &.reg {
+    border-radius: 0 0 5px 0;
   }
 `;
 

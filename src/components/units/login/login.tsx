@@ -41,7 +41,9 @@ export default function LoginPage(): JSX.Element {
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     setEmail(value);
-    setEmailError(validateEmail(value) ? '' : '이메일 형식으로 입력해주세요.');
+    setEmailError(
+      validateEmail(value) ? '' : '올바른 이메일 형식으로 입력해주세요.',
+    );
   };
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -78,10 +80,11 @@ export default function LoginPage(): JSX.Element {
   return (
     <>
       <S.Wrapper>
+        <h1>로그인</h1>
         <S.Input
           type="text"
           onChange={onChangeEmail}
-          placeholder="아이디를 입력하세요."
+          placeholder="이메일을 입력하세요. (example@example.com)"
           value={email}
         />
         {emailError && <S.Message>{emailError}</S.Message>}

@@ -26,14 +26,24 @@ export default function SignUpPage(): JSX.Element {
   const [name, setName] = useState('');
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
+  const [emailError, setEmailError] = useState('');
+
+  const validateEmail = (value: string): boolean => {
+    const regex = /^[a-zA-Z0-9]+@[^\s@.]+\.[^\s@.]+$/;
+    return regex.test(value);
+  };
+
   const [createUser] = useMutation<
     Pick<IMutation, 'createUser'>,
     IMutationCreateUserArgs
   >(SIGNUP_USER);
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(event.currentTarget.value);
-    validateInputs(event.currentTarget.value, password, name);
+    const { value } = event.target;
+    setEmail(value);
+    setEmailError(
+      validateEmail(value) ? '' : '올바른 이메일 형식으로 입력해주세요.',
+    );
   };
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -79,12 +89,29 @@ export default function SignUpPage(): JSX.Element {
   return (
     <>
       <S.Wrapper>
-        이메일: <S.Input type="text" onChange={onChangeEmail} />
-        비밀번호: <S.Input type="password" onChange={onChangePassword} />
-        이름: <S.Input type="text" onChange={onChangeName} />
-        <button onClick={onClickSignUp} disabled={!isButtonEnabled}>
+        <h1>회원가입</h1>
+        <h4>테스트 사이트입니다. 실제 개인정보를 적지 마세요.</h4>
+        <S.Input
+          type="text"
+          onChange={onChangeName}
+          placeholder="이름을 입력하세요."
+        />
+        <S.Input
+          type="text"
+          onChange={onChangeEmail}
+          placeholder="이메일을 입력하세요. (example@example.com)"
+          value={email}
+        />
+        {emailError && <S.Message>{emailError}</S.Message>}
+        <S.Input
+          type="password"
+          onChange={onChangePassword}
+          placeholder="비밀번호를 입력하세요."
+        />
+
+        <S.Button onClick={onClickSignUp} disabled={!isButtonEnabled}>
           가입하기
-        </button>
+        </S.Button>
       </S.Wrapper>
     </>
   );

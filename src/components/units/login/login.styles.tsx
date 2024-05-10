@@ -7,21 +7,29 @@ export const Wrapper = styled.div`
   max-width: 1000px;
   width: 100%;
   margin-top: 32px;
+
+  & h1 {
+    margin-bottom: 10px;
+  }
 `;
 
 export const Input = styled.input`
-  width: 386px;
+  width: 100%;
+  max-width: 386px;
   height: 58px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   margin: 4px 0;
   padding-left: 16px;
   font-size: 16px;
 `;
 
 export const Button = styled.button`
-  width: 386px;
+  width: 100%;
+  max-width: 386px;
   height: 58px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   margin: 20px 0 40px 0;
   padding-left: 16px;
   font-size: 16px;
@@ -35,7 +43,8 @@ export const Button = styled.button`
 `;
 
 export const Message = styled.p`
-  width: 386px;
+  width: 100%;
+  max-width: 386px;
   text-align: left;
   padding-left: 12px;
   color: #f44336;

@@ -8,7 +8,7 @@ export const CommentWrapper = styled.div`
   flex-direction: column;
   margin-bottom: 30px;
   padding-bottom: 30px;
-  border-bottom: 2px dashed #6d30d7;
+  border-bottom: 1px dashed #dddddd;
 `;
 
 export const CommentTop = styled.div`
@@ -46,6 +46,7 @@ export const CommentWriter = styled.input`
   font-weight: 500;
   padding-left: 20px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
 
   @media (max-width: 767px) {
     width: 30%;
@@ -59,6 +60,7 @@ export const CommentPassword = styled.input`
   font-weight: 500;
   padding-left: 20px;
   border: 1px solid #bdbdbd;
+  border-radius: 5px;
   margin-left: 24px;
 
   @media (max-width: 767px) {
@@ -88,11 +90,9 @@ export const CommentDetail = styled.textarea`
   max-width: 100%;
   height: auto;
   border: 1px solid #bdbdbd;
+  border-radius: 5px 5px 0 0;
   border-bottom: none;
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 50px;
+  padding: 20px 20px 50px 20px;
   font-size: 16px;
   font-weight: 500;
   word-break: break-all;
@@ -114,6 +114,7 @@ export const CommentRegInput = styled.div`
   width: 100%;
   border: 1px solid #bdbdbd;
   border-top: 1px solid #f2f2f2;
+  border-radius: 0 0 5px 5px;
   border-right: none;
   font-size: 16px;
   font-weight: 500;
@@ -124,8 +125,11 @@ export const CommentRegInput = styled.div`
 
 export const CommentRegButton = styled.button`
   width: 20%;
+  min-width: 116px;
+  max-width: 176px;
   height: 52px;
   border: 1px solid #bdbdbd;
+  border-radius: 0 0 5px 0;
   background-color: black;
   color: white;
   font-size: 16px;

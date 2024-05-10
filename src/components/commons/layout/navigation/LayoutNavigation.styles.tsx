@@ -12,25 +12,23 @@ export const Wrapper = styled.div`
   color: #ffffff;
 
   @media screen and (max-width: 767px) {
-    font-size: 12px;
+    font-size: 16px;
+
+    & .payment-menu {
+      display: none;
+    }
   }
-  @media screen and (min-width: 768px) and (max-width: 1023px) {
-    font-size: 1.6vw;
-  }
+
   @media screen and (min-width: 1024px) {
     font-size: 18px;
   }
 `;
 
 export const MenuItem = styled.div`
-  margin: 0px 40px;
+  margin: 0px 2%;
   cursor: pointer;
 
   :hover {
     color: orange;
-  }
-
-  @media (max-width: 767px) {
-    margin: 0px 15px;
   }
 `;
