@@ -29,7 +29,7 @@ export default function SignUpPage(): JSX.Element {
   const [emailError, setEmailError] = useState('');
 
   const validateEmail = (value: string): boolean => {
-    const regex = /^[a-zA-Z0-9]+@[^\s@.]+\.[^\s@.]+$/;
+    const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.(com|net)$/;
     return regex.test(value);
   };
 
@@ -41,28 +41,42 @@ export default function SignUpPage(): JSX.Element {
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     setEmail(value);
-    setEmailError(
-      validateEmail(value) ? '' : '올바른 이메일 형식으로 입력해주세요.',
-    );
+    const isValidEmail = validateEmail(value);
+    setEmailError(isValidEmail ? '' : '올바른 이메일 형식으로 입력해주세요.');
+    validateInputs(value, password, name, isValidEmail);
   };
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.currentTarget.value);
-    validateInputs(email, event.currentTarget.value, name);
+    validateInputs(
+      email,
+      event.currentTarget.value,
+      name,
+      validateEmail(email),
+    );
   };
 
   const onChangeName = (event: ChangeEvent<HTMLInputElement>): void => {
     setName(event.currentTarget.value);
-    validateInputs(email, password, event.currentTarget.value);
+    validateInputs(
+      email,
+      password,
+      event.currentTarget.value,
+      validateEmail(email),
+    );
   };
 
   const validateInputs = (
     email: string,
     password: string,
     name: string,
+    isValidEmail: boolean,
   ): void => {
     setIsButtonEnabled(
-      email.trim() !== '' && password.trim() !== '' && name.trim() !== '',
+      isValidEmail &&
+        email.trim() !== '' &&
+        password.trim() !== '' &&
+        name.trim() !== '',
     );
   };
 

@@ -120,7 +120,6 @@ export const Contents = styled.div`
   max-width: 996px;
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 60px;
   line-height: 24px;
 
   @media (max-width: 767px) {
@@ -131,13 +130,15 @@ export const Contents = styled.div`
 export const ImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
+  max-width: 996px;
 `;
 
 export const Image = styled.img`
   width: 100%;
-  max-width: 996px;
+  max-width: 600px;
   height: auto;
+  margin-right: 14px;
   margin-bottom: 14px;
 
   @media (max-width: 767px) {
@@ -174,7 +175,7 @@ export const ContentsBtn = styled.button`
 
   :hover {
     color: white;
-    background-color: #6d30d7;
-    animation: ${fadeIn} 0.2s ease-in-out;
+    background-color: ${({ theme }) => theme.colors.hover};
+    animation: ${fadeIn} 0.1s ease-in-out;
   }
 `;

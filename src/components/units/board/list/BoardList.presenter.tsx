@@ -1,4 +1,5 @@
 import { getDate } from '../../../../commons/libraries/utils';
+import { theme } from '../../../../commons/styles/theme';
 import Paginations01 from '../../../commons/paginations/01/Paginations01.container';
 import Searchbars01 from '../../../commons/searchbars/01/Searchbars01.container';
 import * as S from './BoardList.styles';
@@ -33,7 +34,7 @@ export default function BoardListUI(props: IBoardListUIProps): JSX.Element {
                 <span
                   key={uuidv4()}
                   style={{
-                    color: el === props.keyword ? '#6d30d7' : 'none',
+                    color: el === props.keyword ? theme.colors.hover : 'none',
                   }}
                 >
                   {el}

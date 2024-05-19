@@ -16,16 +16,20 @@ const Wrapper = styled.div`
 
   @media (max-width: 767px) {
     width: 100%;
+
+    & img {
+      width: 30px;
+    }
   }
 `;
 
 export default function LayoutFooter(): JSX.Element {
   return (
     <Wrapper>
-      <img src="img/logo1.png" />
-      <img src="img/logo2.png" />
-      <img src="img/logo3.png" />
-      <img src="img/logo4.png" />
+      <img src="/img/logo1.png" />
+      <img src="/img/logo2.png" />
+      <img src="/img/logo3.png" />
+      <img src="/img/logo4.png" />
     </Wrapper>
   );
 }

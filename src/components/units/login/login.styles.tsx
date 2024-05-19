@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { theme } from '../../../commons/styles/theme';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -33,12 +34,14 @@ export const Button = styled.button`
   margin: 20px 0 40px 0;
   padding-left: 16px;
   font-size: 16px;
-  background-color: ${(props) => (props.disabled ? '#e0e0e0' : '#6d30d7')};
+  background-color: ${(props) =>
+    props.disabled ? '#e0e0e0' : theme.colors.hover};
   color: ${(props) => (props.disabled ? '#9e9e9e' : 'white')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? '#e0e0e0' : '#6d30d7')};
+    background-color: ${(props) =>
+      props.disabled ? '#e0e0e0' : theme.colors.hover};
   }
 `;
 

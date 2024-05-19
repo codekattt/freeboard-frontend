@@ -5,7 +5,6 @@ export const IconWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 160px;
 `;
 
 export const Up = styled.div`

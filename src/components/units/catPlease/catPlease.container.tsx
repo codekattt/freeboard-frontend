@@ -10,7 +10,7 @@ export default function CatPlease(): JSX.Element {
   const [spinning, setSpinning] = useState<boolean>(false);
   const apiKey = process.env.CAT_APP_API_KEY;
 
-  const { data } =
+  const { data, loading, error } =
     useQuery<Pick<IQuery, 'fetchUserLoggedIn'>>(FETCH_USER_LOGGED_IN);
 
   const fetchCats = async () => {
@@ -36,8 +36,10 @@ export default function CatPlease(): JSX.Element {
   };
 
   useEffect(() => {
-    fetchCats(); // 컴포넌트 마운트 시 초기 이미지 불러오기
-  }, []);
+    if (!loading && !error) {
+      fetchCats();
+    }
+  }, [loading, error]);
 
   return (
     <CatPleaseUI

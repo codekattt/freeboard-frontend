@@ -13,7 +13,7 @@ export const UserTitle = styled.div`
   width: 95%;
   text-align: center;
   font-size: 24px;
-  padding: 10px 0 20px 0;
+  padding: 10px 0 40px 0;
 `;
 
 export const CatImageWrapper = styled.div`
@@ -48,14 +48,14 @@ export const CatImageWrapper = styled.div`
 `;
 
 export const button = styled.div`
-  width: 95%;
+  width: 40%;
   font-size: 24px;
   text-align: center;
-  color: #6d30d7;
+  color: ${({ theme }) => theme.colors.hover};
   background-color: white;
   margin: 20px 0;
   padding: 10px 0;
-  border: 1px solid #6d30d7;
+  border: 1px solid ${({ theme }) => theme.colors.hover};
   border-radius: 8px;
   ::after {
     content: '고양이 더 부르기';
@@ -63,7 +63,7 @@ export const button = styled.div`
 
   :hover {
     color: white;
-    background-color: #6d30d7;
+    background-color: ${({ theme }) => theme.colors.hover};
     cursor: pointer;
 
     ::after {

@@ -119,7 +119,7 @@ export const ColumnTitle = styled.div`
   text-align: center;
 
   :hover {
-    color: #6d30d7;
+    color: ${({ theme }) => theme.colors.hover};
     font-weight: 800;
     cursor: pointer;
   }
@@ -156,8 +156,8 @@ export const Button = styled.button`
 
   :hover {
     color: white;
-    background-color: #6d30d7;
-    animation: ${fadeIn} 0.2s ease-in-out;
+    background-color: ${({ theme }) => theme.colors.hover};
+    animation: ${fadeIn} 0.1s ease-in-out;
   }
 
   @media (max-width: 767px) {

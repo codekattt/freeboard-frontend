@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import type { ISubmitButtonProps } from './BoardWrite.types';
 import { Modal } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
+import { theme } from '../../../../commons/styles/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -202,10 +203,10 @@ export const SubmitButton = styled.button<ISubmitButtonProps>`
   background-color: ${(props) =>
     props.isEdit
       ? props.isActive
-        ? '#6d30d7'
-        : '#6d30d7'
+        ? theme.colors.hover
+        : theme.colors.hover
       : props.isActive
-      ? '#6d30d7'
+      ? theme.colors.hover
       : 'none'};
 
   color: ${(props) =>

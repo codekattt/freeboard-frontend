@@ -1,15 +1,19 @@
 import LayoutHeader from './header/LayoutHeader.container';
 import LayoutBanner from './banner/LayoutBanner.container';
 import LayoutNavigation from './navigation/LayoutNavigation.container';
-import styled from '@emotion/styled';
 import LayoutFooter from './footer';
+import styled from '@emotion/styled';
 
 const Body = styled.div`
-  height: auto;
+  min-height: 498px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 100px 5%;
+  padding: 80px 5%;
+
+  @media screen and (max-width: 767px) {
+    padding: 40px 5%;
+  }
 `;
 
 interface ILayoutProps {

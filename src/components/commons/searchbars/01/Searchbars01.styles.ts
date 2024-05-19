@@ -22,12 +22,12 @@ export const Searchbar = styled.div`
 `;
 
 export const FireFilledIcon = styled(FireFilled)`
-  color: #5729ff;
+  color: ${({ theme }) => theme.colors.primary};
   font-size: 30px;
   cursor: pointer;
 
   :hover {
-    color: #bba9ff;
+    color: ${({ theme }) => theme.colors.hover};
   }
 `;
 

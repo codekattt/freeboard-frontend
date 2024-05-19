@@ -61,17 +61,17 @@ export default function LoginPage(): JSX.Element {
         variables: { email, password },
       });
       const accessToken = result.data?.loginUser.accessToken;
-      console.log(accessToken);
 
       if (accessToken === undefined) {
         alert('로그인에 실패했습니다. 다시 시도해주세요.');
         return;
       }
-      setAccessToken(accessToken);
+
       localStorage.setItem('accessToken', accessToken);
+      setAccessToken(accessToken);
 
       alert('로그인 성공!');
-      void router.push('/catplease/');
+      window.location.href = '/';
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
