@@ -229,3 +229,7 @@ export const Error = styled.div`
 export const AddressModal = styled(Modal)``;
 
 export const AddressSearchInput = styled(DaumPostcode)``;
+
+export const Input = styled.input``;
+export const Textarea = styled.textarea``;
+export const Button = styled.button``;

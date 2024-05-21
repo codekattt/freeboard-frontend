@@ -7,8 +7,46 @@ import { getDateTime } from '../../../../commons/libraries/utils';
 import LikeCount from '../../../commons/likecount/01/LikeCount.container';
 import { Tooltip } from 'antd';
 import * as S from './BoardDetail.styles';
+import {
+  getFirestore,
+  getDocs,
+  collection,
+  getDoc,
+  doc,
+} from 'firebase/firestore';
+import { firebaseApp } from '../../../../commons/libraries/firebase';
+import { useState } from 'react';
+
+const onClickFetch = async (
+  documentId: string,
+  setWriter: Function,
+  setTitle: Function,
+  setContents: Function,
+): Promise<void> => {
+  try {
+    const db = getFirestore(firebaseApp);
+    const docRef = doc(db, 'board', documentId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      setWriter(data.writer);
+      setTitle(data.title);
+      setContents(data.contents);
+    } else {
+      console.log('No such document!');
+    }
+  } catch (error) {
+    console.error('Error fetching document: ', error);
+  }
+};
 
 export default function BoardDetail() {
+  const [documentId, setDocumentId] = useState('AAxTklYmu4lRvx1BlvN7');
+  const [writer, setWriter] = useState('');
+  const [title, setTitle] = useState('');
+  const [contents, setContents] = useState('');
+
   const router = useRouter();
   const { id } = useQueryIdChecker('boardId');
   const { data, loading, error } = useQueryFetchBoard({ boardId: id });
@@ -72,6 +110,16 @@ export default function BoardDetail() {
         </S.ContentsBtn>
         <S.ContentsBtn onClick={onClickDelete}>삭제하기</S.ContentsBtn>
       </S.ButtonWrapper>
+      <div>writer: {writer}</div>
+      <div>title: {title}</div>
+      <div>contents: {contents}</div>
+      <S.ContentsBtn
+        onClick={() =>
+          onClickFetch(documentId, setWriter, setTitle, setContents)
+        }
+      >
+        파이어베이스 데이터 가져오기
+      </S.ContentsBtn>
     </>
   );
 }

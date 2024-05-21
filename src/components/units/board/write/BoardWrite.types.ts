@@ -8,28 +8,37 @@ export interface IBoardWriteProps {
 }
 
 export interface IBoardWriteUIProps {
-  writerError: string;
-  passwordError: string;
-  titleError: string;
-  contentsError: string;
-  onClickAddressSearch: () => void;
-  onCompleteAddressSearch: (data: Address) => void;
-  onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeFileUrls: (fileUrls: string, index: number) => void;
+  writer: string;
+  setWriter: any;
+  password: string;
+  setPassword: any;
+  title: string;
+  setTitle: any;
+  contents: string;
+  setContents: any;
+
+  // writerError: string;
+  // passwordError: string;
+  // titleError: string;
+  // contentsError: string;
+  // onClickAddressSearch: () => void;
+  // onCompleteAddressSearch: (data: Address) => void;
+  // onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  // onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
+  // onChangeFileUrls: (fileUrls: string, index: number) => void;
   onClickSubmit: () => void;
-  onClickEdit: () => void;
-  isActive: boolean;
-  isEdit: boolean;
-  data?: Pick<IQuery, 'fetchBoard'>;
-  isOpen: boolean;
-  zipcode: string;
-  address: string;
-  fileUrls: string[];
+  // onClickEdit: () => void;
+  // isActive: boolean;
+  // isEdit: boolean;
+  // data?: Pick<IQuery, 'fetchBoard'>;
+  // isOpen: boolean;
+  // zipcode: string;
+  // address: string;
+  // fileUrls: string[];
 }
 
 export interface ISubmitButtonProps {
