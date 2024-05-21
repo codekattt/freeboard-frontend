@@ -8,7 +8,7 @@ import type {
 } from '../../../commons/types/generated/types';
 import { useRecoilState } from 'recoil';
 import { accessTokenState } from '../../../commons/stores';
-import * as S from './login.styles';
+import * as S from './LogIn.styles';
 
 const LOGIN_USER = gql`
   mutation loginUser($email: String!, $password: String!) {
