@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
   box-shadow: 0px 0px 10px #cccccc;
 `;
 
-export const Title = styled.div`
+export const Post = styled.div`
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 80px;
@@ -58,7 +58,7 @@ export const Password = styled.input`
   padding-left: 16px;
 `;
 
-export const Subject = styled.input`
+export const Title = styled.input`
   width: 100%;
   height: 52px;
   border: 1px solid #bdbdbd;
@@ -66,7 +66,7 @@ export const Subject = styled.input`
   padding-left: 16px;
 `;
 
-export const SubjectWrapper = styled.div`
+export const TitleWrapper = styled.div`
   width: 100%;
   margin-top: 40px;
   display: flex;

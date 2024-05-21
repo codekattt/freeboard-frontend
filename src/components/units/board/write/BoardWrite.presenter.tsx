@@ -12,7 +12,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps): JSX.Element {
         </S.AddressModal>
       )}
       <S.Wrapper>
-        <S.Title>게시글 {props.isEdit ? '수정' : '등록'}</S.Title>
+        <S.Post>게시글 {props.isEdit ? '수정' : '등록'}</S.Post>
         <S.WriterWrapper>
           <S.WriterWrapperContainer>
             <S.Label>작성자</S.Label>
@@ -35,16 +35,16 @@ export default function BoardWriteUI(props: IBoardWriteUIProps): JSX.Element {
             <S.Error>{props.passwordError}</S.Error>
           </S.WriterWrapperContainer>
         </S.WriterWrapper>
-        <S.SubjectWrapper>
+        <S.TitleWrapper>
           <S.Label>제목</S.Label>
-          <S.Subject
+          <S.Title
             type="text"
             placeholder="제목을 작성해 주세요."
-            onChange={props.onChangeSubject}
+            onChange={props.onChangeTitle}
             defaultValue={props.data?.fetchBoard.title}
           />
-          <S.Error>{props.subjectError}</S.Error>
-        </S.SubjectWrapper>
+          <S.Error>{props.titleError}</S.Error>
+        </S.TitleWrapper>
         <S.ContentsWrapper>
           <S.Label>내용</S.Label>
           <S.Contents

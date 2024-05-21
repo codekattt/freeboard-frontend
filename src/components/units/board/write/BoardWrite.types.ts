@@ -10,13 +10,13 @@ export interface IBoardWriteProps {
 export interface IBoardWriteUIProps {
   writerError: string;
   passwordError: string;
-  subjectError: string;
+  titleError: string;
   contentsError: string;
   onClickAddressSearch: () => void;
   onCompleteAddressSearch: (data: Address) => void;
   onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeSubject: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;

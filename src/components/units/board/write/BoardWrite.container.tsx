@@ -20,7 +20,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
 
   const [writer, setWriter] = useState('');
   const [password, setPassword] = useState('');
-  const [subject, setSubject] = useState('');
+  const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
   const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState('');
@@ -30,7 +30,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
 
   const [writerError, setWriterError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [subjectError, setSubjectError] = useState('');
+  const [titleError, setTitleError] = useState('');
   const [contentsError, setContentsError] = useState('');
 
   const [createBoard] = useMutation<
@@ -52,7 +52,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     if (
       event.target.value !== '' &&
       password !== '' &&
-      subject !== '' &&
+      title !== '' &&
       contents !== ''
     ) {
       setIsActive(true);
@@ -70,7 +70,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     if (
       writer !== '' &&
       event.target.value !== '' &&
-      subject !== '' &&
+      title !== '' &&
       contents !== ''
     ) {
       setIsActive(true);
@@ -79,10 +79,10 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     }
   };
 
-  const onChangeSubject = (event: ChangeEvent<HTMLInputElement>) => {
-    setSubject(event.target.value);
+  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
     if (event.target.value !== '') {
-      setSubjectError('');
+      setTitleError('');
     }
 
     if (
@@ -106,7 +106,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     if (
       writer !== '' &&
       password !== '' &&
-      subject !== '' &&
+      title !== '' &&
       event.target.value !== ''
     ) {
       setIsActive(true);
@@ -154,8 +154,8 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     if (!password) {
       setPasswordError('✕ 비밀번호를 입력해주세요.');
     }
-    if (!subject) {
-      setSubjectError('✕ 제목을 입력해주세요.');
+    if (!title) {
+      setTitleError('✕ 제목을 입력해주세요.');
     }
     if (!contents) {
       setContentsError('✕ 내용을 입력해주세요.');
@@ -163,7 +163,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     if (
       writer &&
       password &&
-      subject &&
+      title &&
       contents
       // zipcode &&
       // address &&
@@ -176,7 +176,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
             createBoardInput: {
               writer,
               password,
-              title: subject,
+              title: title,
               contents,
               youtubeUrl,
               images: [...fileUrls],
@@ -203,7 +203,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     const isChangedFiles = currentFiles !== deFaultFiles;
 
     if (
-      !subject &&
+      !title &&
       !contents &&
       !zipcode &&
       !address &&
@@ -225,7 +225,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
       alert('시스템에 문가 있습니다.');
       return;
     }
-    if (subject) updateBoardInput.title = subject;
+    if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
     if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
     if (zipcode !== '' || address !== '' || addressDetail !== '') {
@@ -265,11 +265,11 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
     <BoardWriteUI
       writerError={writerError}
       passwordError={passwordError}
-      subjectError={subjectError}
+      titleError={titleError}
       contentsError={contentsError}
       onChangeWriter={onChangeWriter}
       onChangePassword={onChangePassword}
-      onChangeSubject={onChangeSubject}
+      onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
       onChangeAddressDetail={onChangeAddressDetail}
       onChangeYoutubeUrl={onChangeYoutubeUrl}

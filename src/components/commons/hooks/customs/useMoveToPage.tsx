@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { visitedPageState } from "../../../commons/stores";
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { visitedPageState } from '../../../../commons/stores';
 
 interface IUseMoveToPageReturn {
   visitedPage: string;
