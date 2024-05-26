@@ -8,3 +8,15 @@ export interface IBoardCommentListUIProps {
   onClickEditComment: (id: string) => void;
   onClickDeleteComment: (id: string) => void;
 }
+
+export interface Comment {
+  id: string;
+  writer: string;
+  password: string;
+  contents: string;
+  rating: number;
+  createdAt: {
+    seconds: number;
+    nanoseconds: number;
+  };
+}

@@ -1,25 +1,18 @@
-import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
-import type {
-  IMutation,
-  IMutationCreateUserArgs,
-} from '../../../commons/types/generated/types';
 import * as S from './signUp.styles';
 
-const SIGNUP_USER = gql`
-  mutation createUser($createUserInput: CreateUserInput!) {
-    createUser(createUserInput: $createUserInput) {
-      _id
-      email
-      name
-    }
-  }
-`;
+import { firebaseApp } from '../../../commons/libraries/firebase';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 
 export default function SignUpPage(): JSX.Element {
   const router = useRouter();
+  const auth = getAuth(firebaseApp);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,53 +20,50 @@ export default function SignUpPage(): JSX.Element {
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
   const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const validateEmail = (value: string): boolean => {
     const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.(com|net)$/;
     return regex.test(value);
   };
 
-  const [createUser] = useMutation<
-    Pick<IMutation, 'createUser'>,
-    IMutationCreateUserArgs
-  >(SIGNUP_USER);
+  const validatePassword = (value: string): boolean => {
+    return value.length >= 6;
+  };
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     setEmail(value);
     const isValidEmail = validateEmail(value);
     setEmailError(isValidEmail ? '' : '올바른 이메일 형식으로 입력해주세요.');
-    validateInputs(value, password, name, isValidEmail);
+    validateInputs(value, password, name);
   };
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.currentTarget.value);
-    validateInputs(
-      email,
-      event.currentTarget.value,
-      name,
-      validateEmail(email),
+    const newValue = event.currentTarget.value;
+    setPassword(newValue);
+    const isValidPassword = validatePassword(newValue);
+    setPasswordError(
+      isValidPassword ? '' : '비밀번호는 6자리 이상이어야 합니다.',
     );
+    validateInputs(email, newValue, name);
   };
 
   const onChangeName = (event: ChangeEvent<HTMLInputElement>): void => {
     setName(event.currentTarget.value);
-    validateInputs(
-      email,
-      password,
-      event.currentTarget.value,
-      validateEmail(email),
-    );
+    validateInputs(email, password, event.currentTarget.value);
   };
 
   const validateInputs = (
     email: string,
     password: string,
     name: string,
-    isValidEmail: boolean,
   ): void => {
+    const isValidEmail = validateEmail(email);
+    const isValidPassword = validatePassword(password);
     setIsButtonEnabled(
       isValidEmail &&
+        isValidPassword &&
         email.trim() !== '' &&
         password.trim() !== '' &&
         name.trim() !== '',
@@ -81,16 +71,21 @@ export default function SignUpPage(): JSX.Element {
   };
 
   const onClickSignUp = async () => {
+    if (!isButtonEnabled) return;
     try {
-      const result = await createUser({
-        variables: {
-          createUserInput: {
-            email,
-            password,
-            name,
-          },
-        },
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
+
+      // 사용자 이름 업데이트
+      await updateProfile(user, {
+        displayName: name,
       });
+
+      console.log(user);
 
       alert('가입을 축하합니다!');
       router.push('/');
@@ -122,6 +117,7 @@ export default function SignUpPage(): JSX.Element {
           onChange={onChangePassword}
           placeholder="비밀번호를 입력하세요."
         />
+        {passwordError && <S.Message>{passwordError}</S.Message>}
 
         <S.Button onClick={onClickSignUp} disabled={!isButtonEnabled}>
           가입하기

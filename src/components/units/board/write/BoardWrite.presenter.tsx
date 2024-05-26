@@ -1,13 +1,12 @@
+import React from 'react';
+import { useEffect, useRef } from 'react';
 import type { IBoardWriteUIProps } from './BoardWrite.types';
 import * as S from './BoardWrite.styles';
-import { useEffect, useRef } from 'react';
-import React from 'react';
 
 export default function BoardWriteUI(props: IBoardWriteUIProps): JSX.Element {
   const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
-    // 선택된 파일의 개수에 맞게 참조 배열을 조정
     fileInputRefs.current = fileInputRefs.current.slice(
       0,
       props.selectedFiles.length,
@@ -25,7 +24,11 @@ export default function BoardWriteUI(props: IBoardWriteUIProps): JSX.Element {
   return (
     <>
       {props.isOpen && (
-        <S.AddressModal open={true}>
+        <S.AddressModal
+          open={props.isOpen}
+          onOk={props.onClickAddressSearch}
+          onCancel={props.onClickAddressSearch}
+        >
           <S.AddressSearchInput onComplete={props.onCompleteAddressSearch} />
         </S.AddressModal>
       )}

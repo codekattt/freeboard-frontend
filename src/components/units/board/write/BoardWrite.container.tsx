@@ -158,6 +158,7 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
 
   const onClickAddressSearch = () => {
     setIsOpen((prev) => !prev);
+    console.log;
   };
 
   const onCompleteAddressSearch = (data: Address) => {

@@ -1,26 +1,21 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { FETCH_USER_LOGGED_IN } from './catPlease.queries';
 import CatPleaseUI from './catPlease.presenter';
-import type { IQuery } from '../../../commons/types/generated/types';
 
 export default function CatPlease(): JSX.Element {
+  // const apiKey = process.env.CAT_APP_API_KEY;
+
   const [cats, setCats] = useState<string[]>([]);
   const [spinning, setSpinning] = useState<boolean>(false);
-  const apiKey = process.env.CAT_APP_API_KEY;
-
-  const { data, loading, error } =
-    useQuery<Pick<IQuery, 'fetchUserLoggedIn'>>(FETCH_USER_LOGGED_IN);
 
   const fetchCats = async () => {
-    setSpinning(true); // 스핀 상태를 true로 설정하여 로딩 중임을 표시
+    setSpinning(true);
     try {
       const promises = [];
       for (let i = 0; i < 3; i++) {
         promises.push(
           axios.get('https://api.thecatapi.com/v1/images/search', {
-            headers: { 'x-api-key': apiKey },
+            // headers: { 'x-api-key': apiKey },
           }),
         );
       }
@@ -31,22 +26,15 @@ export default function CatPlease(): JSX.Element {
     } catch (error) {
       console.error('Error fetching cats:', error);
     } finally {
-      setSpinning(false); // 로딩 완료 후 스핀 상태를 false로 설정하여 로딩 중인 상태를 해제
+      setSpinning(false);
     }
   };
 
   useEffect(() => {
-    if (!loading && !error) {
+    if (window) {
       fetchCats();
     }
-  }, [loading, error]);
+  }, []);
 
-  return (
-    <CatPleaseUI
-      fetchCats={fetchCats}
-      cats={cats}
-      spinning={spinning}
-      data={data}
-    />
-  );
+  return <CatPleaseUI fetchCats={fetchCats} cats={cats} spinning={spinning} />;
 }

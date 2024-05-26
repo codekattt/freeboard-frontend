@@ -8,12 +8,25 @@ import {
   getDocs,
   deleteDoc,
   collection,
+  updateDoc,
+  increment,
 } from 'firebase/firestore';
 import { Tooltip } from 'antd';
 import { getDateTime } from '../../../../commons/libraries/utils';
 import { useMoveToPage } from '../../../commons/hooks/customs/useMoveToPage';
 import * as S from './BoardDetail.styles';
 import { deleteObject, getStorage, listAll, ref } from 'firebase/storage';
+
+const incrementViewCount = async (boardId: string) => {
+  try {
+    const boardRef = doc(db, 'board', boardId);
+    await updateDoc(boardRef, {
+      views: increment(1),
+    });
+  } catch (error) {
+    console.error('Failed to increment view count:', error);
+  }
+};
 
 const fetchBoard = async (
   documentId: string,
@@ -26,6 +39,7 @@ const fetchBoard = async (
   setFileUrls: Function,
   setYoutubeUrl: Function,
   setError: Function,
+  setViews: Function, // 조회수 상태 업데이트 함수 추가
 ): Promise<void> => {
   try {
     const db = getFirestore(firebaseApp);
@@ -42,6 +56,7 @@ const fetchBoard = async (
       setAddressDetail(data.addressDetail);
       setYoutubeUrl(data.youtubeUrl);
       setFileUrls(data.fileUrls);
+      setViews(data.views || 0); // 조회수 데이터 설정
     } else {
       console.log('No such document!');
       setError('Document does not exist');
@@ -65,24 +80,31 @@ export default function BoardDetail() {
   const [fileUrls, setFileUrls] = useState<string[]>([]);
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [error, setError] = useState('');
+  const [views, setViews] = useState(0);
 
   const { onClickMoveToPage } = useMoveToPage();
 
   useEffect(() => {
-    if (boardId) {
-      fetchBoard(
-        boardId as string,
-        setWriter,
-        setTitle,
-        setContents,
-        setCreatedAt,
-        setAddress,
-        setAddressDetail,
-        setFileUrls,
-        setYoutubeUrl,
-        setError,
-      );
-    }
+    const loadBoardDetails = async () => {
+      if (boardId) {
+        await fetchBoard(
+          boardId as string,
+          setWriter,
+          setTitle,
+          setContents,
+          setCreatedAt,
+          setAddress,
+          setAddressDetail,
+          setFileUrls,
+          setYoutubeUrl,
+          setError,
+          setViews,
+        );
+        await incrementViewCount(boardId as string);
+      }
+    };
+
+    loadBoardDetails();
   }, [boardId]);
 
   if (error) {
@@ -147,6 +169,7 @@ export default function BoardDetail() {
           <S.ProfileWrapper>
             <S.Writer>{writer}</S.Writer>
             <S.Date>{getDateTime(createdAt)}</S.Date>
+            <div>조회수: {1 + views}</div>
           </S.ProfileWrapper>
           <S.WriterIconWrapper>
             <S.WriterIcon src={`/img/ic_link-32px.svg`} />

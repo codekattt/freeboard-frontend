@@ -1,4 +1,4 @@
-import MarketPage from '../../src/components/units/market/market';
+import MarketPage from '../../src/components/units/market/market.index';
 
 export default function SignUp(): JSX.Element {
   return <MarketPage />;

@@ -1,21 +1,12 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import type { IBoardCommentListUIProps } from './BoardCommentList.types';
+import type {
+  IBoardCommentListUIProps,
+  Comment,
+} from './BoardCommentList.types';
 import * as S from './BoardCommentList.styles';
 import { db } from '../../../../commons/libraries/firebase';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
-
-interface Comment {
-  id: string;
-  writer: string;
-  password: string;
-  contents: string;
-  rating: number;
-  createdAt: {
-    seconds: number;
-    nanoseconds: number;
-  };
-}
 
 export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
   const router = useRouter();

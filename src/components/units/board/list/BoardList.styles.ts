@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import { theme } from '../../../../commons/styles/theme';
 
 const fadeIn = keyframes`
   from {
@@ -15,119 +16,6 @@ export const Wrapper = styled.div`
 
   @media (max-width: 767px) {
     font-size: 16px;
-  }
-`;
-
-export const TableTop = styled.div`
-  border-top: 2px solid black;
-  margin-top: 20px;
-`;
-
-export const TableBottom = styled.div`
-  border-bottom: 2px solid #bdbdbd;
-`;
-
-export const TopRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 52px;
-  line-height: 52px;
-  border-bottom: 1px solid #bdbdbd;
-
-  @media (max-width: 767px) {
-    display: none;
-  }
-`;
-
-export const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 52px;
-  line-height: 52px;
-  border-bottom: 1px solid #bdbdbd;
-
-  @media (max-width: 767px) {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    line-height: 1.4;
-    padding: 12px 4px;
-  }
-`;
-
-export const ColumnHeaderBasic = styled.div`
-  width: 10%;
-  font-size: 18px;
-  font-weight: 700;
-  text-align: center;
-  background-color: #f3f3f2;
-
-  @media (max-width: 767px) {
-    font-size: 16px;
-  }
-`;
-
-export const ColumnHeaderTitle = styled.div`
-  width: 70%;
-  font-size: 18px;
-  font-weight: 700;
-  text-align: center;
-  background-color: #f3f3f2;
-
-  @media (max-width: 767px) {
-    font-size: 16px;
-  }
-`;
-
-export const ColumnBasic = styled.div`
-  width: 10%;
-  text-align: center;
-
-  &.writer,
-  &.date {
-    width: 50%;
-  }
-
-  @media (max-width: 767px) {
-    text-align: left;
-    color: gray;
-
-    &.writer,
-    &.date {
-      width: auto;
-    }
-    &.DisplayNone {
-      display: none;
-    }
-  }
-`;
-
-export const Mobile = styled.div`
-  width: 20%;
-  display: flex;
-
-  @media (max-width: 767px) {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-`;
-
-export const ColumnTitle = styled.div`
-  width: 70%;
-  text-align: center;
-
-  :hover {
-    color: ${({ theme }) => theme.colors.hover};
-    font-weight: 800;
-    cursor: pointer;
-  }
-
-  @media (max-width: 767px) {
-    text-align: left;
-    font-size: 20px;
-    padding-bottom: 12px;
   }
 `;
 
@@ -182,16 +70,30 @@ export const BoardItem = styled.div`
 `;
 
 export const BoardTitle = styled.div`
+  font-size: 18px;
   font-weight: bold;
+  margin-bottom: 10px;
   cursor: pointer;
+
+  :hover {
+    color: ${({ theme }) => theme.colors.hover};
+  }
+`;
+
+export const Div = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const BoardWriter = styled.div`
   color: #555;
 `;
 
-export const BoardContents = styled.div`
-  margin-top: 10px;
+export const Views = styled.div`
+  color: #555;
+  margin-left: 10px;
 `;
 
 export const BoardDate = styled.div`
@@ -200,21 +102,20 @@ export const BoardDate = styled.div`
 `;
 export const Pagination = styled.div`
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  flex-direction: row;
 `;
 
 export const PageButton = styled.button<{ active?: boolean }>`
   padding: 5px 10px;
   margin: 0 3px;
   background-color: ${(props) =>
-    props.active ? '#0056b3' : props.disabled ? '#ccc' : '#007BFF'};
+    props.active ? 'green' : props.disabled ? '#ccc' : theme.colors.hover};
   color: white;
   border: none;
   border-radius: 5px;
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? '#ccc' : '#0056b3')};
+    background-color: ${(props) => (props.disabled ? '#ccc' : 'green')};
   }
 `;

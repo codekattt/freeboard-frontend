@@ -13,14 +13,8 @@ import {
 } from 'firebase/firestore';
 import { db, firebaseApp } from '../../../../commons/libraries/firebase';
 import { getDateTime } from '../../../../commons/libraries/utils';
+import type { IBoard } from './BoardList.types';
 import * as S from './BoardList.styles';
-
-interface IBoard {
-  id: string;
-  writer: string;
-  title: string;
-  createdAt: string;
-}
 
 const PAGE_SIZE = 10; // 한 페이지에 보여줄 게시글 수 조정
 
@@ -129,37 +123,48 @@ export default function BoardList(): JSX.Element {
         {boards.map((el) => (
           <S.BoardItem key={el.id}>
             <S.BoardTitle onClick={onClickMoveToPage(`/boards/${el.id}`)}>
-              제목: {el.title}
+              {el.title}
             </S.BoardTitle>
-            <S.BoardWriter>작성자: {el.writer}</S.BoardWriter>
-            <S.BoardDate>{getDateTime(el.createdAt)}</S.BoardDate>
+            <S.Div>
+              <S.Div>
+                <S.BoardWriter>🙂 {el.writer}</S.BoardWriter>
+                <S.Views> 조회수: {el.views}</S.Views>
+              </S.Div>
+              <S.BoardDate>{getDateTime(el.createdAt)}</S.BoardDate>
+            </S.Div>
           </S.BoardItem>
         ))}
       </S.BoardList>
-      <S.Pagination>
-        <S.PageButton onClick={handlePrevPage} disabled={currentPage === 1}>
-          Previous
-        </S.PageButton>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <S.PageButton
-            key={i + 1}
-            onClick={() => handlePageClick(i + 1)}
-            active={currentPage === i + 1}
-          >
-            {i + 1}
+
+      {/* 페이지네이션 */}
+      <S.Footer>
+        <S.Pagination>
+          <S.PageButton onClick={handlePrevPage} disabled={currentPage === 1}>
+            이전
           </S.PageButton>
-        ))}
-        <S.PageButton
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </S.PageButton>
-      </S.Pagination>
-      <S.Button onClick={onClickMoveToPage('/boards/new')}>
-        <img src="/img/write.png" />
-        <span className="hide-text">게시물 등록</span>
-      </S.Button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <S.PageButton
+              key={i + 1}
+              onClick={() => handlePageClick(i + 1)}
+              active={currentPage === i + 1}
+            >
+              {i + 1}
+            </S.PageButton>
+          ))}
+          <S.PageButton
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            다음
+          </S.PageButton>
+        </S.Pagination>
+
+        {/* 버튼 */}
+        <S.Button onClick={onClickMoveToPage('/boards/new')}>
+          <img src="/img/write.png" />
+          <span className="hide-text">게시물 등록</span>
+        </S.Button>
+      </S.Footer>
     </S.Wrapper>
   );
 }
