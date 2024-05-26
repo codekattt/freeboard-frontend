@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import InfiniteScroll from 'react-infinite-scroller';
 import { keyframes } from '@emotion/react';
 import { Rate } from 'antd';
 
@@ -19,6 +18,12 @@ const fadeIn = keyframes`
   100% {
     opacity: 1;
   }
+`;
+
+export const Wrapper = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 40px;
 `;
 
 export const CommentWrapper = styled.div`
@@ -77,7 +82,7 @@ export const ContentsWriter = styled.div`
   margin-right: 5px;
 `;
 
-export const ContentsRate = styled(Rate)`
+export const Star = styled(Rate)`
   margin-left: 20px;
 
   .ant-rate-star:not(:last-child) {
@@ -115,7 +120,7 @@ export const WriterIconWrapper = styled.div`
   }
 `;
 
-// 아래부터 댓글 수정 스타일스 //
+// 아래부터 댓글 수정 스타일 //
 
 export const EditCommentWrapper = styled.div`
   width: 100%;
@@ -134,6 +139,10 @@ export const EditCommentWriterWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
+
+  @media (max-width: 767px) {
+    width: 95%;
+  }
 `;
 
 export const EditCommentWriter = styled.div`
@@ -142,6 +151,8 @@ export const EditCommentWriter = styled.div`
   font-size: 16px;
   font-weight: 500;
   padding: 15px 20px;
+  color: gray;
+  background-color: #eee;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
 
@@ -155,10 +166,10 @@ export const EditCommentPassword = styled.input`
   height: 52px;
   font-size: 16px;
   font-weight: 500;
-  margin-left: 24px;
   padding-left: 20px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
+  margin-left: 24px;
 
   @media (max-width: 767px) {
     width: 30%;
@@ -166,7 +177,7 @@ export const EditCommentPassword = styled.input`
   }
 `;
 
-export const EditCommentStar = styled(Rate)`
+export const EditStar = styled(Rate)`
   margin-left: 24px;
   padding-top: 13px;
   font-size: 26px;
@@ -235,10 +246,4 @@ export const EditCommentRegButton = styled.button`
   &.reg {
     border-radius: 0 0 5px 0;
   }
-`;
-
-export const InfiniteScrollUI = styled(InfiniteScroll)`
-  width: 100%;
-  max-width: 1200px;
-  margin-bottom: 40px;
 `;

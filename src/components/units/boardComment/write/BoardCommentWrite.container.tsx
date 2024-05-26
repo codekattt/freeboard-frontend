@@ -1,10 +1,10 @@
-import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
 import BoardCommentWriteUI from './BoardCommentWrite.presenter';
-import { FETCH_BOARD_COMMENTS } from '../List/BoardCommentList.queries';
-import { CREATE_BOARD_COMMENT } from './BoardCommentWrite.queries';
+
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../../../commons/libraries/firebase';
 
 export default function BoardCommentWrite(): JSX.Element {
   const router = useRouter();
@@ -21,8 +21,6 @@ export default function BoardCommentWrite(): JSX.Element {
   const [commentContentsError, setCommentContentsError] = useState('');
 
   const [inputCount, setInputCount] = useState(0);
-
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
 
   const onChangeStar = (value: number): void => {
     setStar(value);
@@ -75,50 +73,39 @@ export default function BoardCommentWrite(): JSX.Element {
   };
 
   const onClickCommentSubmit = async () => {
-    if (!commentWriter) {
-      alert('작성자를 입력해주세요.');
-      return;
-    }
-    if (!commentPassword) {
-      alert('비밀번호를 입력해주세요.');
-      return;
-    }
-    if (!commentContents) {
-      alert('내용을 입력해주세요.');
-      return;
-    }
-    if (!star) {
-      alert('평점을 선택해주세요.');
+    if (!commentWriter || !commentPassword || !commentContents || !star) {
+      alert('모든 필드를 채워주세요.');
       return;
     }
 
-    if (commentWriter && commentPassword && commentContents && star) {
-      try {
-        const result = await createBoardComment({
-          variables: {
-            boardId: router.query.boardId,
-            createBoardCommentInput: {
-              writer: commentWriter,
-              password: commentPassword,
-              contents: commentContents,
-              rating: star,
-            },
-          },
-          refetchQueries: [
-            {
-              query: FETCH_BOARD_COMMENTS,
-              variables: { boardId: router.query.boardId },
-            },
-          ],
-        });
-        alert('댓글이 등록되었습니다.');
-      } catch (error) {
-        alert((error as { message: string }).message);
-      }
+    // router.query.boardId가 undefined가 아닌지 확인
+    const boardId = router.query.boardId;
+    if (typeof boardId !== 'string') {
+      alert('게시판 ID가 잘못되었습니다.');
+      return;
     }
-    setCommentWriter('');
-    setCommentPassword('');
-    setCommentContents('');
+
+    try {
+      const commentRef = collection(db, 'boardComments', boardId, 'comments');
+      const newComment = {
+        writer: commentWriter,
+        password: commentPassword,
+        contents: commentContents,
+        rating: star,
+        createdAt: new Date(),
+      };
+
+      await addDoc(commentRef, newComment);
+
+      alert('댓글이 등록되었습니다.');
+      setCommentWriter('');
+      setCommentPassword('');
+      setCommentContents('');
+      setStar(0);
+    } catch (error) {
+      console.error('Error updating comment: ', error);
+      alert('댓글 등록 실패');
+    }
   };
 
   return (

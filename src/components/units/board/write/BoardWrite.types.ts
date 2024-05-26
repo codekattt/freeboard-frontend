@@ -1,44 +1,55 @@
 import { ChangeEvent } from 'react';
-import { IQuery } from '../../../../commons/types/generated/types';
 import { Address } from 'react-daum-postcode';
 
 export interface IBoardWriteProps {
   isEdit: boolean;
-  data?: Pick<IQuery, 'fetchBoard'>;
 }
 
 export interface IBoardWriteUIProps {
-  writer: string;
-  setWriter: any;
-  password: string;
-  setPassword: any;
-  title: string;
-  setTitle: any;
-  contents: string;
-  setContents: any;
+  // Errors
+  writerError: string;
+  passwordError: string;
+  titleError: string;
+  contentsError: string;
 
-  // writerError: string;
-  // passwordError: string;
-  // titleError: string;
-  // contentsError: string;
-  // onClickAddressSearch: () => void;
-  // onCompleteAddressSearch: (data: Address) => void;
-  // onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  // onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
-  // onChangeFileUrls: (fileUrls: string, index: number) => void;
+  // Address Handlers
+  onClickAddressSearch: () => void;
+  onCompleteAddressSearch: (data: Address) => void;
+
+  // Change Handlers
+  onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
+
+  // Image Upload Handlers
+  onClickUploadImg: (
+    event: ChangeEvent<HTMLInputElement>,
+    index: number,
+  ) => void;
+  onClickEditUploadImg: (
+    event: ChangeEvent<HTMLInputElement>,
+    index: number,
+  ) => void;
+
+  // Submit Handlers
   onClickSubmit: () => void;
-  // onClickEdit: () => void;
-  // isActive: boolean;
-  // isEdit: boolean;
-  // data?: Pick<IQuery, 'fetchBoard'>;
-  // isOpen: boolean;
-  // zipcode: string;
-  // address: string;
-  // fileUrls: string[];
+  onClickEdit: () => void;
+
+  // States
+  isActive: boolean;
+  isEdit: boolean;
+  isOpen: boolean;
+  zipcode: string;
+  address: string;
+  addressDetail: string;
+  fileUrls: string[];
+  selectedFiles: (File | null)[];
+
+  // Data
+  data?: any;
 }
 
 export interface ISubmitButtonProps {

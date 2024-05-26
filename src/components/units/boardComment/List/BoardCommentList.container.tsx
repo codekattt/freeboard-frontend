@@ -1,27 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useMutation, useQuery } from '@apollo/client';
-import {
-  FETCH_BOARD_COMMENTS,
-  UPDATE_BOARD_COMMENT,
-  DELETE_BOARD_COMMENT,
-} from './BoardCommentList.queries';
 import type { ChangeEvent } from 'react';
-import type {
-  IMutation,
-  IMutationDeleteBoardCommentArgs,
-  IMutationUpdateBoardCommentArgs,
-  IQuery,
-  IQueryFetchBoardCommentsArgs,
-} from '../../../../commons/types/generated/types';
 import BoardCommentListUI from './BoardCommentList.presenter';
+import { doc, deleteDoc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../../../../commons/libraries/firebase';
 
 export default function BoardCommentList(): JSX.Element {
   const router = useRouter();
   const boardId =
     typeof router.query.boardId === 'string' ? router.query.boardId : '';
-  // if (typeof router.query.boardId !== 'string') return <></>; // 해당 코드 적용 시 새로고침 할 때 에러 발생으로 위 코드로 대체.
 
   const [isActive, setIsActive] = useState(false);
 
@@ -32,24 +20,7 @@ export default function BoardCommentList(): JSX.Element {
   const [commentPasswordError, setCommentPasswordError] = useState('');
   const [commentContentsError, setCommentContentsError] = useState('');
 
-  const [commentIdToDelete, setCommentIdToDelete] = useState(null);
-  const [commentIdToEdit, setCommentIdToEdit] = useState(null);
-
-  const [deleteBoardComment] = useMutation<
-    Pick<IMutation, 'deleteBoardComment'>,
-    IMutationDeleteBoardCommentArgs
-  >(DELETE_BOARD_COMMENT);
-  const [updateBoardComment] = useMutation<
-    Pick<IMutation, 'updateBoardComment'>,
-    IMutationUpdateBoardCommentArgs
-  >(UPDATE_BOARD_COMMENT);
-
-  const { data, refetch, fetchMore } = useQuery<
-    Pick<IQuery, 'fetchBoardComments'>,
-    IQueryFetchBoardCommentsArgs
-  >(FETCH_BOARD_COMMENTS, {
-    variables: { boardId },
-  });
+  const [commentIdToEdit, setCommentIdToEdit] = useState<string | null>(null);
 
   const onChangeCommentPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setCommentPassword(event.target.value);
@@ -81,25 +52,18 @@ export default function BoardCommentList(): JSX.Element {
     setStar(value);
   };
 
-  // 수정 아이콘 클릭하면 수정창 생성 //
-  const onClickEditComment = (commentId: any) => {
+  // 수정 아이콘 클릭하면 수정창 생성
+  const onClickEditComment = (commentId: string) => {
     setCommentIdToEdit(commentId);
   };
 
-  // 수정취소 클릭하면 원래대로 돌리기 //
+  // 수정취소 클릭하면 원래대로 돌리기
   const onCancelEditComment = () => {
     setCommentIdToEdit(null);
   };
 
-  const onClickUpdateComment = async (commentId: any) => {
-    interface updateBoardCommentInput {
-      contents?: string;
-      rating?: number;
-    }
-
-    setCommentIdToEdit(commentId);
-
-    if (!commentContents && !star) {
+  const onClickUpdateComment = async (commentId: string) => {
+    if (!commentContents && star === 0) {
       alert('수정한 내용이 없습니다.');
       return;
     }
@@ -109,21 +73,38 @@ export default function BoardCommentList(): JSX.Element {
       return;
     }
 
-    const updateBoardCommentInput: updateBoardCommentInput = {};
-    if (commentContents) updateBoardCommentInput.contents = commentContents;
-    if (star) updateBoardCommentInput.rating = star;
-
     try {
-      const result = await updateBoardComment({
-        variables: {
-          boardCommentId: commentId,
-          password: commentPassword,
-          updateBoardCommentInput,
-        },
-      });
-      console.log(result);
+      const commentRef = doc(
+        db,
+        'boardComments',
+        boardId as string,
+        'comments',
+        commentId,
+      );
+      const commentSnapshot = await getDoc(commentRef);
 
-      await refetch();
+      if (!commentSnapshot.exists()) {
+        alert('댓글을 찾을 수 없습니다.');
+        return;
+      }
+
+      const commentData = commentSnapshot.data();
+      if (commentData?.password !== commentPassword) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+      }
+
+      const updatedData: {
+        contents?: string;
+        rating?: number;
+        updatedAt: Date;
+      } = {
+        updatedAt: new Date(),
+      };
+      if (commentContents) updatedData.contents = commentContents;
+      if (star !== 0 && star !== commentData.rating) updatedData.rating = star;
+
+      await updateDoc(commentRef, updatedData);
 
       setCommentIdToEdit(null);
       setCommentContents('');
@@ -131,63 +112,56 @@ export default function BoardCommentList(): JSX.Element {
       setStar(0);
 
       alert('댓글이 수정되었습니다.');
-      refetch();
     } catch (error) {
-      alert((error as { message: string }).message);
+      console.error('Error updating comment: ', error);
+      alert('댓글 수정 실패');
     }
   };
 
-  const onClickDeleteComment = async (commentId: any) => {
-    setCommentIdToDelete(commentId);
+  const onClickDeleteComment = async (commentId: string) => {
+    if (!boardId) {
+      alert('게시판 ID가 잘못되었습니다.');
+      return;
+    }
 
-    const isConfirmed = window.confirm('댓글을 삭제하시겠습니까?');
+    const confirmed = window.confirm('댓글을 삭제하시겠습니까?');
+    if (!confirmed) return;
 
-    if (isConfirmed) {
-      try {
-        const passwordConfirmation = prompt('비밀번호를 입력하세요');
+    const password = prompt('비밀번호를 입력해주세요.');
+    if (!password) return;
 
-        await deleteBoardComment({
-          variables: {
-            boardCommentId: commentId,
-            password: passwordConfirmation,
-          },
-        });
-        alert('댓글이 삭제되었습니다.');
-        refetch();
-      } catch (error) {
-        if (error instanceof Error) alert(error.message);
-        console.error('댓글 삭제 중 오류 발생', error);
+    try {
+      const commentRef = doc(
+        db,
+        'boardComments',
+        boardId as string,
+        'comments',
+        commentId,
+      );
+      const commentSnapshot = await getDoc(commentRef);
+
+      if (!commentSnapshot.exists()) {
+        alert('댓글을 찾을 수 없습니다.');
+        return;
       }
+
+      const commentData = commentSnapshot.data();
+      if (commentData?.password !== password) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+      }
+
+      await deleteDoc(commentRef);
+      alert('댓글이 삭제되었습니다.');
+    } catch (error) {
+      console.error('Error deleting comment: ', error);
+      alert('댓글 삭제 실패');
     }
-  };
-
-  const onLoadMore = (): void => {
-    if (data === undefined) return;
-    void fetchMore({
-      variables: {
-        page: Math.ceil((data?.fetchBoardComments.length ?? 10) / 10) + 1,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (fetchMoreResult.fetchBoardComments === undefined) {
-          return {
-            fetchBoardComments: [...prev.fetchBoardComments],
-          };
-        }
-
-        return {
-          fetchBoardComments: [
-            ...prev.fetchBoardComments,
-            ...fetchMoreResult.fetchBoardComments,
-          ],
-        };
-      },
-    });
   };
 
   return (
     <BoardCommentListUI
-      data={data}
-      isActive={isActive}
+      commentIdToEdit={commentIdToEdit}
       onChangeCommentContents={onChangeCommentContents}
       onChangeCommentPassword={onChangeCommentPassword}
       onChangeStar={onChangeStar}
@@ -195,8 +169,6 @@ export default function BoardCommentList(): JSX.Element {
       onClickEditComment={onClickEditComment}
       onCancelEditComment={onCancelEditComment}
       onClickUpdateComment={onClickUpdateComment}
-      commentIdToEdit={commentIdToEdit}
-      onLoadMore={onLoadMore}
     />
   );
 }

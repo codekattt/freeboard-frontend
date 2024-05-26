@@ -34,7 +34,12 @@ export const Label = styled.div`
   color: black;
   font-size: 16px;
   font-weight: 500;
-  padding-bottom: 16px;
+  padding-bottom: 10px;
+
+  & span {
+    color: red;
+    margin-right: 4px;
+  }
 `;
 
 export const WriterWrapperContainer = styled.div`
@@ -51,7 +56,6 @@ export const Writer = styled.input`
 
 export const Password = styled.input`
   width: 100%;
-
   height: 52px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
@@ -71,25 +75,37 @@ export const TitleWrapper = styled.div`
   margin-top: 40px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
 `;
 
 export const Contents = styled.textarea`
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 480px;
+  width: 100%;
+  height: 480px;
+  resize: none;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   padding-left: 16px;
   padding-top: 16px;
+
+  @media (max-width: 767px) {
+    height: 300px;
+  }
 `;
 
 export const ContentsWrapper = styled.div`
   width: 100%;
   margin-top: 40px;
+
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
 `;
 
 export const ZipCode = styled.input`
-  width: 80px;
+  width: 90px;
   height: 52px;
   font-size: 16px;
   letter-spacing: 1px;
@@ -102,6 +118,11 @@ export const ZipCode = styled.input`
 export const AddressWrapper = styled.div`
   width: 100%;
   margin-top: 40px;
+  margin-bottom: 10px;
+
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
 `;
 
 export const ZipCodeWrapper = styled.div`
@@ -152,6 +173,10 @@ export const YoutubeLink = styled.input`
 export const YoutubeWrapper = styled.div`
   width: 100%;
   margin-top: 40px;
+
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
 `;
 
 export const ImageWrapper = styled.div`
@@ -161,7 +186,36 @@ export const ImageWrapper = styled.div`
 `;
 
 export const ImageBox = styled.div`
+  width: 100%;
   display: flex;
+  flex-direction: row;
+  margin-bottom: 40px;
+
+  & div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+  }
+
+  & img {
+    width: 100px;
+    height: 100px;
+  }
+`;
+
+export const UploadButton = styled.button`
+  margin-top: 10px;
+  padding: 5px 20px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: white;
+
+  :hover {
+    background-color: ${({ theme }) => theme.colors.hover};
+    color: white;
+    border: none;
+  }
 `;
 
 export const OptionWrapper = styled.div`
@@ -229,7 +283,3 @@ export const Error = styled.div`
 export const AddressModal = styled(Modal)``;
 
 export const AddressSearchInput = styled(DaumPostcode)``;
-
-export const Input = styled.input``;
-export const Textarea = styled.textarea``;
-export const Button = styled.button``;

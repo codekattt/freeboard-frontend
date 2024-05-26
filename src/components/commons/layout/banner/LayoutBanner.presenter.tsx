@@ -44,7 +44,6 @@ export default function LayoutBannerUI(): JSX.Element {
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
-        mousewheel={true}
         style={{ height: '350px' }}
         onSwiper={(swiper) => {
           setSwiper(swiper);

@@ -1,27 +1,31 @@
 import { useRouter } from 'next/router';
-import { useMutationDeleteBoard } from '../../../commons/hooks/mutations/useMutationDeleteBoard';
-import { useMoveToPage } from '../../../commons/hooks/customs/useMoveToPage';
-import { useQueryFetchBoard } from '../../../commons/hooks/queries/useQueryFetchBoard';
-import { useQueryIdChecker } from '../../../commons/hooks/customs/useQueryIdChecker';
-import { getDateTime } from '../../../../commons/libraries/utils';
-import LikeCount from '../../../commons/likecount/01/LikeCount.container';
-import { Tooltip } from 'antd';
-import * as S from './BoardDetail.styles';
+import { useEffect, useState } from 'react';
+import { db, firebaseApp } from '../../../../commons/libraries/firebase';
 import {
   getFirestore,
-  getDocs,
-  collection,
-  getDoc,
   doc,
+  getDoc,
+  getDocs,
+  deleteDoc,
+  collection,
 } from 'firebase/firestore';
-import { firebaseApp } from '../../../../commons/libraries/firebase';
-import { useState } from 'react';
+import { Tooltip } from 'antd';
+import { getDateTime } from '../../../../commons/libraries/utils';
+import { useMoveToPage } from '../../../commons/hooks/customs/useMoveToPage';
+import * as S from './BoardDetail.styles';
+import { deleteObject, getStorage, listAll, ref } from 'firebase/storage';
 
-const onClickFetch = async (
+const fetchBoard = async (
   documentId: string,
   setWriter: Function,
   setTitle: Function,
   setContents: Function,
+  setCreatedAt: Function,
+  setAddress: Function,
+  setAddressDetail: Function,
+  setFileUrls: Function,
+  setYoutubeUrl: Function,
+  setError: Function,
 ): Promise<void> => {
   try {
     const db = getFirestore(firebaseApp);
@@ -33,28 +37,107 @@ const onClickFetch = async (
       setWriter(data.writer);
       setTitle(data.title);
       setContents(data.contents);
+      setCreatedAt(data.createdAt.toDate().toString());
+      setAddress(data.address);
+      setAddressDetail(data.addressDetail);
+      setYoutubeUrl(data.youtubeUrl);
+      setFileUrls(data.fileUrls);
     } else {
       console.log('No such document!');
+      setError('Document does not exist');
     }
   } catch (error) {
     console.error('Error fetching document: ', error);
+    setError('Error fetching document');
   }
 };
 
 export default function BoardDetail() {
-  const [documentId, setDocumentId] = useState('AAxTklYmu4lRvx1BlvN7');
+  const router = useRouter();
+  const { boardId } = router.query;
+
   const [writer, setWriter] = useState('');
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
+  const [createdAt, setCreatedAt] = useState('');
+  const [address, setAddress] = useState('');
+  const [addressDetail, setAddressDetail] = useState('');
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
+  const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [error, setError] = useState('');
 
-  const router = useRouter();
-  const { id } = useQueryIdChecker('boardId');
-  const { data, loading, error } = useQueryFetchBoard({ boardId: id });
   const { onClickMoveToPage } = useMoveToPage();
-  const onClickDelete = useMutationDeleteBoard();
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  useEffect(() => {
+    if (boardId) {
+      fetchBoard(
+        boardId as string,
+        setWriter,
+        setTitle,
+        setContents,
+        setCreatedAt,
+        setAddress,
+        setAddressDetail,
+        setFileUrls,
+        setYoutubeUrl,
+        setError,
+      );
+    }
+  }, [boardId]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const deleteBoard = async (boardId: string) => {
+    const confirmed = window.confirm('게시글을 삭제하시겠습니까?');
+    if (!confirmed) return;
+
+    const password = prompt('비밀번호를 입력해주세요.');
+    if (!password) return;
+
+    try {
+      const storage = getStorage(firebaseApp);
+
+      const boardRef = doc(db, 'board', boardId);
+      const boardDataSnapshot = await getDoc(boardRef);
+      const boardData = boardDataSnapshot.data();
+
+      if (boardData?.password !== password) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+      }
+
+      // Firebase Storage에서 이미지 삭제
+      const imageDeletePromises = fileUrls.map((imageUrl) => {
+        const imageRef = ref(storage, imageUrl);
+        return deleteObject(imageRef);
+      });
+      await Promise.all(imageDeletePromises);
+
+      // 댓글 삭제
+      const commentsCollectionRef = collection(
+        db,
+        'boardComments',
+        boardId,
+        'comments',
+      );
+      const commentsSnapshot = await getDocs(commentsCollectionRef);
+      const commentsDeletePromises = commentsSnapshot.docs.map((commentDoc) =>
+        deleteDoc(commentDoc.ref),
+      );
+      await Promise.all(commentsDeletePromises);
+
+      // 게시글 삭제
+      await deleteDoc(boardRef);
+
+      alert('게시글이 삭제되었습니다.');
+      void router.push('/boards');
+    } catch (error) {
+      console.error('게시글 삭제 중 오류가 발생했습니다: ', error);
+      alert('게시글 삭제 중 오류가 발생했습니다');
+    }
+  };
 
   return (
     <>
@@ -62,42 +145,35 @@ export default function BoardDetail() {
         <S.WriterWrapper>
           <S.ProfileImg src={`/img/profileIcon.svg`} width={60} height={60} />
           <S.ProfileWrapper>
-            <S.Writer>{data?.fetchBoard?.writer}</S.Writer>
-            <S.Date>{getDateTime(data?.fetchBoard?.createdAt)}</S.Date>
+            <S.Writer>{writer}</S.Writer>
+            <S.Date>{getDateTime(createdAt)}</S.Date>
           </S.ProfileWrapper>
           <S.WriterIconWrapper>
             <S.WriterIcon src={`/img/ic_link-32px.svg`} />
             <Tooltip
               placement="topRight"
-              title={`${data?.fetchBoard.boardAddress?.address ?? ''} ${
-                data?.fetchBoard.boardAddress?.addressDetail ?? ''
-              }`}
+              title={`${address ?? ''} ${addressDetail ?? ''}`}
             >
               <S.WriterIcon src={`/img/ic_location_on-32px.svg`} />
             </Tooltip>
           </S.WriterIconWrapper>
         </S.WriterWrapper>
-        <S.Title>{data?.fetchBoard?.title}</S.Title>
+        <S.Title>{title}</S.Title>
         <S.ImageWrapper>
-          {data?.fetchBoard.images
-            ?.filter((el) => el)
-            .map((el, index) => (
-              <S.Image
-                key={index}
-                src={`https://storage.googleapis.com/${el}`}
-              />
-            ))}
+          {fileUrls.map(
+            (url, index) =>
+              url && <S.Image key={index} src={url} alt={`image-${index}`} />,
+          )}
         </S.ImageWrapper>
-        <S.Contents>{data?.fetchBoard?.contents}</S.Contents>
-        {data?.fetchBoard.youtubeUrl !== '' && (
+        <S.Contents>{contents}</S.Contents>
+        {youtubeUrl !== '' && (
           <S.Youtube
-            url={data?.fetchBoard.youtubeUrl ?? ''}
-            width="auto"
-            height="auto"
+            url={youtubeUrl}
+            width="400px"
+            height="300px"
             controls={true}
           />
         )}
-        <LikeCount />
       </S.Wrapper>
       <S.ButtonWrapper>
         <S.ContentsBtn onClick={onClickMoveToPage('/boards')}>
@@ -108,18 +184,10 @@ export default function BoardDetail() {
         >
           수정하기
         </S.ContentsBtn>
-        <S.ContentsBtn onClick={onClickDelete}>삭제하기</S.ContentsBtn>
+        <S.ContentsBtn onClick={() => deleteBoard(boardId as string)}>
+          삭제하기
+        </S.ContentsBtn>
       </S.ButtonWrapper>
-      <div>writer: {writer}</div>
-      <div>title: {title}</div>
-      <div>contents: {contents}</div>
-      <S.ContentsBtn
-        onClick={() =>
-          onClickFetch(documentId, setWriter, setTitle, setContents)
-        }
-      >
-        파이어베이스 데이터 가져오기
-      </S.ContentsBtn>
     </>
   );
 }

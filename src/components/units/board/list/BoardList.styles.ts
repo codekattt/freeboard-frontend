@@ -168,3 +168,53 @@ export const Button = styled.button`
     }
   }
 `;
+
+////////////////
+
+export const BoardList = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const BoardItem = styled.div`
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+`;
+
+export const BoardTitle = styled.div`
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+export const BoardWriter = styled.div`
+  color: #555;
+`;
+
+export const BoardContents = styled.div`
+  margin-top: 10px;
+`;
+
+export const BoardDate = styled.div`
+  color: #aaa;
+  font-size: 12px;
+`;
+export const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+export const PageButton = styled.button<{ active?: boolean }>`
+  padding: 5px 10px;
+  margin: 0 3px;
+  background-color: ${(props) =>
+    props.active ? '#0056b3' : props.disabled ? '#ccc' : '#007BFF'};
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
+
+  &:hover {
+    background-color: ${(props) => (props.disabled ? '#ccc' : '#0056b3')};
+  }
+`;

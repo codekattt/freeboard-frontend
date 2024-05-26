@@ -135,8 +135,8 @@ export const ImageWrapper = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 100%;
-  max-width: 600px;
+  width: fit-content;
+  max-width: 500px;
   height: auto;
   margin-right: 14px;
   margin-bottom: 14px;
