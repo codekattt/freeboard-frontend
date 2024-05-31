@@ -18,7 +18,7 @@ export const CommentTop = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  margin-bottom: 36px;
+  margin-bottom: 12px;
 
   p {
     font-size: 16px;
@@ -32,6 +32,7 @@ export const CommentWriterWrapper = styled.div`
   max-width: 1200px;
   display: flex;
   flex-direction: row;
+  justify-content: left;
   margin-bottom: 20px;
 
   @media (max-width: 767px) {
@@ -78,9 +79,14 @@ export const Star = styled(Rate)`
     margin-right: 3px; /* 별점 간격 조절 */
   }
 
+  .ant-rate-star-zero .ant-rate-star-first,
+  .ant-rate-star-zero .ant-rate-star-second {
+    color: #ddd; /* 원하는 색상 코드로 변경 */
+  }
+
   @media (max-width: 767px) {
-    width: 30%;
-    font-size: 3.8vw;
+    width: 40%;
+    font-size: 5vw;
     margin: 2px 0 0 18px;
   }
 `;

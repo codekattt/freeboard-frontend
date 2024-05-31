@@ -6,7 +6,7 @@ const NAVIGATION_MENUS = [
   { name: '라이브게시판', page: '/boards' },
   { name: '푸드마켓', page: '/market' },
   { name: '🐱냥그타그램', page: '/catplease' },
-  { name: '결제페이지', page: '/payments', className: 'payment-menu' },
+  // { name: '결제페이지', page: '/payments', className: 'payment-menu' },
   { name: '마이페이지', page: '/mypage' },
 ];
 
@@ -19,7 +19,7 @@ export default function LayoutNavigationUI(
         <Fragment key={el.page}>
           <MenuItem
             id={el.page}
-            className={el.className}
+            // className={el.className}
             onClick={props.onClickMenu}
           >
             {el.name}

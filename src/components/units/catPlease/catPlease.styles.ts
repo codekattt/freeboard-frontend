@@ -71,6 +71,10 @@ export const button = styled.div`
       line-height: 1;
     }
   }
+
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 export const SpinLoader = styled.div`

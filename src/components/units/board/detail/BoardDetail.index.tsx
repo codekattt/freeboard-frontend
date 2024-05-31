@@ -15,7 +15,7 @@ import { Tooltip } from 'antd';
 import { getDateTime } from '../../../../commons/libraries/utils';
 import { useMoveToPage } from '../../../commons/hooks/customs/useMoveToPage';
 import * as S from './BoardDetail.styles';
-import { deleteObject, getStorage, listAll, ref } from 'firebase/storage';
+import { deleteObject, getStorage, ref } from 'firebase/storage';
 
 const incrementViewCount = async (boardId: string) => {
   try {

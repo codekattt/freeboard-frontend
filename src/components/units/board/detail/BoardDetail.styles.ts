@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
   box-shadow: 0px 0px 10px #cccccc;
 
   @media (max-width: 767px) {
-    margin: 5% 0 40px 0;
+    margin: 5% 0 0px 0;
   }
 `;
 
@@ -55,6 +55,10 @@ export const ProfileWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-left: 3px;
+
+  & div {
+    margin-top: 4px;
+  }
 
   @media (max-width: 767px) {
     width: calc(100% - 150px);
@@ -108,10 +112,14 @@ export const Title = styled.div`
   max-width: 996px;
   font-size: 36px;
   font-weight: 700;
-  margin: 40px 0px 40px;
+  margin: 40px 0;
 
   @media (max-width: 767px) {
     width: 100%;
+  }
+  @media (max-width: 480px) {
+    font-size: 24px;
+    margin: 20px 0;
   }
 `;
 
@@ -147,7 +155,7 @@ export const Image = styled.img`
 `;
 
 export const Youtube = styled(ReactPlayer)`
-  margin-top: 120px;
+  margin-top: 60px;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -157,8 +165,12 @@ export const ButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding-bottom: 40px;
   margin-bottom: 40px;
+
+  @media (max-width: 767px) {
+    font-size: 24px;
+    margin: 20px 0 40px 0;
+  }
 `;
 
 export const ContentsBtn = styled.button`

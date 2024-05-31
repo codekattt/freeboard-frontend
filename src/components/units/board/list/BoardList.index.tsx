@@ -127,8 +127,24 @@ export default function BoardList(): JSX.Element {
             </S.BoardTitle>
             <S.Div>
               <S.Div>
-                <S.BoardWriter>🙂 {el.writer}</S.BoardWriter>
-                <S.Views> 조회수: {el.views}</S.Views>
+                <S.BoardWriter>
+                  <img
+                    src="/img/user.svg"
+                    style={{ width: '12px', marginRight: '4px' }}
+                  />
+                  {el.writer}
+                </S.BoardWriter>
+                <S.Views>
+                  <img
+                    src="/img/eye.svg"
+                    style={{
+                      width: '14px',
+                      paddingTop: '5px',
+                      marginRight: '4px',
+                    }}
+                  />
+                  {el.views}
+                </S.Views>
               </S.Div>
               <S.BoardDate>{getDateTime(el.createdAt)}</S.BoardDate>
             </S.Div>

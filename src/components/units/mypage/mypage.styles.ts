@@ -38,12 +38,14 @@ export const ProfileInfo = styled.div`
 
 export const EditProfileButton = styled.button`
   margin-top: 10px;
+  margin-right: 4px;
   padding: 5px 10px;
   background-color: #fff;
   border: 1px solid #dbdbdb;
   color: #262626;
   border-radius: 3px;
   font-size: 14px;
+
   cursor: pointer;
 
   &:hover {
