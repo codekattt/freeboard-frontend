@@ -62,10 +62,7 @@ export default function MyPage() {
   return (
     <S.Container>
       <S.ProfileSection>
-        <S.ProfilePicture
-          src={user.photoURL || 'https://via.placeholder.com/150'}
-          alt="Profile"
-        />
+        <S.ProfilePicture src="./img/mypage_profile.jpg" alt="Profile" />
         <S.ProfileInfo>
           <h2>{user.displayName || 'John Doe'}</h2>
           <p>코드캣 회원</p>

@@ -1,56 +1,17 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import React from 'react';
 import type {
   IBoardCommentListUIProps,
-  Comment,
+  CommentWithImage,
 } from './BoardCommentList.types';
 import * as S from './BoardCommentList.styles';
-import { db } from '../../../../commons/libraries/firebase';
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
-  const router = useRouter();
-  const { boardId } = router.query;
-
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [error, setError] = useState<string>('');
-
-  useEffect(() => {
-    if (!boardId) return;
-
-    const commentsRef = collection(
-      db,
-      'boardComments',
-      boardId as string,
-      'comments',
-    );
-    const q = query(commentsRef, orderBy('createdAt', 'desc'));
-
-    // Firestore 실시간 업데이트 설정
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        const commentsData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Comment[];
-        setComments(commentsData);
-      },
-      (error) => {
-        console.error('Error fetching comments: ', error);
-        setError('댓글을 불러오지 못했습니다.');
-      },
-    );
-
-    return () => unsubscribe();
-  }, [boardId]);
-
   return (
     <>
-      {error && <div>{error}</div>}
-      {comments && (
+      {props.error && <div>{props.error}</div>}
+      {props.comments && (
         <S.Wrapper>
-          {comments.map((el: Comment) =>
+          {props.comments.map((el: CommentWithImage) =>
             props.commentIdToEdit === el.id ? (
               <S.EditCommentWrapper key={el.id}>
                 <S.EditCommentWriterWrapper>
@@ -87,7 +48,7 @@ export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
               <S.CommentWrapper key={el.id}>
                 <S.Comment>
                   <S.ProfileImg>
-                    <img src={`/img/profile-cat.png`} width={50} height={50} />
+                    <img src={el.imageUrl} width={50} height={50} />
                   </S.ProfileImg>
                   <S.CommentContentsArea>
                     <S.CommentContentsWriter>

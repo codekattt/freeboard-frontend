@@ -7,31 +7,38 @@ export const Container = styled.div`
   padding: 20px;
   border: 1px solid #dbdbdb;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ProfileSection = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 `;
 
 export const ProfilePicture = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
-  margin-right: 20px;
+  margin-bottom: 24px;
 `;
 
 export const ProfileInfo = styled.div`
-  flex: 1;
+  margin-bottom: 24px;
 
   h2 {
-    margin: 0;
+    text-align: center;
     margin-bottom: 5px;
   }
 
   p {
-    margin: 0;
+    text-align: center;
+    margin-bottom: 24px;
     color: #8e8e8e;
   }
 `;
@@ -54,7 +61,7 @@ export const EditProfileButton = styled.button`
 `;
 
 export const LogoutButton = styled.button`
-  width: 100%;
+  width: 300px;
   padding: 10px 0;
   background-color: #ed4956;
   color: #fff;

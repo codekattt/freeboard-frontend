@@ -40,7 +40,7 @@ export const ProfileImg = styled.div`
   justify-content: center;
   align-items: center;
   padding-right: 10px;
-  padding-bottom: 50px;
+  padding-bottom: 26px;
   filter: drop-shadow(2px 2px 5px #bbbbbb);
 `;
 

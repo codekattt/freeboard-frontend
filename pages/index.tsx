@@ -1,29 +1,29 @@
 import Head from 'next/head';
-import styled from '@emotion/styled';
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
-  width: 80%;
-  margin: 0 auto;
-`;
-
-const GridItem = styled.div`
-  img {
-    width: 100%;
-    height: auto;
-  }
-`;
+import { useEffect, useState } from 'react';
+import {
+  GridContainer,
+  fadeInUpAnimation,
+  GridItem,
+  MainTitle,
+} from '../src/commons/styles/mainStyles';
 
 const images = [
-  'img/main-cat1.png',
-  'img/main-cat2.png',
-  'img/main-cat3.png',
-  'img/main-cat4.png',
+  'img/main_cat1.jpg',
+  'img/main_cat2.jpg',
+  'img/main_cat3.jpg',
+  'img/main_cat4.jpg',
 ];
 
 export default function Home(): JSX.Element {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setImageLoaded(true);
+    }, 100); // Delay to ensure animations start correctly
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <Head>
@@ -33,9 +33,13 @@ export default function Home(): JSX.Element {
         <link rel="icon" href="img/codekat.ico" />
       </Head>
 
+      <style>{fadeInUpAnimation}</style>
+
+      <MainTitle>MAIN PAGE</MainTitle>
+
       <GridContainer>
         {images.map((src, index) => (
-          <GridItem key={index}>
+          <GridItem key={index} delay={imageLoaded ? index * 0.5 : 0}>
             <img src={src} alt={`main-cat${index + 1}`} />
           </GridItem>
         ))}

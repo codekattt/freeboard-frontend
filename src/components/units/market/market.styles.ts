@@ -26,6 +26,12 @@ export const ItemWrapper = styled.div`
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+  border-radius: 10px;
+
+  :hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    cursor: pointer;
+  }
 `;
 
 export const ImgWrapper = styled.div`
